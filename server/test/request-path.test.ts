@@ -1,7 +1,7 @@
 import { setTimeout as sleep } from "node:timers/promises";
 import Anthropic from "@anthropic-ai/sdk";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { costMicros, type RouteEntry } from "../src/config.ts";
+import { costMicros, env, type RouteEntry } from "../src/config.ts";
 import { buildRequest } from "../src/support/assistant.ts";
 import { migrate, pool } from "../src/db/pool.ts";
 import { hashKey, newApiKey } from "../src/gateway/auth.ts";
@@ -221,6 +221,20 @@ describe("routing and fallback", () => {
 });
 
 describe("support assistant", () => {
+  it("with retrieval off (eval ablation), sends no references and skips the retrieval refusals", async () => {
+    let sent = "";
+    setBackend({ id: "haiku", model: "test-haiku", stream: (r) => { sent = r.messages[0].content; return answer("cancel_order", "Generic answer."); } });
+    env.supportRetrieval = false;
+    try {
+      const key = await tenant("t1", [H]);
+      const { done, events } = await post(key, "explain how black holes form"); // refused before any model call with retrieval on
+      expect(sent).not.toContain("<reference");
+      expect(done.outcome).toBe("ok");
+      expect(events.find((e) => e.event === "meta")!.data.confidence).toBeNull();
+    } finally {
+      env.supportRetrieval = true;
+    }
+  });
   it("refuses an out-of-domain question before calling any model", async () => {
     const key = await tenant("t1", [H]);
     const { done, events } = await post(key, "explain how black holes form");

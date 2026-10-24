@@ -96,6 +96,8 @@ npm run eval -- --key <eval-sonnet key> --name sonnet
 npm run eval -- --compare eval/results/haiku.json eval/results/sonnet.json
 ```
 
+For the retrieval ablation, start a second server with `PORT=3001 SUPPORT_RETRIEVAL=off`, and run the eval with `--base http://localhost:3001 --name haiku-no-retrieval`. That server sends the model no reference answers, and it's for the eval only.
+
 The judge (Claude Opus 5.5) runs when `ANTHROPIC_API_KEY` is set. Pass `--no-judge` to skip it, and `--base <url>` to run against the deployed service.
 
 ## Data

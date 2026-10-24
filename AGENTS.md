@@ -52,6 +52,7 @@ docker exec mir-pg psql -U postgres -c "create database mir_test"
 | Retune the OOD threshold | `npx tsx scripts/tune.ts` |
 | Browser E2E with video (real models, a few cents; starts its own demo-mode server, so free port 3000 first) | `npm run e2e` |
 | Eval one configuration | `npm run eval -- --key <tenant key> --name haiku` |
+| Retrieval ablation (eval only) | server with `PORT=3001 SUPPORT_RETRIEVAL=off`, then `npm run eval -- --key <key> --name haiku-no-retrieval --base http://localhost:3001` |
 | Compare two runs | `npm run eval -- --compare eval/results/haiku.json eval/results/sonnet.json` |
 | Regenerate data | `python scripts/make_split.py <bitext csv> data` (needs pandas, scikit-learn) |
 

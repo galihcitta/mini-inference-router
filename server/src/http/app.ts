@@ -105,7 +105,8 @@ export function buildApp(retriever: Retriever, demoKeys: DemoTenant[] = []) {
     const id = randomUUID();
     const message = body.data.message;
     const retrieval = retriever.search(message);
-    const probe = buildRequest(message, retrieval);
+    const useRetrieval = env.supportRetrieval;
+    const probe = buildRequest(message, retrieval, useRetrieval);
     if (!(await quotaPrecheck(tenant, probe.system!.length + probe.messages[0].content.length, probe.maxTokens, reply, id, "support"))) return reply;
     try {
       await startRequest(id, tenant.id, "support");
@@ -123,7 +124,7 @@ export function buildApp(retriever: Retriever, demoKeys: DemoTenant[] = []) {
     });
 
     let result: RunResult;
-    if (!retrieval.majority || retrieval.topScore < OOD_THRESHOLD) {
+    if (useRetrieval && (!retrieval.majority || retrieval.topScore < OOD_THRESHOLD)) {
       sse.send("meta", { request_id: id, intent: null, confidence: null, backend: null, model: null, refused: true, refusal_reason: "no close match in the knowledge base" });
       sse.send("delta", { text: REFUSAL_TEXT });
       result = { outcome: "refused_low_confidence", attempts: [], sanitized: false };
@@ -132,13 +133,13 @@ export function buildApp(retriever: Retriever, demoKeys: DemoTenant[] = []) {
         requestId: id, tenantId: tenant.id, route: tenant.route,
         build: () => probe,
         gate: intentGate,
-        onCommit: (b, intent) => commitDecision(b, id, intent, retrieval),
+        onCommit: (b, intent) => commitDecision(b, id, intent, retrieval, useRetrieval),
         filter: slotFilter(),
         sse, clientSignal: clientAbort(req, reply),
       }, req.log);
     }
     const latency = Date.now() - t0;
-    const conf = result.intent && result.intent !== "out_of_scope" ? confidenceFor(result.intent, retrieval).score : undefined;
+    const conf = useRetrieval && result.intent && result.intent !== "out_of_scope" ? confidenceFor(result.intent, retrieval).score : undefined;
     await finishRequest(id, result, latency, conf).catch((e) => req.log.error(e, "metering write failed"));
     done(sse, id, result, latency);
     sse.end();

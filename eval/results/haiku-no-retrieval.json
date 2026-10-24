@@ -1,0 +1,1455 @@
+{
+  "summary": {
+    "name": "haiku-no-retrieval",
+    "n_in_domain": 30,
+    "n_ood": 5,
+    "intent_accuracy": 0.9333333333333333,
+    "intent_ci95": [
+      0.7867618227892791,
+      0.9815233646723066
+    ],
+    "retrieval_only_accuracy": 0.9333333333333333,
+    "false_refusal_rate": 0,
+    "ood_refusal_rate": 1,
+    "quality_pass_rate": 0.5714285714285714,
+    "judged": 35,
+    "ttft_p50": 888,
+    "ttft_p95": 1557,
+    "latency_p50": 1429,
+    "latency_p95": 1912,
+    "cost_total_usd": 0.003224,
+    "cost_per_request_usd": 0.000092,
+    "outcomes": {
+      "ok": 30,
+      "refused_out_of_scope": 5
+    },
+    "fallbacks": 0
+  },
+  "results": [
+    {
+      "id": 10266,
+      "question": "where can i find information about creating a {{Account Type}} account",
+      "intent": "create_account",
+      "category": "ACCOUNT",
+      "flags": "BIQ",
+      "ood": false,
+      "sent": "where can i find information about creating a Business account",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "create_account",
+      "retrieval_intent": "create_account",
+      "refused": false,
+      "answer": "I can help with that. To create a Business account, start from the account creation option on the Demo Shop website or app. If you're not sure where to find it, our customer service team can point you to the right page. Please avoid inventing details, so I don't list specific steps or requirements I can't confirm. If you'd like, I can connect you with a human agent for step-by-step guidance on setting up a business account.",
+      "ttft_ms": 948,
+      "latency_ms": 1531,
+      "cost_usd": 0.000106,
+      "tokens": {
+        "input_tokens": 391,
+        "output_tokens": 133,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 776,
+          "latency_ms": 1505,
+          "error": null,
+          "cost_usd": 0.000106
+        }
+      ],
+      "http_status": 200,
+      "request_id": "a5d8dca3-dad3-434a-83eb-33e1ca475ddd",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply correctly points to the account creation option without inventing details, but it awkwardly leaks an internal instruction ('Please avoid inventing details') into the customer-facing text."
+      }
+    },
+    {
+      "id": 11087,
+      "question": "deleting {{Account Type}} accoumt",
+      "intent": "delete_account",
+      "category": "ACCOUNT",
+      "flags": "BKLZ",
+      "ood": false,
+      "sent": "deleting Business accoumt",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "delete_account",
+      "retrieval_intent": "change_order",
+      "refused": false,
+      "answer": "I can help you with deleting your business account. Please log in to your Demo Shop account and go to your account settings, where you should find the option to delete your account. If you can't find it or run into any problems, reply here and I'll point you to the right next steps, or you can contact our customer service team for further help.",
+      "ttft_ms": 1343,
+      "latency_ms": 1662,
+      "cost_usd": 0.000091,
+      "tokens": {
+        "input_tokens": 388,
+        "output_tokens": 103,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1125,
+          "latency_ms": 1630,
+          "error": null,
+          "cost_usd": 0.000091
+        }
+      ],
+      "http_status": 200,
+      "request_id": "ef9ce235-2129-4615-bf55-f708ea848129",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply addresses the account deletion request, but the self-service path ('account settings' delete option) is not in the references, which instead ask for account details such as username or email."
+      }
+    },
+    {
+      "id": 11268,
+      "question": "I want help closing a freemium account",
+      "intent": "delete_account",
+      "category": "ACCOUNT",
+      "flags": "BL",
+      "ood": false,
+      "sent": "I want help closing a freemium account",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "delete_account",
+      "retrieval_intent": "delete_account",
+      "refused": false,
+      "answer": "I can help you close your account. Please sign in to your Demo Shop account and look for the account settings or profile section, where you should find an option to delete your account. If you can't find it or the option isn't available, reply here and I'll route your request to our customer service team so they can close it for you. Before you go, note that deleting your account is usually permanent, so any saved information, order history, or remaining account benefits may no longer be accessible afterward.",
+      "ttft_ms": 828,
+      "latency_ms": 1494,
+      "cost_usd": 0.000113,
+      "tokens": {
+        "input_tokens": 389,
+        "output_tokens": 147,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 671,
+          "latency_ms": 1462,
+          "error": null,
+          "cost_usd": 0.000113
+        }
+      ],
+      "http_status": 200,
+      "request_id": "dccd941a-084d-49fa-9cca-be274183e024",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives generic, hedged account-closure guidance and an escalation path without inventing specific policies, contacts or timeframes."
+      }
+    },
+    {
+      "id": 12724,
+      "question": "assistance seeing what shipment options are available",
+      "intent": "delivery_options",
+      "category": "DELIVERY",
+      "flags": "BLM",
+      "ood": false,
+      "sent": "assistance seeing what shipment options are available",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "delivery_options",
+      "retrieval_intent": "delivery_options",
+      "refused": false,
+      "answer": "Happy to help you look at shipping options. Available delivery methods and their costs and timeframes are shown at checkout once you've added items to your cart and entered your shipping address. If you tell me what you're ordering or where it's going, I can point you to the right information. For anything specific to your order, our customer service team can confirm the options that apply to you.",
+      "ttft_ms": 1338,
+      "latency_ms": 1904,
+      "cost_usd": 0.000101,
+      "tokens": {
+        "input_tokens": 392,
+        "output_tokens": 122,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1162,
+          "latency_ms": 1882,
+          "error": null,
+          "cost_usd": 0.000101
+        }
+      ],
+      "http_status": 200,
+      "request_id": "931d5d3d-50a0-4dc1-a936-d55ee7e3d223",
+      "judge": {
+        "addresses_request": false,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Answering was correct, but the reply deflects to checkout instead of listing the shipping options in the references (standard, expedited, overnight, in-store pickup at the Jakarta store)."
+      }
+    },
+    {
+      "id": 13734,
+      "question": "can i check how long it takes for my product to arrive",
+      "intent": "delivery_period",
+      "category": "DELIVERY",
+      "flags": "BILQ",
+      "ood": false,
+      "sent": "can i check how long it takes for my product to arrive",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "delivery_period",
+      "retrieval_intent": "delivery_period",
+      "refused": false,
+      "answer": "Delivery times depend on your shipping method and destination. You can check the estimated delivery window for your order at checkout, and once your order ships, you'll receive tracking details so you can follow its progress. If you share your order number, I can point you to the next steps for checking its status.",
+      "ttft_ms": 831,
+      "latency_ms": 1144,
+      "cost_usd": 0.000089,
+      "tokens": {
+        "input_tokens": 394,
+        "output_tokens": 99,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 667,
+          "latency_ms": 1112,
+          "error": null,
+          "cost_usd": 0.000089
+        }
+      ],
+      "http_status": 200,
+      "request_id": "0a924a65-2cfd-4b81-acbd-f4ac5019acf3",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply addresses the delivery-time question, but it invents store features (an estimated delivery window shown at checkout, tracking details sent on shipment) instead of the references' Order History section or a request for the order or tracking number."
+      }
+    },
+    {
+      "id": 14822,
+      "question": "i have got to edit my personal information can uhelp me",
+      "intent": "edit_account",
+      "category": "ACCOUNT",
+      "flags": "BCIQ",
+      "ood": false,
+      "sent": "i have got to edit my personal information can uhelp me",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "edit_account",
+      "retrieval_intent": "edit_account",
+      "refused": false,
+      "answer": "I can help you update your personal information. Please log in to your Demo Shop account and open the account settings page, where you should be able to edit your name, contact details, and other personal information. Once you've saved your changes, they will apply to your account. If you can't find the option or run into trouble saving your changes, reply here and I'll point you to the next step or connect you with a human agent.",
+      "ttft_ms": 848,
+      "latency_ms": 1324,
+      "cost_usd": 0.000103,
+      "tokens": {
+        "input_tokens": 395,
+        "output_tokens": 127,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 680,
+          "latency_ms": 1291,
+          "error": null,
+          "cost_usd": 0.000103
+        }
+      ],
+      "http_status": 200,
+      "request_id": "29502935-a5e6-49e1-9574-7ef05a96bfa3",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Grounded, generic guidance to edit info via account settings matches the references; the mention of name and contact details is generic, not invented policy."
+      }
+    },
+    {
+      "id": 15299,
+      "question": "I'm tryng to get the bill #00108",
+      "intent": "get_invoice",
+      "category": "INVOICE",
+      "flags": "BLQZ",
+      "ood": false,
+      "sent": "I'm tryng to get the bill #00108",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "get_invoice",
+      "retrieval_intent": "check_invoice",
+      "refused": false,
+      "answer": "I can help you get a copy of your bill, invoice #00108. To retrieve it, please sign in to your Demo Shop account and open your order history, then select order #00108 to view or download the invoice. If you can't find it or can't sign in, reply here with the email address used for the order and our customer service team will assist you further.",
+      "ttft_ms": 853,
+      "latency_ms": 1291,
+      "cost_usd": 0.000097,
+      "tokens": {
+        "input_tokens": 393,
+        "output_tokens": 114,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 676,
+          "latency_ms": 1251,
+          "error": null,
+          "cost_usd": 0.000097
+        }
+      ],
+      "http_status": 200,
+      "request_id": "5c79ebfc-274b-4e59-a051-896976442d7b",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply helps the customer get the bill, but it invents an 'order history' path and treats invoice #00108 as order #00108, while the references only say to open the billing section."
+      }
+    },
+    {
+      "id": 16061,
+      "question": "I try to ask for a compensation of my money",
+      "intent": "get_refund",
+      "category": "REFUND",
+      "flags": "BL",
+      "ood": false,
+      "sent": "I try to ask for a compensation of my money",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "get_refund",
+      "retrieval_intent": "get_refund",
+      "refused": false,
+      "answer": "I'm sorry you're having trouble with your order. I can help with refund requests. Could you tell me a bit more about the situation, such as which order it relates to and why you'd like a refund? If you'd prefer to speak with a person about compensation, I can also point you toward our customer service team.",
+      "ttft_ms": 954,
+      "latency_ms": 1364,
+      "cost_usd": 0.000092,
+      "tokens": {
+        "input_tokens": 392,
+        "output_tokens": 104,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 853,
+          "latency_ms": 1327,
+          "error": null,
+          "cost_usd": 0.000092
+        }
+      ],
+      "http_status": 200,
+      "request_id": "2904b9b9-25d3-4b35-8609-a0c86e74719a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply asks for situation details, as references 3 and 5 do, offers a path to the support team, and invents no specifics."
+      }
+    },
+    {
+      "id": 17183,
+      "question": "I want help canceling thecompany newsletter subscription",
+      "intent": "newsletter_subscription",
+      "category": "SUBSCRIPTION",
+      "flags": "BZ",
+      "ood": false,
+      "sent": "I want help canceling thecompany newsletter subscription",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "newsletter_subscription",
+      "retrieval_intent": "newsletter_subscription",
+      "refused": false,
+      "answer": "I can help with that. To unsubscribe from the Demo Shop newsletter, please use the \"unsubscribe\" link at the bottom of any newsletter email you've received. If you can't find it, reply to the email and ask us to remove you, or contact our customer service team and we'll take care of it for you. Please note that you may still receive a confirmation or order-related emails, since those are separate from the newsletter.",
+      "ttft_ms": 812,
+      "latency_ms": 1429,
+      "cost_usd": 0.000113,
+      "tokens": {
+        "input_tokens": 396,
+        "output_tokens": 146,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 644,
+          "latency_ms": 1406,
+          "error": null,
+          "cost_usd": 0.000113
+        }
+      ],
+      "http_status": 200,
+      "request_id": "30c17909-de30-4e47-8a37-888877bc839e",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply addresses the cancellation request, but it invents unsupported process details (an unsubscribe link in emails, unsubscribing by replying to an email, transactional emails being separate) instead of asking for the subscription email address as the references do."
+      }
+    },
+    {
+      "id": 1816,
+      "question": "herlp to swap an article of order {{Order Number}}",
+      "intent": "change_order",
+      "category": "ORDER",
+      "flags": "BLZ",
+      "ood": false,
+      "sent": "herlp to swap an article of order ORD-10482",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "change_order",
+      "retrieval_intent": "change_order",
+      "refused": false,
+      "answer": "I can help you change an item on order ORD-10482. Please tell me which article you'd like to swap and which item you'd like instead, including any size, color, or variant. Keep in mind that changes may only be possible before the order has been processed or shipped. If the order has already shipped, I can explain the return or exchange options instead.",
+      "ttft_ms": 1187,
+      "latency_ms": 1557,
+      "cost_usd": 0.000096,
+      "tokens": {
+        "input_tokens": 395,
+        "output_tokens": 113,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 894,
+          "latency_ms": 1425,
+          "error": null,
+          "cost_usd": 0.000096
+        }
+      ],
+      "http_status": 200,
+      "request_id": "4c82d079-f28e-41b6-b293-0f5e639f6f91",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply correctly asks for swap details, but it adds an unreferenced policy condition (changes only before processing/shipping) and offers return/exchange explanations it has no source for."
+      }
+    },
+    {
+      "id": 18880,
+      "question": "i dont know how to notify of troublse with payments",
+      "intent": "payment_issue",
+      "category": "PAYMENT",
+      "flags": "BLMQZ",
+      "ood": false,
+      "sent": "i dont know how to notify of troublse with payments",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "payment_issue",
+      "retrieval_intent": "payment_issue",
+      "refused": false,
+      "answer": "I'm sorry you're having trouble with a payment. To report it, please reply here with a short description of the problem, including the order number if you have one, what happened (for example, an error message, a declined charge, or a double charge), and the payment method you used. Please don't share full card numbers or security codes in this chat. Our support team will review the details and follow up with you.",
+      "ttft_ms": 853,
+      "latency_ms": 1388,
+      "cost_usd": 0.000102,
+      "tokens": {
+        "input_tokens": 394,
+        "output_tokens": 124,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 694,
+          "latency_ms": 1344,
+          "error": null,
+          "cost_usd": 0.000102
+        }
+      ],
+      "http_status": 200,
+      "request_id": "66caa7c7-f838-4e92-b0bb-13ab1f2dca12",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply explains how to report a payment problem by sharing generic details, includes a sensible security caution, and invents no specific facts."
+      }
+    },
+    {
+      "id": 19022,
+      "question": "is it possible to shop some items?",
+      "intent": "place_order",
+      "category": "ORDER",
+      "flags": "BILM",
+      "ood": false,
+      "sent": "is it possible to shop some items?",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "place_order",
+      "retrieval_intent": "place_order",
+      "refused": false,
+      "answer": "Yes, you can shop with us at Demo Shop. Browse our product catalog, add the items you like to your cart, and proceed to checkout to place your order. If you run into any trouble while shopping or checking out, just let me know and I'll be happy to help.",
+      "ttft_ms": 841,
+      "latency_ms": 1069,
+      "cost_usd": 0.000087,
+      "tokens": {
+        "input_tokens": 389,
+        "output_tokens": 95,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 701,
+          "latency_ms": 1034,
+          "error": null,
+          "cost_usd": 0.000087
+        }
+      ],
+      "http_status": 200,
+      "request_id": "5ac172df-7376-4d03-8657-5f586796679d",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply confirms shopping is possible and outlines the generic browse/cart/checkout steps from the references, with no invented details."
+      }
+    },
+    {
+      "id": 20107,
+      "question": "would it be possible to retrieve my profile access key?",
+      "intent": "recover_password",
+      "category": "ACCOUNT",
+      "flags": "BILP",
+      "ood": false,
+      "sent": "would it be possible to retrieve my profile access key?",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "recover_password",
+      "retrieval_intent": "recover_password",
+      "refused": false,
+      "answer": "I can't retrieve your existing password or access key for security reasons. If you've forgotten your login details, please use the \"Forgot password\" option on the Demo Shop sign-in page to reset your password. You'll receive a reset link at the email address linked to your account. If you no longer have access to that email, or you need further help, I can connect you with our customer service team.",
+      "ttft_ms": 1930,
+      "latency_ms": 2285,
+      "cost_usd": 0.000102,
+      "tokens": {
+        "input_tokens": 395,
+        "output_tokens": 124,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1546,
+          "latency_ms": 2249,
+          "error": null,
+          "cost_usd": 0.000102
+        }
+      ],
+      "http_status": 200,
+      "request_id": "14a524db-35d8-472f-ba6a-8e5d5a412abc",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply correctly points to the reset flow via the sign-in page and an emailed link, though the references label the option 'forgot access key' rather than 'Forgot password' and don't support the 'can't retrieve for security reasons' framing."
+      }
+    },
+    {
+      "id": 21130,
+      "question": "notifying of issue opening user",
+      "intent": "registration_problems",
+      "category": "ACCOUNT",
+      "flags": "BKL",
+      "ood": false,
+      "sent": "notifying of issue opening user",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "contact_human_agent",
+      "retrieval_intent": "registration_problems",
+      "refused": false,
+      "answer": "It sounds like you're having a problem with your account. I'm sorry for the trouble. I can't fully diagnose the issue from this message alone, so I'd like to connect you with a member of our support team who can look into it properly. Could you please reply with a short description of what's happening, such as the error message you see or what you were trying to do when it occurred? Including that detail will help the agent resolve your issue faster.",
+      "ttft_ms": 1065,
+      "latency_ms": 1683,
+      "cost_usd": 0.000111,
+      "tokens": {
+        "input_tokens": 388,
+        "output_tokens": 143,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 855,
+          "latency_ms": 1657,
+          "error": null,
+          "cost_usd": 0.000111
+        }
+      ],
+      "http_status": 200,
+      "request_id": "8cefdfb5-e87b-4b9a-b1e0-8aeb14cf3bf0",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply acknowledges the account-opening issue and asks for details, matching the references, with no invented specifics."
+      }
+    },
+    {
+      "id": 21698,
+      "question": "I'm experiencing a problem with my signup",
+      "intent": "registration_problems",
+      "category": "ACCOUNT",
+      "flags": "BELQ",
+      "ood": false,
+      "sent": "I'm experiencing a problem with my signup",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "registration_problems",
+      "retrieval_intent": "registration_problems",
+      "refused": false,
+      "answer": "I'm sorry you're having trouble signing up. Could you tell me a bit more about what's happening? For example, is the sign-up form not submitting, are you seeing an error message (and if so, what does it say), or are you not receiving the verification email? Knowing this will help me point you in the right direction.",
+      "ttft_ms": 760,
+      "latency_ms": 1184,
+      "cost_usd": 0.000094,
+      "tokens": {
+        "input_tokens": 393,
+        "output_tokens": 109,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 713,
+          "latency_ms": 1142,
+          "error": null,
+          "cost_usd": 0.000094
+        }
+      ],
+      "http_status": 200,
+      "request_id": "940898f3-c2ff-41cc-9c6a-5408d20c1f84",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply apologizes and asks for details about the signup problem, matching the references, and adds only generic example questions with no invented specifics."
+      }
+    },
+    {
+      "id": 22701,
+      "question": "I do not know how to submit some feedback for a servicd",
+      "intent": "review",
+      "category": "FEEDBACK",
+      "flags": "BEZ",
+      "ood": false,
+      "sent": "I do not know how to submit some feedback for a servicd",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "review",
+      "retrieval_intent": "review",
+      "refused": false,
+      "answer": "I'd be happy to help you share your feedback. Please reply with a few details: the name of the product or service you're reviewing, your overall rating, and what you liked or didn't like. If you're looking for a feedback option on a specific order, let me know the order number and I can point you in the right direction. If you can't find the review option, I can also connect you with our customer service team.",
+      "ttft_ms": 888,
+      "latency_ms": 1473,
+      "cost_usd": 0.000102,
+      "tokens": {
+        "input_tokens": 396,
+        "output_tokens": 123,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 730,
+          "latency_ms": 1442,
+          "error": null,
+          "cost_usd": 0.000102
+        }
+      ],
+      "http_status": 200,
+      "request_id": "8b33fb8f-e45e-40d6-872f-43a800c88457",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply offers to take the feedback directly, as reference 1 does, without inventing contact details, though it omits the Contact Us form option from the other references."
+      }
+    },
+    {
+      "id": 2329,
+      "question": "problem changing address",
+      "intent": "change_shipping_address",
+      "category": "SHIPPING",
+      "flags": "BKL",
+      "ood": false,
+      "sent": "problem changing address",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "change_shipping_address",
+      "retrieval_intent": "change_shipping_address",
+      "refused": false,
+      "answer": "I'm sorry you're having trouble changing your address. Could you tell me a bit more about what's happening? For example, are you trying to update the shipping address on an order you've already placed, or on your saved account address? Also, let me know whether you see an error message, and if so, what it says. With those details I can point you to the right next step.",
+      "ttft_ms": 775,
+      "latency_ms": 1191,
+      "cost_usd": 0.000097,
+      "tokens": {
+        "input_tokens": 384,
+        "output_tokens": 117,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 604,
+          "latency_ms": 1161,
+          "error": null,
+          "cost_usd": 0.000097
+        }
+      ],
+      "http_status": 200,
+      "request_id": "ac7928f7-4a2b-478a-a261-9bc934c8bac8",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Reply acknowledges the address-change problem and asks reasonable clarifying questions, as reference 5 does, without inventing any specifics."
+      }
+    },
+    {
+      "id": 23714,
+      "question": "where to submit a new delivery address?",
+      "intent": "set_up_shipping_address",
+      "category": "SHIPPING",
+      "flags": "BIL",
+      "ood": false,
+      "sent": "where to submit a new delivery address?",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "set_up_shipping_address",
+      "retrieval_intent": "set_up_shipping_address",
+      "refused": false,
+      "answer": "You can add a new delivery address in your Demo Shop account under your shipping address settings. If you're placing an order, you can also enter the new address at checkout. If you can't find the option or run into any trouble, please contact our customer service team and we'll be glad to help.",
+      "ttft_ms": 862,
+      "latency_ms": 1246,
+      "cost_usd": 0.00009,
+      "tokens": {
+        "input_tokens": 390,
+        "output_tokens": 101,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 699,
+          "latency_ms": 1220,
+          "error": null,
+          "cost_usd": 0.00009
+        }
+      ],
+      "http_status": 200,
+      "request_id": "6442a10e-9712-409e-bc24-3f10817e792a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply correctly points to the account's shipping address settings and adds a generic, unsourced checkout option, but no specific contact details or policies are invented."
+      }
+    },
+    {
+      "id": 24019,
+      "question": "help using the {{Account Category}} account",
+      "intent": "switch_account",
+      "category": "ACCOUNT",
+      "flags": "B",
+      "ood": false,
+      "sent": "help using the Gold account",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "edit_account",
+      "retrieval_intent": "switch_account",
+      "refused": false,
+      "answer": "I'd be happy to help you with your Gold account. Could you tell me a bit more about what you need? For example, are you trying to log in, update your profile or account details, change your password, or do something else with the account? Once I know what you're looking for, I can point you to the right steps.",
+      "ttft_ms": 1452,
+      "latency_ms": 1736,
+      "cost_usd": 0.000088,
+      "tokens": {
+        "input_tokens": 386,
+        "output_tokens": 98,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1222,
+          "latency_ms": 1708,
+          "error": null,
+          "cost_usd": 0.000088
+        }
+      ],
+      "http_status": 200,
+      "request_id": "8316f4c2-310d-4c15-be0b-03f7d5e69a37",
+      "judge": {
+        "addresses_request": false,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Not refusing was right and nothing is invented, but the reply only asks a clarifying question when references 1 and 4 give ready switch/upgrade steps for this exact request."
+      }
+    },
+    {
+      "id": 25411,
+      "question": "I have got to see the ETA of order {{Order Number}}, I need help",
+      "intent": "track_order",
+      "category": "ORDER",
+      "flags": "BCL",
+      "ood": false,
+      "sent": "I have got to see the ETA of order ORD-10482, I need help",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "track_order",
+      "retrieval_intent": "track_order",
+      "refused": false,
+      "answer": "I can help you check on order ORD-10482. I don't have live tracking details available here, so I can't give you the exact ETA. You can find the latest shipping status and estimated delivery date in your account under your order history, or in the shipping confirmation email we sent when the order shipped. If you can't find it there, please reply with your full name and the email address used for the order, and our customer service team will look into it for you.",
+      "ttft_ms": 1298,
+      "latency_ms": 1905,
+      "cost_usd": 0.000109,
+      "tokens": {
+        "input_tokens": 400,
+        "output_tokens": 137,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1092,
+          "latency_ms": 1875,
+          "error": null,
+          "cost_usd": 0.000109
+        }
+      ],
+      "http_status": 200,
+      "request_id": "56bb8f1f-554a-4d05-be57-66465d790cf5",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply helpfully points the customer to where they can check the ETA, but it invents details that are not in the references: a shipping confirmation email (implying the order has already shipped) and a reply-with-name-and-email escalation process, instead of the referenced phone and live chat contacts."
+      }
+    },
+    {
+      "id": 25893,
+      "question": "I'm waiting for an rebate of {{Refund Amount}} dollars",
+      "intent": "track_refund",
+      "category": "REFUND",
+      "flags": "BLQZ",
+      "ood": false,
+      "sent": "I'm waiting for an rebate of 350000 dollars",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "track_refund",
+      "retrieval_intent": "track_refund",
+      "refused": false,
+      "answer": "I understand you're waiting for a refund. I'm sorry for the delay. To help locate it, please share your order number and the email address or account used for the purchase. I can then explain the refund status and the typical timeline for it to reach your payment method. If the refund is not showing as expected, I can also connect you with a human agent who can review the case in more detail.",
+      "ttft_ms": 810,
+      "latency_ms": 1259,
+      "cost_usd": 0.000101,
+      "tokens": {
+        "input_tokens": 398,
+        "output_tokens": 122,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 608,
+          "latency_ms": 1233,
+          "error": null,
+          "cost_usd": 0.000101
+        }
+      ],
+      "http_status": 200,
+      "request_id": "6160e83a-3d05-471f-9df5-2b8c8bd4ec60",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply asks for an order number and email to track the refund, matching reference 5, and does not invent any amounts, timeframes or status."
+      }
+    },
+    {
+      "id": 2684,
+      "question": "there are troubles modifying my address",
+      "intent": "change_shipping_address",
+      "category": "SHIPPING",
+      "flags": "BLM",
+      "ood": false,
+      "sent": "there are troubles modifying my address",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "change_shipping_address",
+      "retrieval_intent": "change_shipping_address",
+      "refused": false,
+      "answer": "I'm sorry you're having trouble updating your address. You can usually change the shipping address on an order from your account's order page, as long as the order hasn't already been dispatched. If the option isn't available or the change doesn't save, please let us know which order it's for and what message you see, and our customer service team will help you sort it out. If you're unsure whether the order can still be changed, we can check that for you.",
+      "ttft_ms": 814,
+      "latency_ms": 1434,
+      "cost_usd": 0.000109,
+      "tokens": {
+        "input_tokens": 389,
+        "output_tokens": 139,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 638,
+          "latency_ms": 1396,
+          "error": null,
+          "cost_usd": 0.000109
+        }
+      ],
+      "http_status": 200,
+      "request_id": "6cb02dc3-d8fc-414a-8d99-357d2313ec30",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply addresses the trouble, but it invents a self-service 'account order page' process and an 'until dispatched' condition that appear nowhere in the references."
+      }
+    },
+    {
+      "id": 3655,
+      "question": "I do not know what I need to do to see the early exit charge",
+      "intent": "check_cancellation_fee",
+      "category": "CANCEL",
+      "flags": "BEL",
+      "ood": false,
+      "sent": "I do not know what I need to do to see the early exit charge",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "check_cancellation_fee",
+      "retrieval_intent": "check_cancellation_fee",
+      "refused": false,
+      "answer": "I can help you find out about the early exit charge. It is usually shown as a cancellation fee, which depends on the order's status and timing. To check it, please open your order history in your account and select the order in question. If the cancellation fee applies, it should be listed with the order details. If you cannot find it, our customer service team can look into the exact amount for you. Please share your order number if you have it, so they can locate the right order quickly.",
+      "ttft_ms": 810,
+      "latency_ms": 1561,
+      "cost_usd": 0.000114,
+      "tokens": {
+        "input_tokens": 396,
+        "output_tokens": 148,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 678,
+          "latency_ms": 1532,
+          "error": null,
+          "cost_usd": 0.000114
+        }
+      ],
+      "http_status": 200,
+      "request_id": "2e8df60d-3580-4751-9f72-e5b6ef00cb60",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply answers the question, but it invents a policy term (the fee depends on order status and timing) and an order-history location that the references, which point to account/contract sections, do not support."
+      }
+    },
+    {
+      "id": 4348,
+      "question": "i have got to see the damn bills from {{Person Name}}",
+      "intent": "check_invoice",
+      "category": "INVOICE",
+      "flags": "BLMQW",
+      "ood": false,
+      "sent": "i have got to see the damn bills from Sam Lee",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "check_invoice",
+      "retrieval_intent": "check_invoice",
+      "refused": false,
+      "answer": "I can help you find your invoice. Please log in to your Demo Shop account and open your order history, where each order has an invoice you can view or download. If you can't find it there, reply with your order number and our customer service team can look into it for you.",
+      "ttft_ms": 843,
+      "latency_ms": 1122,
+      "cost_usd": 0.000083,
+      "tokens": {
+        "input_tokens": 396,
+        "output_tokens": 86,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 633,
+          "latency_ms": 1078,
+          "error": null,
+          "cost_usd": 0.000083
+        }
+      ],
+      "http_status": 200,
+      "request_id": "4c8de10f-efa6-459b-aec1-0291d2ef7114",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply addresses the invoice request, but it claims invoices can be viewed or downloaded from order history, a feature not mentioned in the references."
+      }
+    },
+    {
+      "id": 5180,
+      "question": "want assistance listing the available payment options",
+      "intent": "check_payment_methods",
+      "category": "PAYMENT",
+      "flags": "BLQ",
+      "ood": false,
+      "sent": "want assistance listing the available payment options",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "check_payment_methods",
+      "retrieval_intent": "check_payment_methods",
+      "refused": false,
+      "answer": "I'd be happy to help you with the available payment options. Demo Shop accepts a range of payment methods at checkout. For the most accurate and up-to-date list, please check the payment section on the checkout page, where the accepted methods are displayed before you complete your purchase. If you have trouble finding a specific payment option or have questions about using one, let me know and I'll do my best to help.",
+      "ttft_ms": 1033,
+      "latency_ms": 1536,
+      "cost_usd": 0.000108,
+      "tokens": {
+        "input_tokens": 390,
+        "output_tokens": 137,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 854,
+          "latency_ms": 1503,
+          "error": null,
+          "cost_usd": 0.000108
+        }
+      ],
+      "http_status": 200,
+      "request_id": "cd98a458-c632-46be-bb77-e6aba7507777",
+      "judge": {
+        "addresses_request": false,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Reply deflects to the checkout page instead of listing the payment methods given in the references."
+      }
+    },
+    {
+      "id": 579,
+      "question": "question about canceling a bloody purchase",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "flags": "BLW",
+      "ood": false,
+      "sent": "question about canceling a bloody purchase",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "cancel_order",
+      "retrieval_intent": "cancel_order",
+      "refused": false,
+      "answer": "I can help you cancel your purchase. Please share your order number and the email address used at checkout so we can locate the order. Once we confirm it's eligible, we'll walk you through the cancellation. If the order has already shipped, cancellation may not be possible, and you may need to request a return instead.",
+      "ttft_ms": 1163,
+      "latency_ms": 1533,
+      "cost_usd": 0.000093,
+      "tokens": {
+        "input_tokens": 391,
+        "output_tokens": 106,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 924,
+          "latency_ms": 1458,
+          "error": null,
+          "cost_usd": 0.000093
+        }
+      ],
+      "http_status": 200,
+      "request_id": "e879bde4-ee81-488e-9f26-7b1d09fce865",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": false,
+        "appropriate": true,
+        "note": "The reply invents policy terms not found in the references: an eligibility check, no cancellation after shipping, and a return as the alternative."
+      }
+    },
+    {
+      "id": 6414,
+      "question": "help seeing in what cases can I ask for reimbursements",
+      "intent": "check_refund_policy",
+      "category": "REFUND",
+      "flags": "BL",
+      "ood": false,
+      "sent": "help seeing in what cases can I ask for reimbursements",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "check_refund_policy",
+      "retrieval_intent": "check_refund_policy",
+      "refused": false,
+      "answer": "I can help with that. Refund eligibility at Demo Shop depends on the specific order and the reason for the request, and I don't want to give you inaccurate details. You can find the full refund policy on our website, or I can connect you with a customer service agent who can review your situation. If you tell me what you purchased and why you'd like a refund, I can point you to the next steps.",
+      "ttft_ms": 1309,
+      "latency_ms": 1856,
+      "cost_usd": 0.000106,
+      "tokens": {
+        "input_tokens": 397,
+        "output_tokens": 131,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 639,
+          "latency_ms": 1825,
+          "error": null,
+          "cost_usd": 0.000106
+        }
+      ],
+      "http_status": 200,
+      "request_id": "1936a2aa-eba6-4845-9f4a-722259a66366",
+      "judge": {
+        "addresses_request": false,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Answering was the right call and the reply invents nothing, but it deflects without listing any of the refund-eligible cases (defects, grace-period cancellation, unauthorized or duplicate charges, non-delivery) that the references cover."
+      }
+    },
+    {
+      "id": 7012,
+      "question": "help me to make a customer reclamation against your company",
+      "intent": "complaint",
+      "category": "FEEDBACK",
+      "flags": "BL",
+      "ood": false,
+      "sent": "help me to make a customer reclamation against your company",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "complaint",
+      "retrieval_intent": "complaint",
+      "refused": false,
+      "answer": "I'm sorry to hear you're unhappy with your experience with Demo Shop. I can help you file a complaint. Please share the details of the issue, including your order number if one is relevant, what happened, and the outcome you're hoping for. I'll make sure your concern is recorded clearly. If you'd prefer to speak with a person directly, I can also point you toward our human agent support.",
+      "ttft_ms": 1372,
+      "latency_ms": 1850,
+      "cost_usd": 0.000107,
+      "tokens": {
+        "input_tokens": 393,
+        "output_tokens": 134,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1168,
+          "latency_ms": 1819,
+          "error": null,
+          "cost_usd": 0.000107
+        }
+      ],
+      "http_status": 200,
+      "request_id": "ace353b5-0d27-44b9-830f-2a5c0ddbe4f3",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply offers to help file the complaint, asks for details as the references do, and invents no specific facts."
+      }
+    },
+    {
+      "id": 8790,
+      "question": "I want help tocall customer assistance",
+      "intent": "contact_customer_service",
+      "category": "CONTACT",
+      "flags": "BLZ",
+      "ood": false,
+      "sent": "I want help tocall customer assistance",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "contact_customer_service",
+      "retrieval_intent": "contact_customer_service",
+      "refused": false,
+      "answer": "I can help you reach our customer service team. Please contact Demo Shop support through the \"Contact Us\" or \"Help\" section of our website, where you'll find the available options for getting in touch with our team. If you tell me more about what you need, such as an order question, a return, or a payment issue, I can point you to the most relevant help.",
+      "ttft_ms": 1075,
+      "latency_ms": 1339,
+      "cost_usd": 0.000098,
+      "tokens": {
+        "input_tokens": 390,
+        "output_tokens": 117,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 893,
+          "latency_ms": 1311,
+          "error": null,
+          "cost_usd": 0.000098
+        }
+      ],
+      "http_status": 200,
+      "request_id": "a3696469-78da-4dc1-b6bc-b0aaae142322",
+      "judge": {
+        "addresses_request": false,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Answering was right and nothing is invented, but the customer asked to call and the reply omits the phone number (+62 21 5000 1234) and hours from the references, giving only a vague pointer to the website."
+      }
+    },
+    {
+      "id": 9270,
+      "question": "I don't know how to talk with someone",
+      "intent": "contact_human_agent",
+      "category": "CONTACT",
+      "flags": "BL",
+      "ood": false,
+      "sent": "I don't know how to talk with someone",
+      "outcome": "ok",
+      "backend": "haiku",
+      "intent_pred": "contact_human_agent",
+      "retrieval_intent": "contact_human_agent",
+      "refused": false,
+      "answer": "I can help you reach our team. Unfortunately, I'm an automated assistant and can't transfer you to a live agent directly. You can contact our customer service team through the Contact Us or Help section of the Demo Shop website, where you'll find the available ways to get in touch. If you tell me what you need help with, I'm happy to try to answer it here first.",
+      "ttft_ms": 1557,
+      "latency_ms": 1912,
+      "cost_usd": 0.000103,
+      "tokens": {
+        "input_tokens": 390,
+        "output_tokens": 128,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 1356,
+          "latency_ms": 1878,
+          "error": null,
+          "cost_usd": 0.000103
+        }
+      ],
+      "http_status": 200,
+      "request_id": "983e8587-e5bc-4e98-b306-b20509d599a9",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply directs the customer to contact customer service through the website without inventing specific contact details. It honestly says it cannot transfer, which is safer than the references' claimed transfers."
+      }
+    },
+    {
+      "id": "ood-e1",
+      "question": "what's the weather going to be like in jakarta tomorrow?",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "what's the weather going to be like in jakarta tomorrow?",
+      "outcome": "refused_out_of_scope",
+      "backend": "haiku",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": "delivery_period",
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 779,
+      "latency_ms": 796,
+      "cost_usd": 0.000044,
+      "tokens": {
+        "input_tokens": 399,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 729,
+          "latency_ms": 762,
+          "error": null,
+          "cost_usd": 0.000044
+        }
+      ],
+      "http_status": 200,
+      "request_id": "fe7852b8-7547-4e86-bb22-8427f9f0ddc1",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant briefly declines the out-of-scope weather question, restates its store-support scope generically, and invents no facts."
+      }
+    },
+    {
+      "id": "ood-e2",
+      "question": "can you write me a python function that reverses a linked list",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "can you write me a python function that reverses a linked list",
+      "outcome": "refused_out_of_scope",
+      "backend": "haiku",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": "review",
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 967,
+      "latency_ms": 982,
+      "cost_usd": 0.000044,
+      "tokens": {
+        "input_tokens": 394,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 768,
+          "latency_ms": 953,
+          "error": null,
+          "cost_usd": 0.000044
+        }
+      ],
+      "http_status": 200,
+      "request_id": "02e839ce-8416-484b-b0a9-ffbd6caa02c7",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply briefly declines the out-of-scope coding request and states the assistant's store-support scope without inventing any details."
+      }
+    },
+    {
+      "id": "ood-e3",
+      "question": "who won the champions league final in 2019",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "who won the champions league final in 2019",
+      "outcome": "refused_out_of_scope",
+      "backend": "haiku",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": null,
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 884,
+      "latency_ms": 906,
+      "cost_usd": 0.000043,
+      "tokens": {
+        "input_tokens": 390,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 685,
+          "latency_ms": 871,
+          "error": null,
+          "cost_usd": 0.000043
+        }
+      ],
+      "http_status": 200,
+      "request_id": "21dca166-55da-403e-9917-f24b5535a341",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant correctly declined the off-topic sports question without inventing any details."
+      }
+    },
+    {
+      "id": "ood-e4",
+      "question": "recommend a good recipe for chicken rendang",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "recommend a good recipe for chicken rendang",
+      "outcome": "refused_out_of_scope",
+      "backend": "haiku",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": null,
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 748,
+      "latency_ms": 754,
+      "cost_usd": 0.000044,
+      "tokens": {
+        "input_tokens": 394,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 712,
+          "latency_ms": 736,
+          "error": null,
+          "cost_usd": 0.000044
+        }
+      ],
+      "http_status": 200,
+      "request_id": "65ecf54a-2943-4063-9f57-bf5342a3844b",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply briefly declines the out-of-scope recipe request and invents no facts."
+      }
+    },
+    {
+      "id": "ood-e5",
+      "question": "should i buy bitcoin or gold this year",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "should i buy bitcoin or gold this year",
+      "outcome": "refused_out_of_scope",
+      "backend": "haiku",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": "place_order",
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 906,
+      "latency_ms": 933,
+      "cost_usd": 0.000044,
+      "tokens": {
+        "input_tokens": 393,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "haiku",
+          "outcome": "ok",
+          "ttft_ms": 696,
+          "latency_ms": 891,
+          "error": null,
+          "cost_usd": 0.000044
+        }
+      ],
+      "http_status": 200,
+      "request_id": "34f69705-293e-4069-93ab-b2f0ba8011c8",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant correctly declined the out-of-scope investment question briefly, stated only a generic scope, and invented no details."
+      }
+    }
+  ]
+}

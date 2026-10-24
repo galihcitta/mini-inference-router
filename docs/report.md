@@ -4,7 +4,7 @@
 
 One Node service, deployed on Render, with Postgres (Neon) for tenants, keys and metering. A support assistant sits on top of a gateway. The gateway authenticates each tenant, reserves quota as a cost budget, routes Haiku 5.5 → Sonnet 5.5 → mock, and records every attempt. The assistant retrieves from a 2,000-row knowledge-base slice, has the model state the intent in a header before it answers, and refuses when retrieval and the model don't back each other up.
 
-The eval is built so that its numbers mean something. In the Bitext dataset, a naive random split puts near-duplicates of the held-out questions into the knowledge base, and retrieval alone then scores 97–100%. The held-out set here has those near-duplicates filtered out.
+The eval is built so that its numbers mean something. In the Bitext dataset, a naive random split puts near-duplicates of the held-out questions into the knowledge base, and retrieval alone then scores 97–100%. The held-out set here has those near-duplicates filtered out. On that set, retrieval is what makes the answers right: without the reference answers, Haiku's answer quality drops from 34 of 35 to 20 of 35. Haiku against Sonnet makes no measurable difference.
 
 ## Routing rules
 
@@ -55,35 +55,59 @@ The challenge allows "a local model, a provider free tier, or both". Paying for 
 ## Evaluation
 
 - **Split:** questions are deduplicated after normalising case and slots. Held-out candidates must have cosine similarity below 0.8 to every knowledge-base question, measured on character 3–5-grams. From those come 27 eval cases (one per intent) plus 3 keyword-style ones, and a separate dev slice of 297 for tuning. There are also 5 hand-written out-of-domain questions for the eval and 5 more for dev. Nothing was tuned on the eval set.
-- **Configurations:** tenant `eval-haiku` (route: Haiku only) against `eval-sonnet` (route: Sonnet only). Same prompt, same retrieval, no fallback, so each configuration is a single model. Both run over HTTP against the real service.
+- **Configurations**, all run over HTTP against the real service, with no fallback, so each is a single model:
+  - **Haiku vs Sonnet:** tenant `eval-haiku` (route: Haiku only) against `eval-sonnet` (route: Sonnet only), with the same prompt and the same retrieval.
+  - **Haiku with vs without retrieval:** the `eval-haiku` tenant against a server started with `SUPPORT_RETRIEVAL=off`. That server sends the model only the customer's message, with no reference answers, and turns off the two refusals that depend on retrieval. This switch exists for the eval only.
+  - The judge sees the same retrieved references in every run, as the store's ground truth.
 - **Metrics:**
   - intent accuracy, with a Wilson 95% interval, next to retrieval-only accuracy as the reference line;
   - answer quality, judged by Claude Opus 5.5 on three yes/no checks (addresses the request; no invented facts or placeholders; refusing or answering was right). Opus is used so the judge isn't grading its own model;
   - refusal rate on out-of-domain questions, and false-refusal rate on in-domain ones;
   - time to first token and total latency, p50 and p95;
   - cost from the `done` events;
-  - discordant pairs between the two configurations.
+  - discordant pairs between two configurations, with an exact McNemar test.
 
 ### Results
 
-<!-- RESULTS -->
-Run on 2026-10-24 against the local service with real models. Each configuration answered 30 in-domain and 5 out-of-domain cases. Raw results are in `eval/results/`.
+Run on 2026-10-24 against the local service with real models. Each configuration answered 30 in-domain and 5 out-of-domain cases. Raw results are in `eval/results/`. The mock's latency is synthetic (a fixed delay plus a per-chunk delay), not the cost of retrieval.
 
-| Metric | Retrieval only (mock) | Haiku 5.5 | Sonnet 5.5 |
-|---|---|---|---|
-| Intent accuracy, in-domain (95% CI) | 93.3% (78.7–98.2) | 96.7% (83.3–99.4) | 96.7% (83.3–99.4) |
-| Answer quality (judge, all 3 checks) | not judged | 97.1% (34/35) | 97.1% (34/35) |
-| Out-of-domain refused | 2/5 | 5/5 | 5/5 |
-| False refusals, in-domain | 0/30 | 1/30 | 1/30 |
-| Time to first token p50 / p95 | 210 / 286 ms | 873 / 1,794 ms | 1,287 / 1,504 ms |
-| Total latency p50 / p95 | 1,098 / 2,149 ms | 1,331 / 1,856 ms | 1,978 / 2,455 ms |
-| Cost per request | $0 | $0.00021 | $0.00422 |
-| Cost for the 35-case run | $0 | $0.0072 | $0.1477 |
+| Metric | Retrieval only (mock) | Haiku 5.5 | Sonnet 5.5 | Haiku 5.5, no retrieval |
+|---|---|---|---|---|
+| Intent accuracy, in-domain (95% CI) | 93.3% (78.7–98.2) | 96.7% (83.3–99.4) | 96.7% (83.3–99.4) | 93.3% (78.7–98.2) |
+| Answer quality (judge, all 3 checks) | not judged | 97.1% (34/35) | 97.1% (34/35) | 57.1% (20/35) |
+| Out-of-domain refused | 2/5 | 5/5 | 5/5 | 5/5 |
+| False refusals, in-domain | 0/30 | 1/30 | 1/30 | 0/30 |
+| Time to first token p50 / p95 | 210 / 286 ms | 873 / 1,794 ms | 1,287 / 1,504 ms | 888 / 1,557 ms |
+| Total latency p50 / p95 | 1,098 / 2,149 ms | 1,331 / 1,856 ms | 1,978 / 2,455 ms | 1,429 / 1,912 ms |
+| Cost per request | $0 | $0.00021 | $0.00422 | $0.00009 |
+| Cost for the 35-case run | $0 | $0.0072 | $0.1477 | $0.0032 |
 
 What the numbers say:
-- **Haiku and Sonnet are indistinguishable on this task.** They have zero discordant intent pairs, and the same single judge fail, which is the same case. Sonnet costs 20× more and adds about 400 ms to the first token. That supports the routing order: Haiku first, with Sonnet kept for availability, not quality.
-- **Both models beat retrieval alone by one case: 29/30 against 28/30.** At n = 30 that is inside the noise; the intervals overlap almost entirely. Where the model clearly adds value is refusal: it catches all 5 out-of-domain questions, while the retrieval threshold catches 2 before any model call.
+- **Retrieval is what makes the answers right.**
+  - Without the reference answers, Haiku passes the judge on 20 of 35 cases; with them, 34 of 35.
+  - All 14 cases where the two runs disagree favour retrieval (exact McNemar p ≈ 0.0001). Unlike the other comparisons, this one is not noise.
+  - The failures come in two kinds. In 10, the model invents store policy or process (for example "no cancellation after shipping", or an "order history" page for invoices). In 5, it deflects ("see the checkout page") instead of giving the store's actual options, phone number or refund cases.
+  - Intent barely moves (28/30 against 29/30). The model can classify these questions without help. What it can't do without the knowledge base is answer them correctly for this store.
+  - One caveat: the judge grades both runs against references that the no-retrieval run never saw. That's deliberate, since a customer is owed the store's actual policy, but it means "invented" here includes generic policy that sounds plausible.
+- **Haiku against Sonnet is a null result, and an expected one.**
+  - In this design, retrieval sets the confidence, decides refusal and supplies the facts. The model only labels the intent and writes the wording. Swapping the model changes the smallest part, and the two models produce identical outcomes on all 35 cases, with the same single judge fail.
+  - Sonnet costs 20× more and adds about 400 ms to the first token. So Haiku goes first, and Sonnet is kept for availability, not quality.
+- **On intent, the model doesn't beat retrieval.**
+  - Haiku labels 29/30 correctly against retrieval's 28/30. The extra case is the typo case below, which was then refused, so counting answers actually given, both are 28/30.
+  - What the model measurably adds is refusal: it catches all 5 hand-written out-of-domain questions, against 2 for the retrieval threshold.
 - **The one false refusal** is "deleting Business accoumt". The model labelled it correctly as `delete_account`, but the typo broke retrieval, so only 1 of 5 retrieved entries supported that intent, and the low-confidence rule refused it. That's the cost of refusing whenever retrieval and the model disagree. I kept the rule: on these 30 cases it costs 1 false refusal, and it guards against the model being confidently wrong.
+
+**Does the confidence signal mean anything?** On the dev slice (297 questions, no model calls, `scripts/tune.ts`), accuracy falls steadily with the number of top-5 votes for retrieval's chosen intent:
+
+| Votes | Cases | Retrieval correct |
+|---|---|---|
+| 5 of 5 | 175 | 98.3% |
+| 4 of 5 | 43 | 90.7% |
+| 3 of 5 | 55 | 81.8% |
+| 2 of 5 | 18 | 61.1% |
+| 1 of 5 | 5 | 40.0% |
+
+The gateway counts votes for the *model's* intent, which equals this count whenever the model agrees with retrieval, as it usually does. The refusal cut, at 1 vote or fewer, sits where retrieval is right less than half the time.
 
 **How the judge was checked.** The first version of the judge didn't see the reference answers the assistant was given. It failed about 30% of answers for "inventing" the demo store's phone number and hours, which actually came from those references. I changed the judge to see the same references (`eval/run.ts`) and reran both models. I then read 10 cases myself, including both remaining fails, and agreed with the judge on all 10. The same pass also turned up one real defect, which I fixed before the rerun: an unknown template slot leaked as plain text ("date range business days"). That rerun produced the numbers above. These labels are mine; Galih hasn't reviewed them.
 

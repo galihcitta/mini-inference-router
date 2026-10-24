@@ -34,6 +34,9 @@ export const env = {
   // Public demo: hands the console keys for the demo tenants and opens the read-only usage
   // endpoints. Exposes those tenants' (small, capped) budgets to anyone with the URL. Off by default.
   demoMode: process.env.DEMO_MODE === "1",
+  // Eval-only ablation: SUPPORT_RETRIEVAL=off sends the model the customer message without reference
+  // answers, and drops the two retrieval-based refusals. Measures what retrieval contributes.
+  supportRetrieval: process.env.SUPPORT_RETRIEVAL !== "off",
 };
 
 export function costMicros(backend: BackendId, input: number, output: number): number {

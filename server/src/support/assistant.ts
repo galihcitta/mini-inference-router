@@ -27,14 +27,23 @@ Rules for the answer:
 - Do not use placeholders in curly braces.
 - If the label is out_of_scope, write nothing after the intent line.`;
 
-export function buildRequest(message: string, r: Retrieval): BackendRequest {
-  const refs = r.entries
+// The no-retrieval ablation: same format and rules, minus the references.
+export const SYSTEM_PROMPT_NO_REFS = SYSTEM_PROMPT
+  .replace(/- Base it on the reference answers[^\n]*\n/, "")
+  .replace(" that aren't in the references", "");
+
+export function referenceBlock(r: Retrieval): string {
+  return r.entries
     .map((e, i) => `<reference n="${i + 1}" intent="${e.intent}">\nQ: ${fillSlots(e.question)}\nA: ${fillSlots(e.answer)}\n</reference>`)
     .join("\n");
+}
+
+export function buildRequest(message: string, r: Retrieval, withReferences = true): BackendRequest {
   const top = r.entries[0];
+  const customer = `<customer_message>\n${message}\n</customer_message>`;
   return {
-    system: SYSTEM_PROMPT,
-    messages: [{ role: "user", content: `${refs}\n\n<customer_message>\n${message}\n</customer_message>` }],
+    system: withReferences ? SYSTEM_PROMPT : SYSTEM_PROMPT_NO_REFS,
+    messages: [{ role: "user", content: withReferences ? `${referenceBlock(r)}\n\n${customer}` : customer }],
     maxTokens: SUPPORT_MAX_TOKENS,
     mockReply: top ? `<intent>${r.majority}</intent>\n${fillSlots(top.answer)}` : undefined,
   };
@@ -63,7 +72,7 @@ export function confidenceFor(intent: string, r: Retrieval) {
   return { score, level, votes, agrees: intent === r.majority };
 }
 
-export function commitDecision(backend: { id: string; model: string }, requestId: string, intent: string | undefined, r: Retrieval): CommitDecision {
+export function commitDecision(backend: { id: string; model: string }, requestId: string, intent: string | undefined, r: Retrieval, useRetrieval = true): CommitDecision {
   const base = { request_id: requestId, backend: backend.id, model: backend.model };
   if (!intent || intent === "out_of_scope") {
     return {
@@ -71,6 +80,7 @@ export function commitDecision(backend: { id: string; model: string }, requestId
       meta: { ...base, intent: "out_of_scope", confidence: null, refused: true, refusal_reason: "out_of_scope" },
     };
   }
+  if (!useRetrieval) return { kind: "stream", meta: { ...base, intent, confidence: null, refused: false, refusal_reason: null } };
   const confidence = confidenceFor(intent, r);
   if (confidence.level === "low") {
     return {

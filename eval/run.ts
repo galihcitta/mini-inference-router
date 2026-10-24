@@ -3,7 +3,7 @@
 //   npm run eval -- --compare eval/results/haiku.json eval/results/sonnet.json
 import { readFileSync, writeFileSync } from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
-import { buildRequest } from "../server/src/support/assistant.ts";
+import { referenceBlock } from "../server/src/support/assistant.ts";
 import { loadKb, Retriever } from "../server/src/support/kb.ts";
 
 const args = process.argv.slice(2);
@@ -55,7 +55,8 @@ const JUDGE_MODEL = "claude-opus-5-5";
 // failed most answers for quoting the references.
 const retriever = new Retriever(loadKb());
 async function judge(client: Anthropic, r: Result) {
-  const refs = buildRequest(r.sent, retriever.search(r.sent)).messages[0].content.split("<customer_message>")[0].trim();
+  // Always the retrieved references, even for the no-retrieval run: they're the store's ground truth either way.
+  const refs = referenceBlock(retriever.search(r.sent));
   const prompt = `You are grading a customer-support assistant for an online store ("Demo Shop"). The assistant was given the reference answers below (past answers to similar questions, with the store's real contact details filled in). It has no order data, so it must not state specific order details, amounts, dates or policy terms that are not in the references.
 
 <references>
