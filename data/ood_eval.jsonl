@@ -1,0 +1,5 @@
+{"id": "ood-e1", "question": "what's the weather going to be like in jakarta tomorrow?", "intent": "out_of_scope"}
+{"id": "ood-e2", "question": "can you write me a python function that reverses a linked list", "intent": "out_of_scope"}
+{"id": "ood-e3", "question": "who won the champions league final in 2019", "intent": "out_of_scope"}
+{"id": "ood-e4", "question": "recommend a good recipe for chicken rendang", "intent": "out_of_scope"}
+{"id": "ood-e5", "question": "should i buy bitcoin or gold this year", "intent": "out_of_scope"}

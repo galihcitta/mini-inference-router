@@ -1,0 +1,5 @@
+{"id": "ood-d1", "question": "translate good morning into japanese", "intent": "out_of_scope"}
+{"id": "ood-d2", "question": "what is the capital of australia", "intent": "out_of_scope"}
+{"id": "ood-d3", "question": "help me plan a 3 day trip to bali", "intent": "out_of_scope"}
+{"id": "ood-d4", "question": "explain how black holes form", "intent": "out_of_scope"}
+{"id": "ood-d5", "question": "tell me a joke about cats", "intent": "out_of_scope"}

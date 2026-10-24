@@ -1,0 +1,30 @@
+{"id": 579, "question": "question about canceling a bloody purchase", "intent": "cancel_order", "category": "ORDER", "flags": "BLW"}
+{"id": 1816, "question": "herlp to swap an article of order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BLZ"}
+{"id": 2684, "question": "there are troubles modifying my address", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BLM"}
+{"id": 3655, "question": "I do not know what I need to do to see the early exit charge", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BEL"}
+{"id": 4348, "question": "i have got to see the damn bills from {{Person Name}}", "intent": "check_invoice", "category": "INVOICE", "flags": "BLMQW"}
+{"id": 5180, "question": "want assistance listing the available payment options", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BLQ"}
+{"id": 6414, "question": "help seeing in what cases can I ask for reimbursements", "intent": "check_refund_policy", "category": "REFUND", "flags": "BL"}
+{"id": 7012, "question": "help me to make a customer reclamation against your company", "intent": "complaint", "category": "FEEDBACK", "flags": "BL"}
+{"id": 8790, "question": "I want help tocall customer assistance", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BLZ"}
+{"id": 9270, "question": "I don't know how to talk with someone", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BL"}
+{"id": 10266, "question": "where can i find information about creating a {{Account Type}} account", "intent": "create_account", "category": "ACCOUNT", "flags": "BIQ"}
+{"id": 11268, "question": "I want help closing a freemium account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 12724, "question": "assistance seeing what shipment options are available", "intent": "delivery_options", "category": "DELIVERY", "flags": "BLM"}
+{"id": 13734, "question": "can i check how long it takes for my product to arrive", "intent": "delivery_period", "category": "DELIVERY", "flags": "BILQ"}
+{"id": 14822, "question": "i have got to edit my personal information can uhelp me", "intent": "edit_account", "category": "ACCOUNT", "flags": "BCIQ"}
+{"id": 15299, "question": "I'm tryng to get the bill #00108", "intent": "get_invoice", "category": "INVOICE", "flags": "BLQZ"}
+{"id": 16061, "question": "I try to ask for a compensation of my money", "intent": "get_refund", "category": "REFUND", "flags": "BL"}
+{"id": 17183, "question": "I want help canceling thecompany newsletter subscription", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BZ"}
+{"id": 18880, "question": "i dont know how to notify of troublse with payments", "intent": "payment_issue", "category": "PAYMENT", "flags": "BLMQZ"}
+{"id": 19022, "question": "is it possible to shop some items?", "intent": "place_order", "category": "ORDER", "flags": "BILM"}
+{"id": 20107, "question": "would it be possible to retrieve my profile access key?", "intent": "recover_password", "category": "ACCOUNT", "flags": "BILP"}
+{"id": 21698, "question": "I'm experiencing a problem with my signup", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BELQ"}
+{"id": 22701, "question": "I do not know how to submit some feedback for a servicd", "intent": "review", "category": "FEEDBACK", "flags": "BEZ"}
+{"id": 23714, "question": "where to submit a new delivery address?", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BIL"}
+{"id": 24019, "question": "help using the {{Account Category}} account", "intent": "switch_account", "category": "ACCOUNT", "flags": "B"}
+{"id": 25411, "question": "I have got to see the ETA of order {{Order Number}}, I need help", "intent": "track_order", "category": "ORDER", "flags": "BCL"}
+{"id": 25893, "question": "I'm waiting for an rebate of {{Refund Amount}} dollars", "intent": "track_refund", "category": "REFUND", "flags": "BLQZ"}
+{"id": 21130, "question": "notifying of issue opening user", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 11087, "question": "deleting {{Account Type}} accoumt", "intent": "delete_account", "category": "ACCOUNT", "flags": "BKLZ"}
+{"id": 2329, "question": "problem changing address", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BKL"}

@@ -1,0 +1,297 @@
+{"id": 937, "question": "I canno longer afford purchase {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BLNZ"}
+{"id": 290, "question": "i dont want order {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BNQ"}
+{"id": 243, "question": "assistance canceling the last order", "intent": "cancel_order", "category": "ORDER", "flags": "B"}
+{"id": 713, "question": "i have a provlem with cancelling order {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BQZ"}
+{"id": 199, "question": "I need helpto cancel order {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BZ"}
+{"id": 374, "question": "I need help to cancel purchase370795561790", "intent": "cancel_order", "category": "ORDER", "flags": "BLZ"}
+{"id": 672, "question": "problem with cancelig order {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BZ"}
+{"id": 318, "question": "i do not know how to cancel purchasw {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BELQZ"}
+{"id": 416, "question": "i need assiostance cancelling order {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BQZ"}
+{"id": 959, "question": "need assistance cancelinv purchase {{Order Number}}", "intent": "cancel_order", "category": "ORDER", "flags": "BLQZ"}
+{"id": 910, "question": "cancel purchase00004587345", "intent": "cancel_order", "category": "ORDER", "flags": "BKLZ"}
+{"id": 1738, "question": "help swapping some products of order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BLM"}
+{"id": 1695, "question": "i need help to switch several products of order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BLMQ"}
+{"id": 1172, "question": "I need assistance with adding a product to purchase {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BL"}
+{"id": 1201, "question": "I have got to modify purchase {{Order Number}}, how do I do it?", "intent": "change_order", "category": "ORDER", "flags": "BCIL"}
+{"id": 1193, "question": "how can I delete several ites from purchase {{Order Number}}?", "intent": "change_order", "category": "ORDER", "flags": "BILMZ"}
+{"id": 1137, "question": "wanna edit order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BLQ"}
+{"id": 1187, "question": "need help deleting some articles from order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BLMQ"}
+{"id": 1309, "question": "deit purchase {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BKLZ"}
+{"id": 1084, "question": "I want to correct order {{Order Number}}, will you help me?", "intent": "change_order", "category": "ORDER", "flags": "BCILP"}
+{"id": 1302, "question": "how to add an article to order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BILQ"}
+{"id": 1594, "question": "i try to change several products of order {{Order Number}}", "intent": "change_order", "category": "ORDER", "flags": "BLMQ"}
+{"id": 2883, "question": "I entered a wrong address by mistake, could I update it?", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BCILP"}
+{"id": 2217, "question": "where can I find information about an address update?", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BIL"}
+{"id": 2270, "question": "tell me more about correcting the delivery address", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BL"}
+{"id": 2891, "question": "I have entered a wrong address by mistake, how do I edit it?", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BCIL"}
+{"id": 2752, "question": "i have issues modifying the address", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BLMQ"}
+{"id": 2240, "question": "i dont know how  to change my address", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BLQZ"}
+{"id": 2697, "question": "help to edit the delivery aderess", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BLZ"}
+{"id": 2788, "question": "I don't know what to do to correct my shipping address", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BL"}
+{"id": 2738, "question": "can you tell me more about a delivery address correction?", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BIL"}
+{"id": 2353, "question": "I chose a wrong address by mistake", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BL"}
+{"id": 2940, "question": "wanna know more about a delivery address correction", "intent": "change_shipping_address", "category": "SHIPPING", "flags": "BLQ"}
+{"id": 3203, "question": "assistance checking the fucking early exit penalties", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BLMW"}
+{"id": 3397, "question": "I do not know what to do to check the cancellation charges", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BELM"}
+{"id": 3413, "question": "Ineed assistance to see the withdrawal charges", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BLMZ"}
+{"id": 3139, "question": "I would like to see the termination penalties, help me", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BCLMP"}
+{"id": 3706, "question": "I cannot find the termination penalties, I need assistance", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BCELM"}
+{"id": 3454, "question": "i dont know how i can check the cancellation fee", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BQ"}
+{"id": 3733, "question": "I want assistsnce seeing the withdrawal penalty", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BLZ"}
+{"id": 3221, "question": "could you help me see the withdrawal charges?", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BILMP"}
+{"id": 3366, "question": "want assistance to see the terminatoin charges", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BLMQZ"}
+{"id": 3884, "question": "want assistance seeing the withdrawal charge", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BLQ"}
+{"id": 3382, "question": "I want to see the cancellation penalty, help me", "intent": "check_cancellation_fee", "category": "CANCEL", "flags": "BCL"}
+{"id": 4322, "question": "I need help seeing my invoices from {{Person Name}}", "intent": "check_invoice", "category": "INVOICE", "flags": "BLM"}
+{"id": 4380, "question": "I lost the bills from {{Person Name}}, find it for me", "intent": "check_invoice", "category": "INVOICE", "flags": "BCLM"}
+{"id": 4090, "question": "need to look for invoice #37777", "intent": "check_invoice", "category": "INVOICE", "flags": "BLQ"}
+{"id": 4842, "question": "i want help giving a quick look at the bill #12588", "intent": "check_invoice", "category": "INVOICE", "flags": "BLQ"}
+{"id": 3931, "question": "I do not knw how I can locate the bills from {{Person Name}}", "intent": "check_invoice", "category": "INVOICE", "flags": "BELMZ"}
+{"id": 4056, "question": "see invoicefrom {{Person Name}}", "intent": "check_invoice", "category": "INVOICE", "flags": "BKLZ"}
+{"id": 4268, "question": "can I check my bill #12588?", "intent": "check_invoice", "category": "INVOICE", "flags": "BIL"}
+{"id": 4005, "question": "help locating my bill from {{Person Name}}", "intent": "check_invoice", "category": "INVOICE", "flags": "BL"}
+{"id": 4646, "question": "I want help giving a quick look at the invoice #85632", "intent": "check_invoice", "category": "INVOICE", "flags": "BL"}
+{"id": 4369, "question": "what do I have to do to see my invoice #85632?", "intent": "check_invoice", "category": "INVOICE", "flags": "BIL"}
+{"id": 4916, "question": "I'd like to check my fucking invoices from {{Person Name}} help me", "intent": "check_invoice", "category": "INVOICE", "flags": "BCLMPQW"}
+{"id": 5459, "question": "where do I list the available payment options?", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BIL"}
+{"id": 5289, "question": "I want to list the payment methods, can I get some help?", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BCIL"}
+{"id": 5075, "question": "help me listing the payment modalities", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BL"}
+{"id": 5140, "question": "I want to check what payment methods are allowed, help me", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BCL"}
+{"id": 5166, "question": "i want help to list ur payment modalities", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BLQ"}
+{"id": 5001, "question": "where to see the payment methods?", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BIL"}
+{"id": 5639, "question": "where can I check what payment options are allowed?", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BIL"}
+{"id": 5855, "question": "I want to check the payment options, I need assistance", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BCL"}
+{"id": 5185, "question": "I want help seeing the available payment options", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BL"}
+{"id": 5436, "question": "I would like to list the payment modalities", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BLP"}
+{"id": 5597, "question": "can uhelp me check what damn pamyent options are accepted", "intent": "check_payment_methods", "category": "PAYMENT", "flags": "BILQWZ"}
+{"id": 6362, "question": "can huelp me check ur refund policy", "intent": "check_refund_policy", "category": "REFUND", "flags": "BIQZ"}
+{"id": 6906, "question": "i need help seeing ur monbey back policy", "intent": "check_refund_policy", "category": "REFUND", "flags": "BLQZ"}
+{"id": 6770, "question": "is it possible to see in which cases can I ask for a refund?", "intent": "check_refund_policy", "category": "REFUND", "flags": "BIL"}
+{"id": 6681, "question": "can ya show me in what cases can i ask for a reimbursement", "intent": "check_refund_policy", "category": "REFUND", "flags": "BILQ"}
+{"id": 6052, "question": "help to see in which cases can I ask for refunds", "intent": "check_refund_policy", "category": "REFUND", "flags": "BL"}
+{"id": 6124, "question": "help me seeing how long the damn reimbursements take", "intent": "check_refund_policy", "category": "REFUND", "flags": "BLW"}
+{"id": 6465, "question": "help to see in which casescan i request reimbursements", "intent": "check_refund_policy", "category": "REFUND", "flags": "BLQZ"}
+{"id": 6712, "question": "I have got to see in which situations can Irequest a refund", "intent": "check_refund_policy", "category": "REFUND", "flags": "BLZ"}
+{"id": 6767, "question": "could I check in what situations can I ask for a refund?", "intent": "check_refund_policy", "category": "REFUND", "flags": "BILP"}
+{"id": 6301, "question": "can you show me in what cases can I ask to be refunded?", "intent": "check_refund_policy", "category": "REFUND", "flags": "BI"}
+{"id": 6742, "question": "help me see how long the bloody reimbursements usually take", "intent": "check_refund_policy", "category": "REFUND", "flags": "BLW"}
+{"id": 6929, "question": "wanna lodge a consumer reclamation against ur company", "intent": "complaint", "category": "FEEDBACK", "flags": "BLQ"}
+{"id": 7122, "question": "I'm dissatisfied with ur services help to file a reclamation", "intent": "complaint", "category": "FEEDBACK", "flags": "BCLQ"}
+{"id": 7595, "question": "need help filing an complaint against your company", "intent": "complaint", "category": "FEEDBACK", "flags": "BLQZ"}
+{"id": 7114, "question": "I am unsatisfied with your services, how to file a claim?", "intent": "complaint", "category": "FEEDBACK", "flags": "BCIL"}
+{"id": 7108, "question": "I try to lodge a complaint against  your company", "intent": "complaint", "category": "FEEDBACK", "flags": "BLZ"}
+{"id": 7698, "question": "the experience with ur brand was bad file a claim", "intent": "complaint", "category": "FEEDBACK", "flags": "BCLQ"}
+{"id": 7181, "question": "I do not know how to lodge a customer claim", "intent": "complaint", "category": "FEEDBACK", "flags": "BEL"}
+{"id": 7461, "question": "where  do i lodge a consumer claim against ur company", "intent": "complaint", "category": "FEEDBACK", "flags": "BILQZ"}
+{"id": 7076, "question": "I would like to make a customer reclamation, help me", "intent": "complaint", "category": "FEEDBACK", "flags": "BCLP"}
+{"id": 6969, "question": "I need assistance to make a consumre reclamation", "intent": "complaint", "category": "FEEDBACK", "flags": "BLZ"}
+{"id": 7013, "question": "I want to oldge a claim against your business", "intent": "complaint", "category": "FEEDBACK", "flags": "BLZ"}
+{"id": 8663, "question": "can ya show me at what time customer service available is", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BIQ"}
+{"id": 8089, "question": "I don't know how I can talk with customer support", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BL"}
+{"id": 8215, "question": "i need help speaking to customer service", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BLQ"}
+{"id": 8494, "question": "is it possible to talk to customer assistance?", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BIL"}
+{"id": 8391, "question": "what is ur customer assistance mail", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BILQ"}
+{"id": 8647, "question": "I need to see at what time customer service available is", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BL"}
+{"id": 8447, "question": "I want assistance speaking to customer support", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BL"}
+{"id": 8845, "question": "help to see at what time I can contact customer support", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BL"}
+{"id": 8428, "question": "I want help to talk with customer assistance", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BL"}
+{"id": 8457, "question": "customer assistance mail address", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BL"}
+{"id": 8280, "question": "do you have a toll-free number to reach customer support?", "intent": "contact_customer_service", "category": "CONTACT", "flags": "BIL"}
+{"id": 9810, "question": "talking to live agent", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BL"}
+{"id": 9237, "question": "you are not helpful, help talking to an operator", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BCEL"}
+{"id": 9095, "question": "i want assistance talking with somebody", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BLQ"}
+{"id": 8956, "question": "is it possible to talk with somebody?", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BIL"}
+{"id": 9563, "question": "i need assistance talking with a perrson", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BLQZ"}
+{"id": 9614, "question": "i do not know how to speak with an opeator", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BELQZ"}
+{"id": 9169, "question": "transferring to agent", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BL"}
+{"id": 9671, "question": "can you help me chatting with a person?", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BIL"}
+{"id": 9221, "question": "I don't want a chatbot, direct to me a bloody agent", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BCLW"}
+{"id": 9459, "question": "i want help talking with an assistat", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BLQZ"}
+{"id": 9334, "question": "I want to talk to a live agent", "intent": "contact_human_agent", "category": "CONTACT", "flags": "BL"}
+{"id": 10111, "question": "opening new premium account for daughter", "intent": "create_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 9999, "question": "I have a problem with opening my premium account", "intent": "create_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 10043, "question": "what do I need to do to open a platinum account for my dad?", "intent": "create_account", "category": "ACCOUNT", "flags": "BIL"}
+{"id": 10531, "question": "create new pro account for daughter", "intent": "create_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 10663, "question": "I need a different bloody {{Account Type}} account, can you create it?", "intent": "create_account", "category": "ACCOUNT", "flags": "BCILW"}
+{"id": 10571, "question": "create premium account for wife", "intent": "create_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 10167, "question": "i do not have a goddamn pro acciunt yet help to create one", "intent": "create_account", "category": "ACCOUNT", "flags": "BCELNQWZ"}
+{"id": 10283, "question": "give me information about opening a {{Account Category}} account", "intent": "create_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 10880, "question": "could you tell me more about creating a platinum account?", "intent": "create_account", "category": "ACCOUNT", "flags": "BIP"}
+{"id": 10312, "question": "where do i open a gold account for my fiance", "intent": "create_account", "category": "ACCOUNT", "flags": "BILQ"}
+{"id": 10068, "question": "open a damn {{Account Type}} account for my father", "intent": "create_account", "category": "ACCOUNT", "flags": "BLW"}
+{"id": 11139, "question": "can ya help me to cancel my freemium account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BILQ"}
+{"id": 11814, "question": "give me information about the deletion of my standardaccount", "intent": "delete_account", "category": "ACCOUNT", "flags": "BLZ"}
+{"id": 11365, "question": "I do not know hgow to remove the standard account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BELZ"}
+{"id": 11763, "question": "idont use my {{Account Category}} account need assistance to close it", "intent": "delete_account", "category": "ACCOUNT", "flags": "BCLQZ"}
+{"id": 11868, "question": "I want assistance to remove a pro account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 11088, "question": "i donbt know what i need to do to close my pro account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BLQZ"}
+{"id": 11116, "question": "close standard account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 11447, "question": "deleting standard account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 11379, "question": "find information about the deletion of my gold account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 11232, "question": "I want help to cancel the freemium account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 11460, "question": "find information about the deletion of my freemium account", "intent": "delete_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 12837, "question": "I don't know how I can check what shipping options you offer", "intent": "delivery_options", "category": "DELIVERY", "flags": "BLM"}
+{"id": 12843, "question": "I want to see what shipment methods are there, I need help", "intent": "delivery_options", "category": "DELIVERY", "flags": "BCLM"}
+{"id": 11929, "question": "can you tell me more about the methods for delivery?", "intent": "delivery_options", "category": "DELIVERY", "flags": "BIL"}
+{"id": 11961, "question": "how can i get information about the options for delivery", "intent": "delivery_options", "category": "DELIVERY", "flags": "BIQ"}
+{"id": 12778, "question": "help me check what delivery options you offer", "intent": "delivery_options", "category": "DELIVERY", "flags": "BM"}
+{"id": 12181, "question": "can you help me to check the methods for shipping?", "intent": "delivery_options", "category": "DELIVERY", "flags": "BIL"}
+{"id": 12017, "question": "I have to check the shipping methods, how can I do it?", "intent": "delivery_options", "category": "DELIVERY", "flags": "BCIL"}
+{"id": 12055, "question": "do uship to {{Delivery City}}", "intent": "delivery_options", "category": "DELIVERY", "flags": "BILQS"}
+{"id": 12892, "question": "can you show me what shipping options are there?", "intent": "delivery_options", "category": "DELIVERY", "flags": "BILM"}
+{"id": 12398, "question": "can you help me checking the methods for shipment?", "intent": "delivery_options", "category": "DELIVERY", "flags": "BIL"}
+{"id": 12480, "question": "I have to see what options for delivery are there, help me", "intent": "delivery_options", "category": "DELIVERY", "flags": "BCLM"}
+{"id": 13086, "question": "i dont know how i could see when my shipment is gonna arrive", "intent": "delivery_period", "category": "DELIVERY", "flags": "BLPQ"}
+{"id": 13792, "question": "where do i ser how long it takes for the product to arrive", "intent": "delivery_period", "category": "DELIVERY", "flags": "BILQZ"}
+{"id": 13406, "question": "i want assisyance to see how soon can i expect my product", "intent": "delivery_period", "category": "DELIVERY", "flags": "BLQZ"}
+{"id": 13477, "question": "where can I see how long the shipment takes?", "intent": "delivery_period", "category": "DELIVERY", "flags": "BIL"}
+{"id": 13321, "question": "I am looking for information about dselivery period", "intent": "delivery_period", "category": "DELIVERY", "flags": "BEZ"}
+{"id": 13237, "question": "i dont know how i can ese how soon can i expect the order", "intent": "delivery_period", "category": "DELIVERY", "flags": "BLQZ"}
+{"id": 13481, "question": "I need to see how soon can I expect my item, how to do it?", "intent": "delivery_period", "category": "DELIVERY", "flags": "BCIL"}
+{"id": 13238, "question": "I call to check how long it takes for ym article to arrive", "intent": "delivery_period", "category": "DELIVERY", "flags": "BLZ"}
+{"id": 13479, "question": "I need help seeing how long it takes for my item to arrive", "intent": "delivery_period", "category": "DELIVERY", "flags": "BL"}
+{"id": 13873, "question": "I don't know how to check when will my purchase arrive", "intent": "delivery_period", "category": "DELIVERY", "flags": "BL"}
+{"id": 13856, "question": "I'm trying to find shpping period help me", "intent": "delivery_period", "category": "DELIVERY", "flags": "BCELQZ"}
+{"id": 13983, "question": "I try to change the fucking personal details", "intent": "edit_account", "category": "ACCOUNT", "flags": "BLMW"}
+{"id": 14005, "question": "update info on standard account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKLQ"}
+{"id": 14504, "question": "pudate pro account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKLZ"}
+{"id": 14220, "question": "modify details on platinum account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKLM"}
+{"id": 14629, "question": "changing info on premium account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKLQ"}
+{"id": 14753, "question": "i dont know how to correct the data included on my account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BLQ"}
+{"id": 14324, "question": "correcting information on standard account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 14705, "question": "updating data on freemium account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 14375, "question": "mldifying premium account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKLZ"}
+{"id": 14880, "question": "I need help to update the information on my user profile", "intent": "edit_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 14354, "question": "edting info on premium account", "intent": "edit_account", "category": "ACCOUNT", "flags": "BKLQZ"}
+{"id": 15797, "question": "I do not know what I need to do to egt the bill #85632", "intent": "get_invoice", "category": "INVOICE", "flags": "BELZ"}
+{"id": 15733, "question": "I have to get my bill from {{Person Name}}, will you help me?", "intent": "get_invoice", "category": "INVOICE", "flags": "BCILP"}
+{"id": 15451, "question": "how do I download the invoive from 6 last weeks?", "intent": "get_invoice", "category": "INVOICE", "flags": "BILMZ"}
+{"id": 15891, "question": "send me invoice #00108", "intent": "get_invoice", "category": "INVOICE", "flags": "B"}
+{"id": 15735, "question": "what do I need to do to get my last bills?", "intent": "get_invoice", "category": "INVOICE", "flags": "BILM"}
+{"id": 15186, "question": "i need assistance to egt the invoice from {{Person Name}}", "intent": "get_invoice", "category": "INVOICE", "flags": "BQZ"}
+{"id": 15762, "question": "I am  trying to download invoice #00108", "intent": "get_invoice", "category": "INVOICE", "flags": "BLZ"}
+{"id": 15127, "question": "i do not know what i have to do to  get invoice #85632", "intent": "get_invoice", "category": "INVOICE", "flags": "BEQZ"}
+{"id": 15482, "question": "how do I get bill #85632?", "intent": "get_invoice", "category": "INVOICE", "flags": "BIL"}
+{"id": 15369, "question": "I do not know how I could get bill #12588", "intent": "get_invoice", "category": "INVOICE", "flags": "BELP"}
+{"id": 15560, "question": "would it be possible to get my invoices from {{Person Name}}?", "intent": "get_invoice", "category": "INVOICE", "flags": "BILMP"}
+{"id": 16802, "question": "want assistance demanding compensations fo money", "intent": "get_refund", "category": "REFUND", "flags": "BLMQZ"}
+{"id": 16440, "question": "i do not know what i need to do to request a compensation", "intent": "get_refund", "category": "REFUND", "flags": "BELQ"}
+{"id": 16455, "question": "were can I demand compensations of money?", "intent": "get_refund", "category": "REFUND", "flags": "BILMZ"}
+{"id": 16244, "question": "when am  i receiving my refund of money", "intent": "get_refund", "category": "REFUND", "flags": "BILQZ"}
+{"id": 16015, "question": "I need help demanding an reimbursement", "intent": "get_refund", "category": "REFUND", "flags": "BLZ"}
+{"id": 16700, "question": "can uhelp em to ask for rebates of money", "intent": "get_refund", "category": "REFUND", "flags": "BILMQZ"}
+{"id": 16849, "question": "assistance obtaining a refund", "intent": "get_refund", "category": "REFUND", "flags": "BL"}
+{"id": 16762, "question": "assistance to request my money back", "intent": "get_refund", "category": "REFUND", "flags": "BL"}
+{"id": 16302, "question": "wanna ask for a restutution of my money", "intent": "get_refund", "category": "REFUND", "flags": "BLQZ"}
+{"id": 16728, "question": "what do I need to do to request a rebate?", "intent": "get_refund", "category": "REFUND", "flags": "BIL"}
+{"id": 16759, "question": "I would like to ask for compensations", "intent": "get_refund", "category": "REFUND", "flags": "BLMP"}
+{"id": 17788, "question": "i cantcancel my subscription to ur company newsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BLQZ"}
+{"id": 17661, "question": "what do i have to do to unsubscribe to the nrwsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BILQZ"}
+{"id": 17525, "question": "want help to sign up to your corpirate newsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BLQZ"}
+{"id": 17234, "question": "I want help canceling the subscription to your newslettedr", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BLZ"}
+{"id": 17504, "question": "I need assistance unsubscribinbg to your newsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BLZ"}
+{"id": 17482, "question": "I have to unsubscribe to your newsletter, I need help", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BCL"}
+{"id": 17568, "question": "can utell me about cancel the subscrption to ur newsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BILQZ"}
+{"id": 16921, "question": "wanna subscribe to the bloody ndwsletter help me", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BCLQWZ"}
+{"id": 17709, "question": "need help singing up to the company newsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BLQZ"}
+{"id": 17435, "question": "wanna receive ur company newsletter how do i do it", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BCILQ"}
+{"id": 17578, "question": "I do not know how I can sign up to the newsletter", "intent": "newsletter_subscription", "category": "SUBSCRIPTION", "flags": "BEL"}
+{"id": 18769, "question": "i need assistance solving errors with payments", "intent": "payment_issue", "category": "PAYMENT", "flags": "BLMQ"}
+{"id": 17992, "question": "the payment failed, could I notify of an error with payment?", "intent": "payment_issue", "category": "PAYMENT", "flags": "BCILP"}
+{"id": 17971, "question": "the payment failed i need help to report errors with payment", "intent": "payment_issue", "category": "PAYMENT", "flags": "BCLMQ"}
+{"id": 18879, "question": "the payment failed, where do I notify of errors?", "intent": "payment_issue", "category": "PAYMENT", "flags": "BCILM"}
+{"id": 18257, "question": "where can I report errors with payments?", "intent": "payment_issue", "category": "PAYMENT", "flags": "BILM"}
+{"id": 18546, "question": "where do i notify of a problem with online payments", "intent": "payment_issue", "category": "PAYMENT", "flags": "BILMQ"}
+{"id": 18479, "question": "I want to report a problem with payment", "intent": "payment_issue", "category": "PAYMENT", "flags": "BL"}
+{"id": 18881, "question": "assistance informing of errors with payment", "intent": "payment_issue", "category": "PAYMENT", "flags": "BLM"}
+{"id": 18172, "question": "I need help notifying of issues with online payment", "intent": "payment_issue", "category": "PAYMENT", "flags": "BLM"}
+{"id": 18643, "question": "i dont know how i can inform of a error with online payments", "intent": "payment_issue", "category": "PAYMENT", "flags": "BLMQZ"}
+{"id": 18710, "question": "notify of payment issue", "intent": "payment_issue", "category": "PAYMENT", "flags": "BKL"}
+{"id": 19384, "question": "how do I acquire some of your item?", "intent": "place_order", "category": "ORDER", "flags": "BILM"}
+{"id": 19007, "question": "can you help me purchasing a damn item?", "intent": "place_order", "category": "ORDER", "flags": "BILW"}
+{"id": 18895, "question": "want help to earn an few of your item", "intent": "place_order", "category": "ORDER", "flags": "BLMQZ"}
+{"id": 18927, "question": "I have got to earn a product, I need help", "intent": "place_order", "category": "ORDER", "flags": "BCL"}
+{"id": 19845, "question": "what do i need to do to do a purchase", "intent": "place_order", "category": "ORDER", "flags": "BILQ"}
+{"id": 19181, "question": "is it possible to buy some items?", "intent": "place_order", "category": "ORDER", "flags": "BIM"}
+{"id": 19510, "question": "I want assistance ordering several of your article", "intent": "place_order", "category": "ORDER", "flags": "BLM"}
+{"id": 19727, "question": "i havd to buy some products", "intent": "place_order", "category": "ORDER", "flags": "BLMQZ"}
+{"id": 19887, "question": "I would like to earn several items", "intent": "place_order", "category": "ORDER", "flags": "BLMP"}
+{"id": 19403, "question": "can you help me to shop a goddamn item?", "intent": "place_order", "category": "ORDER", "flags": "BILW"}
+{"id": 19571, "question": "wanna shop a few of ur item how do i do it", "intent": "place_order", "category": "ORDER", "flags": "BCILMQ"}
+{"id": 19929, "question": "I need to retrieve the pass of my user account", "intent": "recover_password", "category": "ACCOUNT", "flags": "BLQ"}
+{"id": 19915, "question": "I do not know how to retrieve the key of my user", "intent": "recover_password", "category": "ACCOUNT", "flags": "BEL"}
+{"id": 20492, "question": "what do i have to do to retrieve my account pin", "intent": "recover_password", "category": "ACCOUNT", "flags": "BILQ"}
+{"id": 20069, "question": "i want heop to recover my pass", "intent": "recover_password", "category": "ACCOUNT", "flags": "BLQZ"}
+{"id": 20759, "question": "what do i need to do to reover my account pin", "intent": "recover_password", "category": "ACCOUNT", "flags": "BILQZ"}
+{"id": 20642, "question": "I am looking for information about my lost key", "intent": "recover_password", "category": "ACCOUNT", "flags": "BEL"}
+{"id": 19949, "question": "I do not know how I could reset the key of my profile", "intent": "recover_password", "category": "ACCOUNT", "flags": "BELP"}
+{"id": 20317, "question": "question about my lost access key", "intent": "recover_password", "category": "ACCOUNT", "flags": "BL"}
+{"id": 20088, "question": "csn ya help me reset the password of my account", "intent": "recover_password", "category": "ACCOUNT", "flags": "BILQZ"}
+{"id": 20001, "question": "I have lost my user password, where do I retrieve it?", "intent": "recover_password", "category": "ACCOUNT", "flags": "BCILV"}
+{"id": 20137, "question": "help me reset my PIN", "intent": "recover_password", "category": "ACCOUNT", "flags": "BL"}
+{"id": 21579, "question": "I want assistance to notify of problems with a signup", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BLM"}
+{"id": 21244, "question": "I want help informing of an issue with a signup", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BL"}
+{"id": 21502, "question": "I am experiencing problems trying to sign up, help me", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BCELM"}
+{"id": 20894, "question": "support with my online registration", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BL"}
+{"id": 21376, "question": "need help to report problems with a registratoon", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BLMQZ"}
+{"id": 21632, "question": "want assistance to notify of problemswith a sign-up", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BLMQZ"}
+{"id": 20982, "question": "notify of issue with ergistration", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BKLZ"}
+{"id": 21235, "question": "I don't know how I could notify of a problem with a sign-up", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BLP"}
+{"id": 20949, "question": "i have to inform of sign-up errrors", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BLMQZ"}
+{"id": 21258, "question": "I am trying to inform of a problem with a signup", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BL"}
+{"id": 21389, "question": "want help to inform of issues with a registration", "intent": "registration_problems", "category": "ACCOUNT", "flags": "BLMQ"}
+{"id": 22020, "question": "need assistance leaving a commnet for your services", "intent": "review", "category": "FEEDBACK", "flags": "BLQZ"}
+{"id": 22611, "question": "I want to send some feedback for a product", "intent": "review", "category": "FEEDBACK", "flags": "BL"}
+{"id": 22858, "question": "how to send my feedback about ur company", "intent": "review", "category": "FEEDBACK", "flags": "BILQ"}
+{"id": 22517, "question": "I don't know how I can leave a review", "intent": "review", "category": "FEEDBACK", "flags": "B"}
+{"id": 22108, "question": "I have to leave a comment, I need assistance", "intent": "review", "category": "FEEDBACK", "flags": "BCL"}
+{"id": 22693, "question": "I need assistance leaving an opinion about your services", "intent": "review", "category": "FEEDBACK", "flags": "BL"}
+{"id": 22315, "question": "i call to write a review for ur services", "intent": "review", "category": "FEEDBACK", "flags": "BLQ"}
+{"id": 21893, "question": "i need help sending some feedback about a service", "intent": "review", "category": "FEEDBACK", "flags": "BLQ"}
+{"id": 22304, "question": "I have to leave a comment for your company, help me", "intent": "review", "category": "FEEDBACK", "flags": "BCL"}
+{"id": 22416, "question": "can I leave some feedback about a product?", "intent": "review", "category": "FEEDBACK", "flags": "BIL"}
+{"id": 22522, "question": "what do i need to do to send some feedback", "intent": "review", "category": "FEEDBACK", "flags": "BILQ"}
+{"id": 23269, "question": "I'm trying to enter the secodnary shipping address", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BLQZ"}
+{"id": 23115, "question": "I need assistance to enter the new shipping address", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BL"}
+{"id": 23390, "question": "can I entedr the new shipping address?", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BILZ"}
+{"id": 23403, "question": "i dont know what to do to set my newdelivery address up", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BLQZ"}
+{"id": 23274, "question": "the secondary delivery address is not valid, how to do it?", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BCEIL"}
+{"id": 23106, "question": "what do I need to do to submit my shipping address?", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BIL"}
+{"id": 23871, "question": "i have troubles setting up a secondary shipping address", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BLMQ"}
+{"id": 23838, "question": "I can't enter a different shipping address", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BL"}
+{"id": 22981, "question": "i have an error setting up my shipping address", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BLQ"}
+{"id": 23789, "question": "I have a trouble setting the secondaru shipping address up", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BLZ"}
+{"id": 23267, "question": "I haave to submit a secondary delivery address", "intent": "set_up_shipping_address", "category": "SHIPPING", "flags": "BLZ"}
+{"id": 24770, "question": "I want assistance using the {{Account Type}} profile", "intent": "switch_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 24036, "question": "using gold accouny", "intent": "switch_account", "category": "ACCOUNT", "flags": "BKZ"}
+{"id": 24480, "question": "need help touse the freemium account", "intent": "switch_account", "category": "ACCOUNT", "flags": "BQZ"}
+{"id": 24363, "question": "I have got to use the gold profile, can you help me?", "intent": "switch_account", "category": "ACCOUNT", "flags": "BCIL"}
+{"id": 24492, "question": "I have got to chaneg to the {{Account Category}} account", "intent": "switch_account", "category": "ACCOUNT", "flags": "BLZ"}
+{"id": 24682, "question": "I need to use the bloody {{Account Type}} profile, can you help me?", "intent": "switch_account", "category": "ACCOUNT", "flags": "BCILW"}
+{"id": 24732, "question": "help me use the gold profile", "intent": "switch_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 24174, "question": "assistance changing to the standard account", "intent": "switch_account", "category": "ACCOUNT", "flags": "BL"}
+{"id": 23930, "question": "change to pro account", "intent": "switch_account", "category": "ACCOUNT", "flags": "BKL"}
+{"id": 23939, "question": "need help using the freemium account", "intent": "switch_account", "category": "ACCOUNT", "flags": "BQ"}
+{"id": 24002, "question": "need to use the {{Account Type}} profioe can ya help me", "intent": "switch_account", "category": "ACCOUNT", "flags": "BCILQZ"}
+{"id": 25060, "question": "want assistance seeing the status of order {{Order Number}}", "intent": "track_order", "category": "ORDER", "flags": "BLQ"}
+{"id": 25025, "question": "need assistance to check the status of order {{Order Number}}", "intent": "track_order", "category": "ORDER", "flags": "BQ"}
+{"id": 25532, "question": "I want to track purchase {{Order Number}}, how could I do it?", "intent": "track_order", "category": "ORDER", "flags": "BCILP"}
+{"id": 25243, "question": "order 00004587345current status", "intent": "track_order", "category": "ORDER", "flags": "BKLZ"}
+{"id": 25755, "question": "I try to seethe status of purchase {{Order Number}}", "intent": "track_order", "category": "ORDER", "flags": "BLZ"}
+{"id": 25656, "question": "i have to see the ETA of order {{Order Number}} can ya help me", "intent": "track_order", "category": "ORDER", "flags": "BCILQ"}
+{"id": 25044, "question": "need heop seeing the ETA of the purchase {{Order Number}}", "intent": "track_order", "category": "ORDER", "flags": "BLQZ"}
+{"id": 25503, "question": "i have got to locte order {{Order Number}}", "intent": "track_order", "category": "ORDER", "flags": "BLQZ"}
+{"id": 25454, "question": "wanna check the status of order {{Order Number}} how to dl it", "intent": "track_order", "category": "ORDER", "flags": "BCIQZ"}
+{"id": 25575, "question": "can uhelp me see the currnt status of order {{Order Number}}", "intent": "track_order", "category": "ORDER", "flags": "BILQZ"}
+{"id": 25055, "question": "wanna chedk order {{Order Number}} status help me", "intent": "track_order", "category": "ORDER", "flags": "BCQZ"}
+{"id": 25900, "question": "I expect an reimbursement of {{Currency Symbol}}{{Refund Amount}}", "intent": "track_refund", "category": "REFUND", "flags": "BLZ"}
+{"id": 26870, "question": "I don't know what to do to see my reimbursement status", "intent": "track_refund", "category": "REFUND", "flags": "BL"}
+{"id": 26139, "question": "want assistance checking my refund current status", "intent": "track_refund", "category": "REFUND", "flags": "BLQ"}
+{"id": 26452, "question": "where do I check the reimbursement current status?", "intent": "track_refund", "category": "REFUND", "flags": "BIL"}
+{"id": 26129, "question": "help me to see the refund status", "intent": "track_refund", "category": "REFUND", "flags": "BL"}
+{"id": 26653, "question": "I need assistance checking my compensation status", "intent": "track_refund", "category": "REFUND", "flags": "BL"}
+{"id": 25903, "question": "how do I know if there is anything new on my reimbursement?", "intent": "track_refund", "category": "REFUND", "flags": "BIL"}
+{"id": 26389, "question": "assistance to check the reimbursement status", "intent": "track_refund", "category": "REFUND", "flags": "BL"}
+{"id": 25992, "question": "I expect a refund of {{Currency Symbol}}{{Refund Amount}}, has it been processed already?", "intent": "track_refund", "category": "REFUND", "flags": "BCI"}
+{"id": 26266, "question": "I expect a fucking ocmpensation of {{Currency Symbol}}{{Refund Amount}}, was it processed", "intent": "track_refund", "category": "REFUND", "flags": "BCLWZ"}
+{"id": 26809, "question": "see the status of the reimbursement", "intent": "track_refund", "category": "REFUND", "flags": "BL"}
