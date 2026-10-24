@@ -10,5 +10,5 @@
     "allowImportingTsExtensions": true,
     "types": ["node"]
   },
-  "include": ["server", "scripts/*.ts", "eval"]
+  "include": ["server", "scripts/*.ts", "eval", "e2e", "playwright.config.ts"]
 }

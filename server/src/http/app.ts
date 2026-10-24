@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyReply, type FastifyRequest } from "fastify";
 import fastifyStatic from "@fastify/static";
 import { z } from "zod";
-import { CHAT_MAX_TOKENS, costMicros, type RouteEntry } from "../config.ts";
+import { CHAT_MAX_TOKENS, costMicros } from "../config.ts";
 import { pool } from "../db/pool.ts";
 import { bearer, isAdmin, tenantForKey, type Tenant } from "../gateway/auth.ts";
 import { execute, type Gate, type RunResult } from "../gateway/executor.ts";
@@ -45,10 +45,11 @@ export function buildApp(retriever: Retriever) {
     return t;
   }
 
-  // Fail closed: the cheapest allowed backend must fit before the stream starts. Each attempt
+  // Fail closed: the tenant's first-choice backend must fit before the stream starts. Checking the
+  // cheapest one instead let an exhausted tenant keep getting free mock answers. Each attempt
   // still reserves atomically, so concurrent requests can't overspend.
   async function quotaPrecheck(t: Tenant, estChars: number, maxTokens: number, reply: FastifyReply, id: string, endpoint: string) {
-    const minCost = Math.min(...t.route.map((e: RouteEntry) => costMicros(e.backend, Math.ceil(estChars / 3), maxTokens)));
+    const firstCost = costMicros(t.route[0].backend, Math.ceil(estChars / 3), maxTokens);
     let rem: number;
     try {
       rem = await remainingMicros(t.id);
@@ -56,7 +57,7 @@ export function buildApp(retriever: Retriever) {
       reply.code(503).send({ error: "unavailable" });
       return false;
     }
-    if (rem < minCost || rem <= 0) {
+    if (rem < firstCost || rem <= 0) {
       await recordRejected(id, t.id, endpoint, "quota_exceeded", "precheck").catch(() => {});
       reply.code(429).send({ error: "quota_exceeded", message: "Tenant quota cannot cover this request.", remaining_usd: usd(Math.max(0, rem)) });
       return false;

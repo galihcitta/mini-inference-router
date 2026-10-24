@@ -28,6 +28,10 @@ describe("placeholder filter", () => {
     expect(out).toBe("Call us at +62 21 5000 1234 today");
     expect(f.changed).toBe(true);
   });
+  it("drops leading whitespace that arrives in its own chunk", () => {
+    const f = slotFilter();
+    expect(["\n", " ", "Hello there"].map((c) => f.push(c)).join("") + f.flush()).toBe("Hello there");
+  });
   it("passes text without slots through untouched", () => {
     const f = slotFilter();
     expect(f.push("a { b } c") + f.flush()).toBe("a { b } c");

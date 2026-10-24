@@ -21,6 +21,15 @@ const PROFILE: Record<string, string> = {
   "Client Name": "",
   "Person Name": "",
   "Currency Symbol": "Rp",
+  "Date Range": "3–5",
+  "Store Location": "our Jakarta store",
+  "Refund Amount": "the refund amount",
+  "Money Amount": "the amount",
+  "Delivery City": "your city",
+  "Delivery Country": "your country",
+  "Customer Support Live Chat URL": "demo-shop.example/chat",
+  "Account Recovery Page URL": "demo-shop.example/recover",
+  "Password Reset Page URL": "demo-shop.example/reset",
 };
 
 export function fillSlot(name: string): string {
@@ -30,12 +39,20 @@ export function fillSlot(name: string): string {
 
 export const fillSlots = (s: string) => s.replace(/\{\{([^}]+)\}\}/g, (_, n: string) => fillSlot(n.trim())).replace(/ {2,}/g, " ");
 
-// Streaming version: holds back text from "{{" until "}}" arrives, then substitutes.
+// Streaming version: holds back text from "{{" until "}}" arrives, then substitutes. Also drops
+// whitespace before the first visible character (the newline after the intent header can arrive
+// in its own chunk).
 export function slotFilter(): TextFilter {
   let held = "";
+  let started = false;
   const f: TextFilter = {
     changed: false,
     push(t: string) {
+      if (!started) {
+        t = t.trimStart();
+        if (!t) return "";
+        started = true;
+      }
       held += t;
       let out = "";
       for (;;) {

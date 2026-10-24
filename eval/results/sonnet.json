@@ -1,0 +1,1438 @@
+{
+  "summary": {
+    "name": "sonnet",
+    "n_in_domain": 30,
+    "n_ood": 5,
+    "intent_accuracy": 0.9666666666666667,
+    "intent_ci95": [
+      0.8332924860304112,
+      0.9940915620051425
+    ],
+    "retrieval_only_accuracy": 0.9333333333333333,
+    "false_refusal_rate": 0.03333333333333333,
+    "ood_refusal_rate": 1,
+    "quality_pass_rate": 0.9714285714285714,
+    "judged": 35,
+    "ttft_p50": 1287,
+    "ttft_p95": 1504,
+    "latency_p50": 1978,
+    "latency_p95": 2455,
+    "cost_total_usd": 0.14767,
+    "cost_per_request_usd": 0.004219,
+    "outcomes": {
+      "ok": 29,
+      "refused_low_confidence": 3,
+      "refused_out_of_scope": 3
+    },
+    "fallbacks": 0
+  },
+  "results": [
+    {
+      "id": 10266,
+      "question": "where can i find information about creating a {{Account Type}} account",
+      "intent": "create_account",
+      "category": "ACCOUNT",
+      "flags": "BIQ",
+      "ood": false,
+      "sent": "where can i find information about creating a Business account",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "create_account",
+      "retrieval_intent": "create_account",
+      "refused": false,
+      "answer": "\nThanks for your interest in creating a Business account! To get started, visit our website and go to the account creation page. There you'll be asked for your personal details, such as your name, email address, and preferred username, and you can then select the account type you'd like and continue from there.\n\nIf you run into any difficulties along the way, our customer support team is available Monday to Friday, 08:00-17:00 WIB and will be happy to help. Is there anything specific about the process I can clarify for you?",
+      "ttft_ms": 1327,
+      "latency_ms": 2068,
+      "cost_usd": 0.004634,
+      "tokens": {
+        "input_tokens": 1522,
+        "output_tokens": 159,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 961,
+          "latency_ms": 2037,
+          "error": null,
+          "cost_usd": 0.004634
+        }
+      ],
+      "http_status": 200,
+      "request_id": "24cf2565-b84e-4bde-9d59-b118f3e3a580",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply explains where to create the account using steps and support hours taken directly from reference 1, and adds no invented details."
+      }
+    },
+    {
+      "id": 11087,
+      "question": "deleting {{Account Type}} accoumt",
+      "intent": "delete_account",
+      "category": "ACCOUNT",
+      "flags": "BKLZ",
+      "ood": false,
+      "sent": "deleting Business accoumt",
+      "outcome": "refused_low_confidence",
+      "backend": "sonnet",
+      "intent_pred": "delete_account",
+      "retrieval_intent": "change_order",
+      "refused": true,
+      "answer": "I'm not confident I can answer that correctly. I can help with orders, shipping, refunds, invoices, payments and your account. Could you rephrase, or would you like to contact a human agent?",
+      "ttft_ms": 1250,
+      "latency_ms": 1278,
+      "cost_usd": 0.002702,
+      "tokens": {
+        "input_tokens": 1311,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 822,
+          "latency_ms": 1222,
+          "error": null,
+          "cost_usd": 0.002702
+        }
+      ],
+      "http_status": 200,
+      "request_id": "0f6bbf41-08a1-46ce-ada0-b856d8eb273d",
+      "judge": {
+        "addresses_request": false,
+        "no_invented_facts": true,
+        "appropriate": false,
+        "note": "Reference 4 covers account deletion, so the assistant should have asked for the account details rather than refusing an in-scope request."
+      }
+    },
+    {
+      "id": 11268,
+      "question": "I want help closing a freemium account",
+      "intent": "delete_account",
+      "category": "ACCOUNT",
+      "flags": "BL",
+      "ood": false,
+      "sent": "I want help closing a freemium account",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "delete_account",
+      "retrieval_intent": "delete_account",
+      "refused": false,
+      "answer": "\nThank you for reaching out about closing your freemium account. I understand this is an important decision, and I'm happy to help you through the process. To get started, please share the username or email address associated with the account so we can locate it accurately. If you'd like, you can also tell us your reason for closing it, which helps us make sure we address any concerns. Once we have your details, our team will guide you through the next steps to close your account.",
+      "ttft_ms": 1504,
+      "latency_ms": 2041,
+      "cost_usd": 0.003904,
+      "tokens": {
+        "input_tokens": 1257,
+        "output_tokens": 139,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1127,
+          "latency_ms": 2011,
+          "error": null,
+          "cost_usd": 0.003904
+        }
+      ],
+      "http_status": 200,
+      "request_id": "c1a9bbbb-b55f-4d8c-912c-f260d3acf838",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply addresses the freemium account closure by asking for the username or email and an optional reason, as the references do, and adds no invented details."
+      }
+    },
+    {
+      "id": 12724,
+      "question": "assistance seeing what shipment options are available",
+      "intent": "delivery_options",
+      "category": "DELIVERY",
+      "flags": "BLM",
+      "ood": false,
+      "sent": "assistance seeing what shipment options are available",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "delivery_options",
+      "retrieval_intent": "delivery_options",
+      "refused": false,
+      "answer": "\nI'd be happy to help you see our shipment options. We offer:\n\n1. Standard Shipping: Our most economical option, usually taking 3-5 business days.\n2. Expedited Shipping: A quicker option for when you need your items sooner.\n3. Overnight Shipping: Next business day delivery for time-sensitive orders.\n4. In-Store Pickup: Collect your items at our Jakarta store at your convenience.\n5. International Shipping: Available if you need to ship outside your country.\n\nPlease note that availability and delivery times may vary depending on your location and the items you order. If you have questions about a specific option, just let me know and I'll gladly help.",
+      "ttft_ms": 989,
+      "latency_ms": 2157,
+      "cost_usd": 0.006538,
+      "tokens": {
+        "input_tokens": 2144,
+        "output_tokens": 225,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 637,
+          "latency_ms": 2128,
+          "error": null,
+          "cost_usd": 0.006538
+        }
+      ],
+      "http_status": 200,
+      "request_id": "77fffb99-63e1-41a8-8679-6679de42b8cf",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply lists shipping options drawn entirely from the references, with no invented details, and sensibly avoids repeating the references' contradictory 3–5 day timeframe for expedited shipping."
+      }
+    },
+    {
+      "id": 13734,
+      "question": "can i check how long it takes for my product to arrive",
+      "intent": "delivery_period",
+      "category": "DELIVERY",
+      "flags": "BILQ",
+      "ood": false,
+      "sent": "can i check how long it takes for my product to arrive",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "delivery_period",
+      "retrieval_intent": "delivery_period",
+      "refused": false,
+      "answer": "\nYes, you can. The quickest way is to log into your account on our website and open the 'Order History' section, where you'll find your order's current status and expected delivery date.\n\nIf you'd like us to check for you, please send your order number or tracking number, and we'll give you an accurate estimate of when your product will arrive. Thank you for your patience, and let us know if you need any further help.",
+      "ttft_ms": 1238,
+      "latency_ms": 1853,
+      "cost_usd": 0.003704,
+      "tokens": {
+        "input_tokens": 1197,
+        "output_tokens": 131,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 869,
+          "latency_ms": 1836,
+          "error": null,
+          "cost_usd": 0.003704
+        }
+      ],
+      "http_status": 200,
+      "request_id": "d4f9d9ff-2fdb-457c-9eaf-6f5964871ce7",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply explains how to check delivery time via Order History and asks for an order or tracking number, all grounded in the references."
+      }
+    },
+    {
+      "id": 14822,
+      "question": "i have got to edit my personal information can uhelp me",
+      "intent": "edit_account",
+      "category": "ACCOUNT",
+      "flags": "BCIQ",
+      "ood": false,
+      "sent": "i have got to edit my personal information can uhelp me",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "edit_account",
+      "retrieval_intent": "edit_account",
+      "refused": false,
+      "answer": "Yes, I can help you with that. To edit your personal information, please log in to your account on our secure portal and update your details in the account settings section. If you'd rather have personalized guidance, our customer support team can walk you through the process. For your security, please don't share sensitive information here in the chat. Which would you prefer, updating it yourself through the portal or getting help from the support team?",
+      "ttft_ms": 773,
+      "latency_ms": 1872,
+      "cost_usd": 0.004074,
+      "tokens": {
+        "input_tokens": 1387,
+        "output_tokens": 130,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 728,
+          "latency_ms": 1852,
+          "error": null,
+          "cost_usd": 0.004074
+        }
+      ],
+      "http_status": 200,
+      "request_id": "eaa1a2db-91e8-4c99-b2a8-a1823ece8611",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Reply gives reference-consistent guidance (secure portal, account settings, support team, don't share sensitive info) without inventing details."
+      }
+    },
+    {
+      "id": 15299,
+      "question": "I'm tryng to get the bill #00108",
+      "intent": "get_invoice",
+      "category": "INVOICE",
+      "flags": "BLQZ",
+      "ood": false,
+      "sent": "I'm tryng to get the bill #00108",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "check_invoice",
+      "retrieval_intent": "check_invoice",
+      "refused": false,
+      "answer": "\nI understand you'd like to get bill #00108. To access it, you can log in to your account on our website and go to the billing section, where you should find an option to view your invoices. If you'd like me to help locate it, could you share the date range or the name associated with the bill? That will help me find the right invoice more quickly. If you run into any difficulty, just let me know and I'll guide you through it.",
+      "ttft_ms": 1449,
+      "latency_ms": 5104,
+      "cost_usd": 0.003606,
+      "tokens": {
+        "input_tokens": 1138,
+        "output_tokens": 133,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1064,
+          "latency_ms": 5075,
+          "error": null,
+          "cost_usd": 0.003606
+        }
+      ],
+      "http_status": 200,
+      "request_id": "732396e5-c83b-4c44-9905-4a1244b9a918",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply covers getting the bill with reference-backed account/billing-section guidance and asks for clarifying details, without inventing any facts."
+      }
+    },
+    {
+      "id": 16061,
+      "question": "I try to ask for a compensation of my money",
+      "intent": "get_refund",
+      "category": "REFUND",
+      "flags": "BL",
+      "ood": false,
+      "sent": "I try to ask for a compensation of my money",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "get_refund",
+      "retrieval_intent": "get_refund",
+      "refused": false,
+      "answer": "\nI understand you'd like to request compensation for your money, and I'm happy to help you with that. To point you in the right direction, could you tell me a bit more about the situation, such as what happened with your purchase? That will help me guide you to the right steps.\n\nYou can also contact our support team directly, as they can start your request: call +62 21 5000 1234 or email support@demo-shop.example. Please have your relevant details ready so they can resolve this quickly.",
+      "ttft_ms": 1397,
+      "latency_ms": 2177,
+      "cost_usd": 0.005078,
+      "tokens": {
+        "input_tokens": 1769,
+        "output_tokens": 154,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1001,
+          "latency_ms": 2159,
+          "error": null,
+          "cost_usd": 0.005078
+        }
+      ],
+      "http_status": 200,
+      "request_id": "42a854ed-0d68-4b87-8b21-555b9924d67a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply asks for details and gives the contact phone and email exactly as in reference 4, with nothing invented."
+      }
+    },
+    {
+      "id": 17183,
+      "question": "I want help canceling thecompany newsletter subscription",
+      "intent": "newsletter_subscription",
+      "category": "SUBSCRIPTION",
+      "flags": "BZ",
+      "ood": false,
+      "sent": "I want help canceling thecompany newsletter subscription",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "newsletter_subscription",
+      "retrieval_intent": "newsletter_subscription",
+      "refused": false,
+      "answer": "\nI'm sorry to hear you'd like to cancel your subscription to our company newsletter, but I'm happy to help. Could you please provide the email address you used to sign up? Once I have it, I'll locate your subscription and make sure it's canceled promptly, so you won't receive any further newsletters from us. Thank you for reaching out and letting us know your preference.",
+      "ttft_ms": 1374,
+      "latency_ms": 1744,
+      "cost_usd": 0.004184,
+      "tokens": {
+        "input_tokens": 1422,
+        "output_tokens": 134,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 986,
+          "latency_ms": 1713,
+          "error": null,
+          "cost_usd": 0.004184
+        }
+      ],
+      "http_status": 200,
+      "request_id": "3fb4ce84-a374-47dd-b14c-91a6fe154846",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply asks for the sign-up email to cancel the subscription, matching the references, and invents no details."
+      }
+    },
+    {
+      "id": 1816,
+      "question": "herlp to swap an article of order {{Order Number}}",
+      "intent": "change_order",
+      "category": "ORDER",
+      "flags": "BLZ",
+      "ood": false,
+      "sent": "herlp to swap an article of order ORD-10482",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "change_order",
+      "retrieval_intent": "change_order",
+      "refused": false,
+      "answer": "\nThanks for reaching out about swapping an article in order ORD-10482. I'm happy to help. Could you please tell me which item you'd like to swap and what you'd like to replace it with, including the item name and any specific variant or options? That will help us process your request accurately and efficiently. If you'd prefer to speak with someone directly, you can also reach our customer support team at +62 21 5000 1234 or through Live Chat at demo-shop.example.",
+      "ttft_ms": 1456,
+      "latency_ms": 2108,
+      "cost_usd": 0.00399,
+      "tokens": {
+        "input_tokens": 1210,
+        "output_tokens": 157,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1014,
+          "latency_ms": 2020,
+          "error": null,
+          "cost_usd": 0.00399
+        }
+      ],
+      "http_status": 200,
+      "request_id": "9a710849-1a51-4160-9171-18f7d009c80c",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply asks for the swap details as the references do, and the phone number and Live Chat URL match reference 3 exactly."
+      }
+    },
+    {
+      "id": 18880,
+      "question": "i dont know how to notify of troublse with payments",
+      "intent": "payment_issue",
+      "category": "PAYMENT",
+      "flags": "BLMQZ",
+      "ood": false,
+      "sent": "i dont know how to notify of troublse with payments",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "payment_issue",
+      "retrieval_intent": "payment_issue",
+      "refused": false,
+      "answer": "\nYou're in the right place, you can notify us of payment troubles right here in this chat. I'm sorry you're having trouble, and I'm happy to help. To get started, please tell me what happened with your payment. Details such as any error messages you saw, the transaction ID if you have one, and when the problem occurred will help us investigate and work toward a solution. Thank you for reaching out, and we'll do our best to resolve this quickly.",
+      "ttft_ms": 1322,
+      "latency_ms": 2250,
+      "cost_usd": 0.004208,
+      "tokens": {
+        "input_tokens": 1354,
+        "output_tokens": 150,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 954,
+          "latency_ms": 2228,
+          "error": null,
+          "cost_usd": 0.004208
+        }
+      ],
+      "http_status": 200,
+      "request_id": "023f6327-3017-46f7-8696-69a827a4a217",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply tells the customer they can report payment troubles in this chat and asks for generic details (error messages, transaction ID, timing) consistent with the references, without inventing facts."
+      }
+    },
+    {
+      "id": 19022,
+      "question": "is it possible to shop some items?",
+      "intent": "place_order",
+      "category": "ORDER",
+      "flags": "BILM",
+      "ood": false,
+      "sent": "is it possible to shop some items?",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "place_order",
+      "retrieval_intent": "place_order",
+      "refused": false,
+      "answer": "\nYes, absolutely! You can shop on our website or mobile app. Browse our catalog or use the search bar to find the items you want, then add them to your cart. When you're ready, go to the checkout page, enter your shipping and payment details, and confirm your order. You'll receive a confirmation email with your purchase details. If you run into any difficulties or have questions along the way, just reach out and we'll be glad to help. Happy shopping!",
+      "ttft_ms": 1287,
+      "latency_ms": 1743,
+      "cost_usd": 0.004284,
+      "tokens": {
+        "input_tokens": 1382,
+        "output_tokens": 152,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 911,
+          "latency_ms": 1723,
+          "error": null,
+          "cost_usd": 0.004284
+        }
+      ],
+      "http_status": 200,
+      "request_id": "ebeb89fe-263f-493a-b600-a47697f0a61a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply confirms shopping is possible and outlines the website/app, cart, checkout and confirmation-email steps, all drawn from the references."
+      }
+    },
+    {
+      "id": 20107,
+      "question": "would it be possible to retrieve my profile access key?",
+      "intent": "recover_password",
+      "category": "ACCOUNT",
+      "flags": "BILP",
+      "ood": false,
+      "sent": "would it be possible to retrieve my profile access key?",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "recover_password",
+      "retrieval_intent": "recover_password",
+      "refused": false,
+      "answer": "\nYes, absolutely! Here's how to retrieve your profile access key:\n\n1. Go to demo-shop.example/login.\n2. Click the \"forgot access key\" option.\n3. Enter the email address associated with your profile so we can verify your identity.\n4. Check your inbox (and your spam or junk folder) for an email with instructions.\n5. Follow those instructions to retrieve or reset your access key securely.\n\nIf the email doesn't arrive or you run into any trouble, our support team is available Monday to Friday, 08:00-17:00 WIB at +62 21 5000 1234, or via Live Chat at demo-shop.example. We're happy to help you get back into your account.",
+      "ttft_ms": 1374,
+      "latency_ms": 2455,
+      "cost_usd": 0.006592,
+      "tokens": {
+        "input_tokens": 2136,
+        "output_tokens": 232,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1013,
+          "latency_ms": 2429,
+          "error": null,
+          "cost_usd": 0.006592
+        }
+      ],
+      "http_status": 200,
+      "request_id": "92c72d26-d4c9-4b1c-92cf-e8dd44fd4cee",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives correct password-recovery steps, and its URL, hours, phone number and Live Chat details all match reference 1."
+      }
+    },
+    {
+      "id": 21130,
+      "question": "notifying of issue opening user",
+      "intent": "registration_problems",
+      "category": "ACCOUNT",
+      "flags": "BKL",
+      "ood": false,
+      "sent": "notifying of issue opening user",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "registration_problems",
+      "retrieval_intent": "registration_problems",
+      "refused": false,
+      "answer": "\nThank you for letting us know about this issue, and I'm sorry for the inconvenience. To help us investigate and find the best solution, could you please share more details about the problem you're running into when trying to open your user account? For example, what happens when you try, and do you see any error message? Your feedback helps us improve our services, and we appreciate your patience.",
+      "ttft_ms": 1630,
+      "latency_ms": 2047,
+      "cost_usd": 0.003972,
+      "tokens": {
+        "input_tokens": 1376,
+        "output_tokens": 122,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1256,
+          "latency_ms": 2020,
+          "error": null,
+          "cost_usd": 0.003972
+        }
+      ],
+      "http_status": 200,
+      "request_id": "a3f8b479-d3da-485c-b7f3-50aee2b47f3a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply acknowledges the account-opening issue and asks for details, matching the references without inventing specifics."
+      }
+    },
+    {
+      "id": 21698,
+      "question": "I'm experiencing a problem with my signup",
+      "intent": "registration_problems",
+      "category": "ACCOUNT",
+      "flags": "BELQ",
+      "ood": false,
+      "sent": "I'm experiencing a problem with my signup",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "registration_problems",
+      "retrieval_intent": "registration_problems",
+      "refused": false,
+      "answer": "\nI'm sorry you're having trouble with your signup, and I understand how frustrating that can be. To help us look into it, could you tell us more about what's happening? For example, any error messages you see and the steps you've already tried. This will help us find the right solution for you. You can also report the problem through the \"Support\" or \"Contact Us\" section of our website, where our customer support team will assist you. Thank you for your patience.",
+      "ttft_ms": 1003,
+      "latency_ms": 1788,
+      "cost_usd": 0.004166,
+      "tokens": {
+        "input_tokens": 1373,
+        "output_tokens": 142,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 713,
+          "latency_ms": 1756,
+          "error": null,
+          "cost_usd": 0.004166
+        }
+      ],
+      "http_status": 200,
+      "request_id": "44738c68-8099-4761-9301-d2dd2aa8e501",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply empathizes, asks for error details, and points to the Support/Contact Us section, all grounded in the references with no invented specifics."
+      }
+    },
+    {
+      "id": 22701,
+      "question": "I do not know how to submit some feedback for a servicd",
+      "intent": "review",
+      "category": "FEEDBACK",
+      "flags": "BEZ",
+      "ood": false,
+      "sent": "I do not know how to submit some feedback for a servicd",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "review",
+      "retrieval_intent": "review",
+      "refused": false,
+      "answer": "\nThank you for wanting to share your feedback on our services! To submit it, please visit our website and go to the \"Contact Us\" page, where you'll find a form to share your thoughts and suggestions. If you run into any difficulties or have other questions, just let us know and we'll be happy to help. Your insights help us improve the customer experience, and we truly appreciate your support!",
+      "ttft_ms": 1027,
+      "latency_ms": 1755,
+      "cost_usd": 0.004032,
+      "tokens": {
+        "input_tokens": 1381,
+        "output_tokens": 127,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 719,
+          "latency_ms": 1727,
+          "error": null,
+          "cost_usd": 0.004032
+        }
+      ],
+      "http_status": 200,
+      "request_id": "b9de5b20-f1c8-42b8-9a14-005cb1d670c0",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply correctly directs the customer to the Contact Us page feedback form, which matches the references, with no invented details."
+      }
+    },
+    {
+      "id": 2329,
+      "question": "problem changing address",
+      "intent": "change_shipping_address",
+      "category": "SHIPPING",
+      "flags": "BKL",
+      "ood": false,
+      "sent": "problem changing address",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "change_shipping_address",
+      "retrieval_intent": "change_shipping_address",
+      "refused": false,
+      "answer": "\nI'm sorry you're having trouble changing your address. You can usually update it by logging into your account and going to the \"Account Settings\" or \"Profile\" section, where you'll find an option to edit your address information. If that isn't working, please tell me more about the problem, such as any error message you see, and I'll help you resolve it. You can also contact our customer support team, who can update the address for you once you provide the correct details.",
+      "ttft_ms": 1441,
+      "latency_ms": 1978,
+      "cost_usd": 0.003584,
+      "tokens": {
+        "input_tokens": 1077,
+        "output_tokens": 143,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1073,
+          "latency_ms": 1942,
+          "error": null,
+          "cost_usd": 0.003584
+        }
+      ],
+      "http_status": 200,
+      "request_id": "8f2da760-c83c-440d-9d9b-a2d351c37e46",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply addresses the address-change problem using steps from the references, adds no invented details or leftover placeholders, and answering was correct."
+      }
+    },
+    {
+      "id": 23714,
+      "question": "where to submit a new delivery address?",
+      "intent": "set_up_shipping_address",
+      "category": "SHIPPING",
+      "flags": "BIL",
+      "ood": false,
+      "sent": "where to submit a new delivery address?",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "set_up_shipping_address",
+      "retrieval_intent": "set_up_shipping_address",
+      "refused": false,
+      "answer": "\nYou can submit a new delivery address from your account. Here's how:\n\n1. Log in to your account.\n2. Go to the 'Account' or 'Profile' section.\n3. Look for 'Shipping Addresses' or a similar option.\n4. Choose 'Add a New Address'.\n5. Fill in your name, full address, contact number and any other required details.\n6. Double-check the information, then save.\n\nIf anything looks different on your account or you run into trouble, let me know what you're seeing and I'll help. You can also reach our support team Monday to Friday, 08:00-17:00 WIB at +62 21 5000 1234 or via Live Chat at demo-shop.example.",
+      "ttft_ms": 1320,
+      "latency_ms": 2328,
+      "cost_usd": 0.006212,
+      "tokens": {
+        "input_tokens": 1941,
+        "output_tokens": 233,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 922,
+          "latency_ms": 2298,
+          "error": null,
+          "cost_usd": 0.006212
+        }
+      ],
+      "http_status": 200,
+      "request_id": "50f65fe9-3a1f-4195-a51b-27fb58bdec0d",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives clear steps for adding a new delivery address, and its contact details, hours and URL all match reference 1."
+      }
+    },
+    {
+      "id": 24019,
+      "question": "help using the {{Account Category}} account",
+      "intent": "switch_account",
+      "category": "ACCOUNT",
+      "flags": "B",
+      "ood": false,
+      "sent": "help using the Gold account",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "switch_account",
+      "retrieval_intent": "switch_account",
+      "refused": false,
+      "answer": "\nHappy to help you use your Gold account! Here's how to get started:\n\n1. Log in to our platform.\n2. Go to your account settings or profile section.\n3. Look for the option labeled \"Switch Account Type\" or \"Upgrade Account.\"\n4. Select the Gold (Premium) account from the available options.\n5. Follow the on-screen prompts to finish the process.\n\nOnce that's done, you'll be able to use the features and benefits that come with the Gold account. If you run into any difficulties or have other questions, just let me know and I'll be glad to help.",
+      "ttft_ms": 1265,
+      "latency_ms": 2031,
+      "cost_usd": 0.005352,
+      "tokens": {
+        "input_tokens": 1726,
+        "output_tokens": 190,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 888,
+          "latency_ms": 2001,
+          "error": null,
+          "cost_usd": 0.005352
+        }
+      ],
+      "http_status": 200,
+      "request_id": "6ebe31c5-0aa5-48a3-91b6-e6bdc2f0295a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives the switch/upgrade steps from references 1 and 4, adapted to Gold/Premium, with no invented specifics."
+      }
+    },
+    {
+      "id": 25411,
+      "question": "I have got to see the ETA of order {{Order Number}}, I need help",
+      "intent": "track_order",
+      "category": "ORDER",
+      "flags": "BCL",
+      "ood": false,
+      "sent": "I have got to see the ETA of order ORD-10482, I need help",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "track_order",
+      "retrieval_intent": "track_order",
+      "refused": false,
+      "answer": "\nThanks for reaching out! I understand you'd like to check the estimated time of arrival (ETA) for order ORD-10482. You can find it by logging in to your account on our website and opening the order details or order tracking section, where the expected delivery date is shown. If you still can't see it, our customer support team can help. They're available Monday to Friday, 08:00-17:00 WIB at +62 21 5000 1234, or through Live Chat at demo-shop.example/chat. Please let me know if there's anything else I can help you with.",
+      "ttft_ms": 1309,
+      "latency_ms": 2044,
+      "cost_usd": 0.00475,
+      "tokens": {
+        "input_tokens": 1465,
+        "output_tokens": 182,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 927,
+          "latency_ms": 2022,
+          "error": null,
+          "cost_usd": 0.00475
+        }
+      ],
+      "http_status": 200,
+      "request_id": "26476cac-6154-497c-82e0-3cbe875fb14a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "Reply directs the customer to order tracking/details and support using only contact details, hours and URLs found in the references."
+      }
+    },
+    {
+      "id": 25893,
+      "question": "I'm waiting for an rebate of {{Refund Amount}} dollars",
+      "intent": "track_refund",
+      "category": "REFUND",
+      "flags": "BLQZ",
+      "ood": false,
+      "sent": "I'm waiting for an rebate of 350000 dollars",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "track_refund",
+      "retrieval_intent": "track_refund",
+      "refused": false,
+      "answer": "\nI understand how important it is to know where your rebate stands, and I appreciate your patience. I'd like to check the current status for you. To do that accurately, could you please share your order number and the email address linked to your account, along with any other details related to the refund? With that information, I can look into the processing status and give you an update. If you've already received any communication from our team about this rebate, please let me know as well, as it will help me assist you more effectively. Thank you for waiting.",
+      "ttft_ms": 787,
+      "latency_ms": 2025,
+      "cost_usd": 0.004392,
+      "tokens": {
+        "input_tokens": 1431,
+        "output_tokens": 153,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 710,
+          "latency_ms": 1985,
+          "error": null,
+          "cost_usd": 0.004392
+        }
+      ],
+      "http_status": 200,
+      "request_id": "9c3df21e-0b9e-4c64-bcf1-f19aaa258e4a",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply acknowledges the refund wait and asks for the order number and email to check status, without confirming the amount or inventing any details."
+      }
+    },
+    {
+      "id": 2684,
+      "question": "there are troubles modifying my address",
+      "intent": "change_shipping_address",
+      "category": "SHIPPING",
+      "flags": "BLM",
+      "ood": false,
+      "sent": "there are troubles modifying my address",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "change_shipping_address",
+      "retrieval_intent": "change_shipping_address",
+      "refused": false,
+      "answer": "\nI'm sorry to hear you're having trouble modifying your address. Could you tell me more about what's happening? For example, are you seeing an error message, or is the new address not saving? That will help me assist you better.\n\nIn the meantime, please double-check that all required fields (address lines, city, state, postal code and country) are filled in correctly, and try clearing your browser cache before submitting again. If the problem continues, our customer service team can update your delivery address for you so your package is sent to the right location.",
+      "ttft_ms": 1373,
+      "latency_ms": 2152,
+      "cost_usd": 0.004326,
+      "tokens": {
+        "input_tokens": 1318,
+        "output_tokens": 169,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 987,
+          "latency_ms": 2120,
+          "error": null,
+          "cost_usd": 0.004326
+        }
+      ],
+      "http_status": 200,
+      "request_id": "3393f6bd-86ec-40e7-9b24-77a193ccc73e",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply acknowledges the address-modification trouble, asks for details, and gives troubleshooting steps and an escalation path, all drawn from the references with no invented specifics."
+      }
+    },
+    {
+      "id": 3655,
+      "question": "I do not know what I need to do to see the early exit charge",
+      "intent": "check_cancellation_fee",
+      "category": "CANCEL",
+      "flags": "BEL",
+      "ood": false,
+      "sent": "I do not know what I need to do to see the early exit charge",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "check_cancellation_fee",
+      "retrieval_intent": "check_cancellation_fee",
+      "refused": false,
+      "answer": "\nNo problem, I can point you in the right direction. Log in to your account and go to your account dashboard. Look for a section such as \"Account Details,\" \"Early Termination,\" or \"Cancellation Fee,\" and click on it to see the details of any early exit charge. You can also check the details in your contract. If you can't find it or need more clarification, please reach out to our customer support team and they'll be happy to help.",
+      "ttft_ms": 901,
+      "latency_ms": 1888,
+      "cost_usd": 0.0036,
+      "tokens": {
+        "input_tokens": 1095,
+        "output_tokens": 141,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 803,
+          "latency_ms": 1862,
+          "error": null,
+          "cost_usd": 0.0036
+        }
+      ],
+      "http_status": 200,
+      "request_id": "eeaa8ad9-cb5c-4a24-9d97-cd460ab71921",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives clear steps to view the early exit charge, and every section name and suggestion comes from the references."
+      }
+    },
+    {
+      "id": 4348,
+      "question": "i have got to see the damn bills from {{Person Name}}",
+      "intent": "check_invoice",
+      "category": "INVOICE",
+      "flags": "BLMQW",
+      "ood": false,
+      "sent": "i have got to see the damn bills from Sam Lee",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "check_invoice",
+      "retrieval_intent": "check_invoice",
+      "refused": false,
+      "answer": "\nI understand you need to view the bills associated with Sam Lee. To help you efficiently, could you please share the date range or any other details about the bills you're looking for? That will let me guide you to the right information. I'm here to support you every step of the way.",
+      "ttft_ms": 1012,
+      "latency_ms": 1508,
+      "cost_usd": 0.003614,
+      "tokens": {
+        "input_tokens": 1357,
+        "output_tokens": 90,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 716,
+          "latency_ms": 1486,
+          "error": null,
+          "cost_usd": 0.003614
+        }
+      ],
+      "http_status": 200,
+      "request_id": "8113b920-45c4-46bc-a0a5-422e85a2a4d1",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply closely follows the check_invoice references, asks for a date range or other details, and invents no specifics."
+      }
+    },
+    {
+      "id": 5180,
+      "question": "want assistance listing the available payment options",
+      "intent": "check_payment_methods",
+      "category": "PAYMENT",
+      "flags": "BLQ",
+      "ood": false,
+      "sent": "want assistance listing the available payment options",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "check_payment_methods",
+      "retrieval_intent": "check_payment_methods",
+      "refused": false,
+      "answer": "\nHappy to help! Here are the payment options we accept:\n\n- Credit/Debit Card: Visa, Mastercard, and American Express\n- PayPal: a secure, widely used online payment platform\n- Bank Transfer: pay directly from your bank account\n- Digital Wallets: Apple Pay and Google Pay\n\nIf you have questions about any of these methods or need help at checkout, just let me know.",
+      "ttft_ms": 1352,
+      "latency_ms": 1829,
+      "cost_usd": 0.00589,
+      "tokens": {
+        "input_tokens": 2215,
+        "output_tokens": 146,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 981,
+          "latency_ms": 1796,
+          "error": null,
+          "cost_usd": 0.00589
+        }
+      ],
+      "http_status": 200,
+      "request_id": "0e51d72c-1e1d-4da6-b4cf-23c5a2232e9c",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply lists the payment methods that appear consistently across the references (cards, PayPal, bank transfer, Apple/Google Pay) and adds no invented details."
+      }
+    },
+    {
+      "id": 579,
+      "question": "question about canceling a bloody purchase",
+      "intent": "cancel_order",
+      "category": "ORDER",
+      "flags": "BLW",
+      "ood": false,
+      "sent": "question about canceling a bloody purchase",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "cancel_order",
+      "retrieval_intent": "cancel_order",
+      "refused": false,
+      "answer": "\nI understand you want to cancel a purchase, and I'm sorry for any frustration. Here's how:\n\n1. Log in to your Demo Shop account.\n2. Go to the 'Cancel Order' section.\n3. Find the order you want to cancel and open its details.\n4. Select 'Cancel Order' and follow the prompts to confirm.\n\nIf you run into any trouble, our support team is available Monday to Friday, 08:00-17:00 WIB at +62 21 5000 1234, or through Live Chat on demo-shop.example. If you have a specific question about canceling, tell me what it is and I'll gladly help.",
+      "ttft_ms": 1277,
+      "latency_ms": 2400,
+      "cost_usd": 0.006152,
+      "tokens": {
+        "input_tokens": 1996,
+        "output_tokens": 216,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 919,
+          "latency_ms": 2344,
+          "error": null,
+          "cost_usd": 0.006152
+        }
+      ],
+      "http_status": 200,
+      "request_id": "5e75d591-b60e-455d-8730-82151e157bd5",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives the reference cancellation steps and the correct contact details, hours and URL, acknowledges the frustration, and invents nothing."
+      }
+    },
+    {
+      "id": 6414,
+      "question": "help seeing in what cases can I ask for reimbursements",
+      "intent": "check_refund_policy",
+      "category": "REFUND",
+      "flags": "BL",
+      "ood": false,
+      "sent": "help seeing in what cases can I ask for reimbursements",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "check_refund_policy",
+      "retrieval_intent": "check_refund_policy",
+      "refused": false,
+      "answer": "\nHappy to help! Here are the most common cases in which you can ask for a reimbursement:\n\n1. Defective product or service, or one that doesn't match its description.\n2. Cancelling your purchase within the grace period.\n3. Unauthorized or unrecognized charges on your account.\n4. Duplicate charges for the same item.\n5. Non-delivery of your order within the expected time frame.\n6. Cancelled events that aren't rescheduled.\n\nThese are general guidelines, and specific terms may vary. If you have a particular order in mind, send me your order number and I'll help you further.",
+      "ttft_ms": 1333,
+      "latency_ms": 2276,
+      "cost_usd": 0.008844,
+      "tokens": {
+        "input_tokens": 3412,
+        "output_tokens": 202,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 950,
+          "latency_ms": 2253,
+          "error": null,
+          "cost_usd": 0.008844
+        }
+      ],
+      "http_status": 200,
+      "request_id": "905a7a72-49d9-4b98-8823-f825e325a081",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply concisely lists the refund cases from the references, adds no invented terms or timeframes, and correctly answers an in-scope question."
+      }
+    },
+    {
+      "id": 7012,
+      "question": "help me to make a customer reclamation against your company",
+      "intent": "complaint",
+      "category": "FEEDBACK",
+      "flags": "BL",
+      "ood": false,
+      "sent": "help me to make a customer reclamation against your company",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "complaint",
+      "retrieval_intent": "complaint",
+      "refused": false,
+      "answer": "\nI'm sorry to hear you need to make a reclamation against our company, and I'm glad to help. Your feedback is important to us, and we take these matters seriously. To get started, could you please tell me what happened? Please share the details of your complaint, along with any supporting information you have. That will allow us to address your concerns properly and work toward a fair resolution. Thank you for bringing this to our attention, and I apologize for any inconvenience caused.",
+      "ttft_ms": 1387,
+      "latency_ms": 1978,
+      "cost_usd": 0.004066,
+      "tokens": {
+        "input_tokens": 1268,
+        "output_tokens": 153,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1013,
+          "latency_ms": 1953,
+          "error": null,
+          "cost_usd": 0.004066
+        }
+      ],
+      "http_status": 200,
+      "request_id": "24dc6e08-2e57-4655-8f7f-82829b92de59",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply empathetically offers help with the reclamation and asks for details, matching the references without inventing any specifics."
+      }
+    },
+    {
+      "id": 8790,
+      "question": "I want help tocall customer assistance",
+      "intent": "contact_customer_service",
+      "category": "CONTACT",
+      "flags": "BLZ",
+      "ood": false,
+      "sent": "I want help tocall customer assistance",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "contact_customer_service",
+      "retrieval_intent": "contact_customer_service",
+      "refused": false,
+      "answer": "\nHappy to help you get in touch with our customer support team! You can call us at +62 21 5000 1234, Monday to Friday, 08:00–17:00 WIB. If you'd prefer not to call, you can also use the Live Chat on our website at demo-shop.example. Our team will be glad to assist with any questions or concerns you have. Is there anything else I can help you with?",
+      "ttft_ms": 1371,
+      "latency_ms": 1824,
+      "cost_usd": 0.004148,
+      "tokens": {
+        "input_tokens": 1384,
+        "output_tokens": 138,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 1011,
+          "latency_ms": 1791,
+          "error": null,
+          "cost_usd": 0.004148
+        }
+      ],
+      "http_status": 200,
+      "request_id": "b21189a3-178b-4473-ae5f-607cbbee12a5",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply gives the phone number, hours and Live Chat exactly as in the references, and answering was correct for this in-scope request."
+      }
+    },
+    {
+      "id": 9270,
+      "question": "I don't know how to talk with someone",
+      "intent": "contact_human_agent",
+      "category": "CONTACT",
+      "flags": "BL",
+      "ood": false,
+      "sent": "I don't know how to talk with someone",
+      "outcome": "ok",
+      "backend": "sonnet",
+      "intent_pred": "contact_human_agent",
+      "retrieval_intent": "contact_human_agent",
+      "refused": false,
+      "answer": "\nThanks for reaching out! You can talk to someone by starting a live chat on our website or by calling our customer service hotline. Our friendly agents will be happy to help with your concerns. If you'd like, tell me briefly what you need help with, and I can make sure you're connected with the right person. We're here to support you every step of the way!",
+      "ttft_ms": 1208,
+      "latency_ms": 1500,
+      "cost_usd": 0.0039,
+      "tokens": {
+        "input_tokens": 1345,
+        "output_tokens": 121,
+        "estimated": false
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 828,
+          "latency_ms": 1474,
+          "error": null,
+          "cost_usd": 0.0039
+        }
+      ],
+      "http_status": 200,
+      "request_id": "4243cb90-fc9c-41f4-a4d8-5ccb433ae2b2",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply correctly points the customer to the live chat and hotline options from reference 3 without inventing contact details."
+      }
+    },
+    {
+      "id": "ood-e1",
+      "question": "what's the weather going to be like in jakarta tomorrow?",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "what's the weather going to be like in jakarta tomorrow?",
+      "outcome": "refused_out_of_scope",
+      "backend": "sonnet",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": "delivery_period",
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 970,
+      "latency_ms": 980,
+      "cost_usd": 0.00264,
+      "tokens": {
+        "input_tokens": 1280,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 918,
+          "latency_ms": 950,
+          "error": null,
+          "cost_usd": 0.00264
+        }
+      ],
+      "http_status": 200,
+      "request_id": "d2b1d6fe-9e80-4aa9-b5d4-3a1903123788",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The reply briefly declines the out-of-scope weather question and lists only generic store-support topics, with no invented details."
+      }
+    },
+    {
+      "id": "ood-e2",
+      "question": "can you write me a python function that reverses a linked list",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "can you write me a python function that reverses a linked list",
+      "outcome": "refused_out_of_scope",
+      "backend": "sonnet",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": "review",
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 1090,
+      "latency_ms": 1114,
+      "cost_usd": 0.003432,
+      "tokens": {
+        "input_tokens": 1676,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 643,
+          "latency_ms": 1074,
+          "error": null,
+          "cost_usd": 0.003432
+        }
+      ],
+      "http_status": 200,
+      "request_id": "d2af3f3b-4d98-40f5-968c-9a99fdfb6a6e",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant correctly and briefly declined the out-of-scope coding request, listed its support areas in generic terms, and invented no specific facts."
+      }
+    },
+    {
+      "id": "ood-e3",
+      "question": "who won the champions league final in 2019",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "who won the champions league final in 2019",
+      "outcome": "refused_low_confidence",
+      "backend": null,
+      "intent_pred": null,
+      "retrieval_intent": null,
+      "refused": true,
+      "answer": "I'm not confident I can answer that correctly. I can help with orders, shipping, refunds, invoices, payments and your account. Could you rephrase, or would you like to contact a human agent?",
+      "ttft_ms": 7,
+      "latency_ms": 13,
+      "cost_usd": 0,
+      "tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated": false
+      },
+      "attempts": [],
+      "http_status": 200,
+      "request_id": "9f12cd1f-e86e-46fd-9d12-c9b99a079dd5",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant correctly declines the off-topic football question without answering it, lists generic support areas, and invents no facts."
+      }
+    },
+    {
+      "id": "ood-e4",
+      "question": "recommend a good recipe for chicken rendang",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "recommend a good recipe for chicken rendang",
+      "outcome": "refused_low_confidence",
+      "backend": null,
+      "intent_pred": null,
+      "retrieval_intent": null,
+      "refused": true,
+      "answer": "I'm not confident I can answer that correctly. I can help with orders, shipping, refunds, invoices, payments and your account. Could you rephrase, or would you like to contact a human agent?",
+      "ttft_ms": 14,
+      "latency_ms": 22,
+      "cost_usd": 0,
+      "tokens": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "estimated": false
+      },
+      "attempts": [],
+      "http_status": 200,
+      "request_id": "a60d4533-9be1-4729-8f78-e6056ab56d02",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant correctly declines the off-topic recipe request without inventing details, though its 'not confident' wording is slightly less clear than saying the request is outside its scope."
+      }
+    },
+    {
+      "id": "ood-e5",
+      "question": "should i buy bitcoin or gold this year",
+      "intent": "out_of_scope",
+      "ood": true,
+      "sent": "should i buy bitcoin or gold this year",
+      "outcome": "refused_out_of_scope",
+      "backend": "sonnet",
+      "intent_pred": "out_of_scope",
+      "retrieval_intent": "place_order",
+      "refused": true,
+      "answer": "I can only help with Demo Shop orders, shipping, refunds, invoices, payments and accounts.",
+      "ttft_ms": 1015,
+      "latency_ms": 1041,
+      "cost_usd": 0.0031,
+      "tokens": {
+        "input_tokens": 1510,
+        "output_tokens": 8,
+        "estimated": true
+      },
+      "attempts": [
+        {
+          "backend": "sonnet",
+          "outcome": "ok",
+          "ttft_ms": 967,
+          "latency_ms": 1001,
+          "error": null,
+          "cost_usd": 0.0031
+        }
+      ],
+      "http_status": 200,
+      "request_id": "125a33d4-cb0d-4735-80f0-d78f2acbbbe8",
+      "judge": {
+        "addresses_request": true,
+        "no_invented_facts": true,
+        "appropriate": true,
+        "note": "The assistant correctly declined to give investment advice and stated its scope without inventing any details."
+      }
+    }
+  ]
+}

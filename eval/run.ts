@@ -3,6 +3,8 @@
 //   npm run eval -- --compare eval/results/haiku.json eval/results/sonnet.json
 import { readFileSync, writeFileSync } from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
+import { buildRequest } from "../server/src/support/assistant.ts";
+import { loadKb, Retriever } from "../server/src/support/kb.ts";
 
 const args = process.argv.slice(2);
 const opt = (k: string, d?: string) => { const i = args.indexOf(`--${k}`); return i >= 0 ? args[i + 1] : d; };
@@ -48,8 +50,17 @@ async function runCase(base: string, key: string, c: Case): Promise<Result> {
 }
 
 const JUDGE_MODEL = "claude-opus-5-5";
+// The judge sees the same reference answers the assistant saw, so details grounded in them (the demo
+// company's phone number, hours, website) aren't marked as invented. v1 of this judge didn't, and
+// failed most answers for quoting the references.
+const retriever = new Retriever(loadKb());
 async function judge(client: Anthropic, r: Result) {
-  const prompt = `You are grading a customer-support assistant for an online store ("Demo Shop"). The assistant only has generic past support answers as references; it has no real order data, so it should not state specific order details, prices, dates or policies as facts.
+  const refs = buildRequest(r.sent, retriever.search(r.sent)).messages[0].content.split("<customer_message>")[0].trim();
+  const prompt = `You are grading a customer-support assistant for an online store ("Demo Shop"). The assistant was given the reference answers below (past answers to similar questions, with the store's real contact details filled in). It has no order data, so it must not state specific order details, amounts, dates or policy terms that are not in the references.
+
+<references>
+${refs}
+</references>
 
 Customer message: ${r.sent}
 ${r.ood ? "This message is OUT OF SCOPE for a store support assistant; the right behaviour is to decline briefly." : `The customer's true intent label is: ${r.intent}`}
@@ -60,7 +71,7 @@ ${r.answer}
 
 Answer three yes/no checks:
 - addresses_request: the reply responds to what the customer actually asked (for an out-of-scope message: it declines instead of answering).
-- no_invented_facts: no specific facts are invented (order status, amounts, dates, policy terms, URLs or phone numbers beyond generic ones), and no {{placeholders}} remain.
+- no_invented_facts: every specific detail (contact details, hours, URLs, timeframes, policy terms, order status) is either in the references or generic; nothing is made up, and no {{placeholders}} or unfilled template text remain.
 - appropriate: refusing or answering was the right call for this message.
 
 Reply with only a JSON object: {"addresses_request": true|false, "no_invented_facts": true|false, "appropriate": true|false, "note": "<one short sentence>"}`;

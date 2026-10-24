@@ -68,6 +68,18 @@ The tests need the local Postgres. They use the database `mir_test`, which you c
 npm run typecheck
 ```
 
+### Browser E2E (records a video)
+
+```bash
+npx playwright install chromium
+```
+
+```bash
+npm run e2e
+```
+
+It runs against the real server and models, so it needs `.env` with `ANTHROPIC_API_KEY` and costs a few cents. The video lands in `test-results/`.
+
 ## Eval
 
 ```bash

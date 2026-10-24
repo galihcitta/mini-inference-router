@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "seed": "tsx --env-file-if-exists=.env scripts/seed.ts",
-    "eval": "tsx --env-file-if-exists=.env eval/run.ts"
+    "eval": "tsx --env-file-if-exists=.env eval/run.ts",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.3.0",
@@ -24,6 +25,7 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.1",
     "@types/node": "22.19.0",
     "@types/pg": "8.23.1",
     "typescript": "5.9.3",

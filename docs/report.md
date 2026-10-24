@@ -67,9 +67,37 @@ The challenge allows "a local model, a provider free tier, or both". Paying for 
 ### Results
 
 <!-- RESULTS -->
-Pending: the real-model runs need the Anthropic key. The retrieval-only baseline (the `mock-only` tenant) scored 28/30 = 93.3% intent accuracy (95% CI 78.7–98.2%), with 0 false refusals and 2 of 5 out-of-domain questions refused before any model call.
+Run on 2026-10-24 against the local service with real models. Each configuration answered 30 in-domain and 5 out-of-domain cases. Raw results are in `eval/results/`.
 
-With 30 cases, a gap of one or two cases between configurations is noise. A winner needs a lopsided split of discordant pairs.
+| Metric | Retrieval only (mock) | Haiku 5.5 | Sonnet 5.5 |
+|---|---|---|---|
+| Intent accuracy, in-domain (95% CI) | 93.3% (78.7–98.2) | 96.7% (83.3–99.4) | 96.7% (83.3–99.4) |
+| Answer quality (judge, all 3 checks) | not judged | 97.1% (34/35) | 97.1% (34/35) |
+| Out-of-domain refused | 2/5 | 5/5 | 5/5 |
+| False refusals, in-domain | 0/30 | 1/30 | 1/30 |
+| Time to first token p50 / p95 | 210 / 286 ms | 873 / 1,794 ms | 1,287 / 1,504 ms |
+| Total latency p50 / p95 | 1,098 / 2,149 ms | 1,331 / 1,856 ms | 1,978 / 2,455 ms |
+| Cost per request | $0 | $0.00021 | $0.00422 |
+| Cost for the 35-case run | $0 | $0.0072 | $0.1477 |
+
+What the numbers say:
+- **Haiku and Sonnet are indistinguishable on this task.** They have zero discordant intent pairs, and the same single judge fail, which is the same case. Sonnet costs 20× more and adds about 400 ms to the first token. That supports the routing order: Haiku first, with Sonnet kept for availability, not quality.
+- **Both models beat retrieval alone by one case: 29/30 against 28/30.** At n = 30 that is inside the noise; the intervals overlap almost entirely. Where the model clearly adds value is refusal: it catches all 5 out-of-domain questions, while the retrieval threshold catches 2 before any model call.
+- **The one false refusal** is "deleting Business accoumt". The model labelled it correctly as `delete_account`, but the typo broke retrieval, so only 1 of 5 retrieved entries supported that intent, and the low-confidence rule refused it. That's the cost of refusing whenever retrieval and the model disagree. I kept the rule: on these 30 cases it costs 1 false refusal, and it guards against the model being confidently wrong.
+
+**How the judge was checked.** The first version of the judge didn't see the reference answers the assistant was given. It failed about 30% of answers for "inventing" the demo store's phone number and hours, which actually came from those references. I changed the judge to see the same references (`eval/run.ts`) and reran both models. I then read 10 cases myself, including both remaining fails, and agreed with the judge on all 10. The same pass also turned up one real defect, which I fixed before the rerun: an unknown template slot leaked as plain text ("date range business days"). That rerun produced the numbers above. These labels are mine; Galih hasn't reviewed them.
+
+**End-to-end check.** `npm run e2e` runs a Playwright walkthrough of the console against the real server, Postgres and both models, and records a video. It covers:
+- the normal path;
+- both kinds of refusal;
+- fallback from Haiku to Sonnet;
+- the mock serving as last resort;
+- the raw `/v1/chat` endpoint;
+- quota failing closed;
+- an unknown key;
+- the stored attempt trail in the usage view.
+
+All 9 steps pass.
 
 ## Trade-offs accepted
 

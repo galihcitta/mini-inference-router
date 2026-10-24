@@ -3,3 +3,6 @@ web/node_modules/
 web/dist/
 .env
 eval/results/*.raw.json
+test-results/
+playwright-report/
+e2e/artifacts/

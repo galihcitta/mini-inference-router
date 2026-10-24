@@ -1,6 +1,7 @@
 import { setTimeout as sleep } from "node:timers/promises";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import type { RouteEntry } from "../src/config.ts";
+import { costMicros, type RouteEntry } from "../src/config.ts";
+import { buildRequest } from "../src/support/assistant.ts";
 import { migrate, pool } from "../src/db/pool.ts";
 import { hashKey, newApiKey } from "../src/gateway/auth.ts";
 import { breaker } from "../src/gateway/breaker.ts";
@@ -11,7 +12,8 @@ import { startRequest } from "../src/gateway/metering.ts";
 import { reserve } from "../src/gateway/quota.ts";
 import { loadKb, Retriever } from "../src/support/kb.ts";
 
-const app = buildApp(new Retriever(loadKb()));
+const retriever = new Retriever(loadKb());
+const app = buildApp(retriever);
 const Q = "I want to cancel my order, how do I do that?";
 
 type Script = (signal: AbortSignal) => AsyncGenerator<Chunk>;
@@ -92,6 +94,16 @@ describe("quota", () => {
     expect(res.statusCode).toBe(429);
     expect(res.json()).toMatchObject({ error: "quota_exceeded", remaining_usd: 0.0001 });
     expect(calls).toEqual([]);
+  });
+  it("doesn't let an exhausted tenant fall through to the free mock", async () => {
+    // Quota fits exactly one Haiku reservation; the answer costs 125, so the second can't reserve
+    // Haiku again and must be refused, not served by the mock.
+    const req = buildRequest(Q, retriever.search(Q));
+    const haikuReservation = costMicros("haiku", Math.ceil((req.system!.length + req.messages[0].content.length) / 3), req.maxTokens);
+    const key = await tenant("t1", [H, S, M], haikuReservation + 100);
+    expect((await post(key)).done.backend).toBe("haiku");
+    const second = await post(key);
+    expect(second.res.statusCode).toBe(429);
   });
   it("reservations are atomic: 25 concurrent reserves of 100 against a 1,000 quota admit exactly 10", async () => {
     await tenant("t1", [H], 1000);

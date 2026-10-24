@@ -1,6 +1,6 @@
 {
   "summary": {
-    "name": "mock-smoke",
+    "name": "retrieval-only",
     "n_in_domain": 30,
     "n_ood": 5,
     "intent_accuracy": 0.9333333333333333,
@@ -13,10 +13,10 @@
     "ood_refusal_rate": 0.4,
     "quality_pass_rate": null,
     "judged": 0,
-    "ttft_p50": 214,
-    "ttft_p95": 244,
+    "ttft_p50": 210,
+    "ttft_p95": 286,
     "latency_p50": 1098,
-    "latency_p95": 2186,
+    "latency_p95": 2149,
     "cost_total_usd": 0,
     "cost_per_request_usd": 0,
     "outcomes": {
@@ -40,8 +40,8 @@
       "retrieval_intent": "create_account",
       "refused": false,
       "answer": "Of course! I'm delighted to provide you with the information you need to create a Premium account. Our Premium account offers a range of premium features and benefits that will enhance your experience with our platform. To get started, simply visit our website and navigate to the account creation page. There, you'll be prompted to enter your personal details, such as your name, email address, and preferred username. Once you've completed the necessary fields, you'll have the option to select the Premium account option and proceed further. If you encounter any difficulties during the process, don't hesitate to reach out to our customer support team, available Monday to Friday, 08:00–17:00 WIB, who will be more than happy to assist you. We truly value your interest in our Premium accounts, and we're excited for you to enjoy all the exclusive features they have to offer.",
-      "ttft_ms": 214,
-      "latency_ms": 1687,
+      "ttft_ms": 211,
+      "latency_ms": 1677,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1290,
@@ -52,14 +52,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 1661,
+          "ttft_ms": 151,
+          "latency_ms": 1646,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "5610b501-0bd9-46c7-80a4-7c4ab71c280c"
+      "request_id": "766bcb73-13a6-459a-9420-a864e75c9534"
     },
     {
       "id": 11087,
@@ -75,8 +75,8 @@
       "retrieval_intent": "change_order",
       "refused": false,
       "answer": "Thank you for contacting to us for assistance in deleting items from your order with the number your order number. I understand that you want to make modifications to your order, and I'm here to help. To proceed with deleting the items, could you please provide me with the specific details of the items you want to remove? This will enable me to guide you through the process accurately and ensure that your order matches your preferences. Your satisfaction is our top priority, and we appreciate your patience and cooperation in resolving this matter.",
-      "ttft_ms": 198,
-      "latency_ms": 1145,
+      "ttft_ms": 202,
+      "latency_ms": 1107,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1095,
@@ -87,14 +87,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 152,
-          "latency_ms": 1116,
+          "ttft_ms": 154,
+          "latency_ms": 1095,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "ec5279b7-4fb2-4f9b-9b0e-2ae4180a33f0"
+      "request_id": "dd8aa6bb-524b-4145-80e1-63c81ff51a2a"
     },
     {
       "id": 11268,
@@ -110,8 +110,8 @@
       "retrieval_intent": "delete_account",
       "refused": false,
       "answer": "Thank you for getting in touch regarding the closure of your Standard account. I understand that this is an important decision for you, and I'm here to assist you throughout the process. To ensure a smooth account closure, please provide me with more details about your request. This will help me guide you through the necessary steps involved in closing your Standard account.",
-      "ttft_ms": 218,
-      "latency_ms": 863,
+      "ttft_ms": 208,
+      "latency_ms": 860,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1073,
@@ -123,13 +123,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 833,
+          "latency_ms": 839,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "19a1bb74-fee4-4958-b44e-94d7b68919c0"
+      "request_id": "095801db-fb9e-4ee0-9fcd-2bead2ddb4eb"
     },
     {
       "id": 12724,
@@ -145,8 +145,8 @@
       "retrieval_intent": "delivery_options",
       "refused": false,
       "answer": "I'm happy to help! Let me provide you with a comprehensive overview of the available options for shipment. We offer a range of convenient shipping methods to cater to your specific needs:\n\n1. Standard Shipping: This is our most economical option, usually taking date range business days for delivery.\n2. Expedited Shipping: If you're in a hurry to receive your items, this option ensures delivery within date range business days.\n3. Express Shipping: For even faster delivery, we offer express shipping which guarantees date range business day delivery.\n4. International Shipping: If you need to ship your items internationally, we offer competitive rates and reliable service.\n\nThese options may vary depending on your location and the items you're ordering. To get specific details or to place an order using any of these shipping options, feel free to reach out to our customer service team who will be more than happy to assist you.",
-      "ttft_ms": 221,
-      "latency_ms": 1827,
+      "ttft_ms": 216,
+      "latency_ms": 1762,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1686,
@@ -157,14 +157,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 152,
-          "latency_ms": 1803,
+          "ttft_ms": 151,
+          "latency_ms": 1741,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "a5d1dfdd-c662-42ba-b7c9-1620bdca747e"
+      "request_id": "a353cfc3-9e85-45ec-b065-026144344f42"
     },
     {
       "id": 13734,
@@ -180,8 +180,8 @@
       "retrieval_intent": "delivery_period",
       "refused": false,
       "answer": "\nWe understand your desire to track the progress of your package and determine its estimated arrival time. To check the delivery status and estimated timeline, you can visit our website and log into your account. Navigate to the 'Order History' section, where you will find detailed information about your parcel's whereabouts and the expected delivery date. If you have any further questions or need additional assistance, our customer support team will be more than happy to help you.",
-      "ttft_ms": 220,
-      "latency_ms": 1063,
+      "ttft_ms": 212,
+      "latency_ms": 1006,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 970,
@@ -192,14 +192,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 151,
-          "latency_ms": 1020,
+          "ttft_ms": 152,
+          "latency_ms": 986,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "473c8770-c42a-4de4-9fc6-f814c2712674"
+      "request_id": "f4e5258e-d03f-44e0-a87a-21435295c75f"
     },
     {
       "id": 14822,
@@ -215,8 +215,8 @@
       "retrieval_intent": "edit_account",
       "refused": false,
       "answer": "How wonderful it is to see your commitment to maintaining accurate and up-to-date personal information! Rest assured, we are here to assist you with editing your personal information. It's essential to safeguard your privacy and security while making these changes. To proceed, please log in to your account on our secure portal or reach out to our dedicated customer support team for personalized assistance. They will guide you through the process and ensure your personal information is updated correctly. How comfortable are you with navigating our portal? We're here to support you every step of the way.",
-      "ttft_ms": 202,
-      "latency_ms": 1252,
+      "ttft_ms": 197,
+      "latency_ms": 1264,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1142,
@@ -228,13 +228,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 1235,
+          "latency_ms": 1211,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "adcbb57d-617b-4ead-9132-b3ee158634d4"
+      "request_id": "b6cf11eb-e96f-49d8-b1a3-296689d93d3f"
     },
     {
       "id": 15299,
@@ -250,8 +250,8 @@
       "retrieval_intent": "check_invoice",
       "refused": false,
       "answer": "I understand your need to check the details of bill #your invoice number. Let's work together to find the information you're looking for. Could you please provide me with some additional details, such as the date range or any specific billing period? This will help me narrow down the search and provide you with accurate information.",
-      "ttft_ms": 197,
-      "latency_ms": 823,
+      "ttft_ms": 196,
+      "latency_ms": 808,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 919,
@@ -262,14 +262,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 780,
+          "ttft_ms": 151,
+          "latency_ms": 771,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "3ab410c0-0333-4a35-88ae-8c19f57041c3"
+      "request_id": "93d43b64-5608-42ea-9155-c32d7dbb7927"
     },
     {
       "id": 16061,
@@ -285,8 +285,8 @@
       "retrieval_intent": "get_refund",
       "refused": false,
       "answer": "I realized you are trying to ask for a refund of your money. I want to assure you that I'm here to help you with the process. To initiate the refund, you may need to follow some specific steps depending on the platform or service provider you made the payment to. It's important to review the refund policy of the company or contact their customer support directly for guidance. They will be able to provide you with the necessary information and assist you in starting the refund process. Don't hesitate to reach out to them as they are there to ensure your satisfaction and address any concerns you may have.",
-      "ttft_ms": 195,
-      "latency_ms": 1242,
+      "ttft_ms": 202,
+      "latency_ms": 1214,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1432,
@@ -297,14 +297,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 1223,
+          "ttft_ms": 149,
+          "latency_ms": 1182,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "7231d258-8e24-4449-aa31-ea6003fcc07e"
+      "request_id": "a74cedde-9769-4525-b0d8-8ba9797443c4"
     },
     {
       "id": 17183,
@@ -320,8 +320,8 @@
       "retrieval_intent": "newsletter_subscription",
       "refused": false,
       "answer": "\nI'm sorry to hear that you want to cancel your subscription to our corporate newsletter. I understand that sometimes preferences change, and it's important for us to respect your decision. To assist you with canceling your subscription, could you please provide me with the email address that you used to sign up for the newsletter? This will allow me to locate your subscription details and initiate the cancellation process for you. Rest assured, your request will be processed promptly, and you will no longer receive any further newsletters from us. Thank you for bringing this to our attention, and I appreciate your understanding.",
-      "ttft_ms": 253,
-      "latency_ms": 1340,
+      "ttft_ms": 221,
+      "latency_ms": 1288,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1121,
@@ -332,14 +332,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 1279,
+          "ttft_ms": 149,
+          "latency_ms": 1257,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "fa6e3f5a-4c14-475a-b983-ddf975f40ea9"
+      "request_id": "a551f16b-69fa-4365-bf02-0ecb04144d20"
     },
     {
       "id": 1816,
@@ -355,8 +355,8 @@
       "retrieval_intent": "change_order",
       "refused": false,
       "answer": "We appreciate your request to swap an article in order number your order number. Our goal is to ensure your complete satisfaction with your purchase. To assist you further, could you please provide the details of the article you would like to swap and the desired replacement? This will help us process your request accurately and efficiently. We are here to make sure you have a smooth shopping experience.",
-      "ttft_ms": 244,
-      "latency_ms": 963,
+      "ttft_ms": 286,
+      "latency_ms": 989,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1009,
@@ -368,13 +368,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 882,
+          "latency_ms": 864,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "6197b716-a837-4cec-b4af-561e750d6cd2"
+      "request_id": "0122d646-d125-4219-80e3-a6ef67f89a6f"
     },
     {
       "id": 18880,
@@ -390,8 +390,8 @@
       "retrieval_intent": "payment_issue",
       "refused": false,
       "answer": "Appreciate your message to us for assistance in notifying us about the troubles you are facing with your payments. I understand that this can be frustrating and I'm here to help you through this process. To provide you with the best support, could you please provide more details about the specific issues you are encountering with your payments? This will help us understand the situation better and work towards finding a solution. We appreciate your patience and cooperation as we work together to resolve this matter for you.",
-      "ttft_ms": 200,
-      "latency_ms": 1100,
+      "ttft_ms": 201,
+      "latency_ms": 1098,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1103,
@@ -403,13 +403,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 1084,
+          "latency_ms": 1067,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "ab126307-bd8c-431e-aeab-44cc517b2b29"
+      "request_id": "818231db-3b3a-4f76-b34d-d70beec6fa09"
     },
     {
       "id": 19022,
@@ -425,8 +425,8 @@
       "retrieval_intent": "place_order",
       "refused": false,
       "answer": "I appreciate your interest in shopping for our items! Allow me to guide you through the process step by step. Firstly, you can visit our website or download our mobile app, where you can easily browse through our catalog of products. Once you find the items you'd like to purchase, simply add them to your cart. When you're ready to proceed, proceed to the checkout page, where you will be prompted to provide your shipping and payment details. After confirming your order, you will receive a confirmation email with the details of your purchase. Should you encounter any difficulties along the way or have any questions, feel free to reach out to our customer support team, available 24/7. We're here to make your shopping experience a seamless and enjoyable one!",
-      "ttft_ms": 204,
-      "latency_ms": 1505,
+      "ttft_ms": 203,
+      "latency_ms": 1488,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1115,
@@ -438,13 +438,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 150,
-          "latency_ms": 1476,
+          "latency_ms": 1461,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "e425b07d-3c69-4ca7-ad22-28866ca1ddf7"
+      "request_id": "84961ff2-8744-4aba-b152-2180e711190f"
     },
     {
       "id": 20107,
@@ -460,8 +460,8 @@
       "retrieval_intent": "recover_password",
       "refused": false,
       "answer": "Oh, I completely understand your urgency and concern when it comes to retrieving your access key. Rest assured, I'm here to guide you through the process and help you regain access to your account.\n\nTo retrieve your access key, please follow these steps:\n\n1. Visit our platform's login page by going to \"demo-shop.example/login\".\n2. Look for the option labeled \"forgot access key\" and click on it.\n3. You might be asked to verify your identity through an email or phone number linked to your account. Follow the instructions provided to complete the verification process.\n4. Once your identity has been confirmed, you should receive an email or message containing your access key. Be sure to check your spam or junk folder if it doesn't appear in your main inbox.\n\nIf you encounter any difficulties or if the access key retrieval process takes longer than expected, don't hesitate to reach out to our customer support team. They are available Monday to Friday, 08:00–17:00 WIB at +62 21 5000 1234 or through the Live Chat on our website at demo-shop.example. We're committed to resolving this issue and helping you regain access to your account as quickly as possible.",
-      "ttft_ms": 204,
-      "latency_ms": 2186,
+      "ttft_ms": 215,
+      "latency_ms": 2149,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1721,
@@ -473,13 +473,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 2163,
+          "latency_ms": 2125,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "200f0516-8ff7-4911-8ba6-5c372259ed86"
+      "request_id": "ff4457b1-d03e-4c0e-ab32-0b5347e7a494"
     },
     {
       "id": 21130,
@@ -495,8 +495,8 @@
       "retrieval_intent": "registration_problems",
       "refused": false,
       "answer": "Thank you for bringing this issue to our attention. I understand how frustrating it can be to encounter difficulties when trying to open your user profile. To assist you further, could you please provide more details about the specific problem you are facing? This will enable us to investigate the issue and provide you with the best possible solution. Your feedback is greatly appreciated as it helps us improve our services for all our valued users.",
-      "ttft_ms": 214,
-      "latency_ms": 997,
+      "ttft_ms": 210,
+      "latency_ms": 978,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1133,
@@ -507,14 +507,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 975,
+          "ttft_ms": 151,
+          "latency_ms": 955,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "48d4379a-dbb9-42cc-bc92-ad8d7bcb4553"
+      "request_id": "5884aec8-016b-4089-ba00-4d52dc07cab1"
     },
     {
       "id": 21698,
@@ -530,8 +530,8 @@
       "retrieval_intent": "registration_problems",
       "refused": false,
       "answer": "We appreciate you reaching out to us for assistance in notifying us about the signup problem you are encountering. We understand that encountering errors during the signup process can be frustrating, and we apologize for any inconvenience caused. Please provide us with more details about the specific problem you are facing, such as any error messages or steps you have already taken. This will help us investigate the issue further and provide you with an appropriate solution. Thank you for your patience, and we are here to assist you every step of the way.",
-      "ttft_ms": 217,
-      "latency_ms": 1180,
+      "ttft_ms": 206,
+      "latency_ms": 1157,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1125,
@@ -542,14 +542,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 151,
-          "latency_ms": 1157,
+          "ttft_ms": 152,
+          "latency_ms": 1140,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "9e7a2ba9-260d-4ad7-87ea-4e62ceab06ec"
+      "request_id": "ddfb0d36-b2c4-4d36-8a62-018844d9b8e8"
     },
     {
       "id": 22701,
@@ -565,8 +565,8 @@
       "retrieval_intent": "review",
       "refused": false,
       "answer": "Thank you for choosing to provide feedback on our services! Your valuable insights play a vital role in our continuous efforts to improve and enhance our offerings. I'm here to assist you with submitting your feedback. Could you please let me know which specific aspect of our services you would like to share your feedback on? Is there anything in particular that you would like to highlight or any suggestions you would like to make? Your thoughts and opinions are highly appreciated and will be carefully reviewed by our team.",
-      "ttft_ms": 197,
-      "latency_ms": 1098,
+      "ttft_ms": 195,
+      "latency_ms": 1107,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1104,
@@ -577,14 +577,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 1074,
+          "ttft_ms": 151,
+          "latency_ms": 1092,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "00091ea9-180a-4df2-bf19-a13069b17d48"
+      "request_id": "9abf18b7-ffe4-42b1-93d0-dc81d22b268c"
     },
     {
       "id": 2329,
@@ -600,8 +600,8 @@
       "retrieval_intent": "change_shipping_address",
       "refused": false,
       "answer": "\nI'm happy to help! I'm here to assist you with changing your address. To update your address, you can log into your account and navigate to the \"Account Settings\" or \"Profile\" section. From there, you should see an option to edit your address information. If you have any trouble, feel free to reach out to our customer support team for further assistance.",
-      "ttft_ms": 224,
-      "latency_ms": 841,
+      "ttft_ms": 218,
+      "latency_ms": 848,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 867,
@@ -612,14 +612,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 814,
+          "ttft_ms": 151,
+          "latency_ms": 827,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "5e605470-a768-4343-a2d7-c9061979b396"
+      "request_id": "0366c0c2-56d7-40ac-8c49-cb8e07710e8c"
     },
     {
       "id": 23714,
@@ -635,8 +635,8 @@
       "retrieval_intent": "set_up_shipping_address",
       "refused": false,
       "answer": "\nI fully comprehend the significance of submitting a new delivery address, and I'm here to extend my expertise and guidance to ensure a smooth process. To successfully submit a new delivery address, please follow these steps:\n\n1. Sign in to your account using your credentials.\n2. Go to the 'Account' or 'Profile' section of our platform.\n3. Look for the 'Shipping Addresses' or similar option.\n4. Find the option to add a new address or edit existing addresses.\n5. Carefully fill in the required details of your new delivery address, including your name, complete address, contact number, and any other necessary information.\n6. Double-check all the provided information to ensure its accuracy.\n7. Save the changes and confirm that your new delivery address has been successfully submitted.\n\nIf you encounter any difficulties or have specific questions during the process, please don't hesitate to reach out. Our dedicated support team is available Monday to Friday, 08:00–17:00 WIB at +62 21 5000 1234 or through the Live Chat on our website at demo-shop.example. We are committed to making this experience as seamless as possible for you.",
-      "ttft_ms": 225,
-      "latency_ms": 2149,
+      "ttft_ms": 241,
+      "latency_ms": 2135,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1512,
@@ -648,13 +648,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 2126,
+          "latency_ms": 2102,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "6d465edb-5d66-4918-879a-d814a50223f6"
+      "request_id": "9384e4b9-bef1-4594-942b-256a597f2b45"
     },
     {
       "id": 24019,
@@ -670,8 +670,8 @@
       "retrieval_intent": "switch_account",
       "refused": false,
       "answer": "Absolutely! I'm thrilled to provide you with the guidance you need to make the most of your Standard account:\n\n1. **Access Your Account:** Start by logging in to our platform.\n2. **Profile Navigation:** Once logged in, proceed to your account settings or profile section.\n3. **Upgrade Option:** Look for an option labeled \"Upgrade\" or \"Switch Account Type\" within these sections.\n4. **Select Standard Profile:** Choose the Standard profile option from the available choices.\n5. **Finalize the Process:** Follow the on-screen prompts to complete the upgrade.\n\nIn case you encounter any difficulties or have further questions, feel free to reach out. Your decision to upgrade to the Standard account is truly valued, and I'm here to ensure a seamless experience. Enjoy the exclusive benefits and enhanced features that come with your Standard status!",
-      "ttft_ms": 211,
-      "latency_ms": 1636,
+      "ttft_ms": 214,
+      "latency_ms": 1615,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1364,
@@ -682,14 +682,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 150,
-          "latency_ms": 1611,
+          "ttft_ms": 151,
+          "latency_ms": 1590,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "a11bc299-6086-4314-ae99-1438e3146798"
+      "request_id": "fd2342f8-fc71-43fb-84f3-4a343f8e66a0"
     },
     {
       "id": 25411,
@@ -705,8 +705,8 @@
       "retrieval_intent": "track_order",
       "refused": false,
       "answer": "I apologize for the inconvenience you're experiencing in viewing the estimated time of arrival (ETA) for order number your order number. Let me assist you with that. To check the ETA, please log in to your account on our website and go to the \"Cancel Order\" section. There you will find the details of your order, including the ETA. If you're still unable to locate the information, I recommend reaching out to our customer support team at +62 21 5000 1234 or through the Live Chat on our website at customer support live chat url. They will be able to provide you with the necessary assistance and guide you through the process. Please let me know if there's anything else I can help you with.",
-      "ttft_ms": 196,
-      "latency_ms": 1346,
+      "ttft_ms": 199,
+      "latency_ms": 1361,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1186,
@@ -718,13 +718,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 1326,
+          "latency_ms": 1338,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "56e6052b-4258-4844-a548-181ed7ac5507"
+      "request_id": "6128ea4a-4c27-43a7-80c5-1dda2ceab45e"
     },
     {
       "id": 25893,
@@ -740,8 +740,8 @@
       "retrieval_intent": "track_refund",
       "refused": false,
       "answer": "I'm picking up what you're putting down, your anticipation in waiting for the rebate of Rprefund amount. It's natural to wonder about its processing status. Let me take a moment to look into it for you. While I check the processing status, may I ask if you've received any communication from our team regarding the rebate? Your insights will help me better assist you. Thank you for your patience, and I'll be right back with an update on the processing status of your rebate.",
-      "ttft_ms": 200,
-      "latency_ms": 1010,
+      "ttft_ms": 197,
+      "latency_ms": 1019,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1095,
@@ -753,13 +753,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 985,
+          "latency_ms": 996,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "c9a373de-3592-4caa-84a4-6d9979fd83e0"
+      "request_id": "063fbc37-1c60-4b11-9690-83b43b2edbae"
     },
     {
       "id": 2684,
@@ -775,8 +775,8 @@
       "retrieval_intent": "change_shipping_address",
       "refused": false,
       "answer": "\nOf course! If you need to modify your address, please contact our customer service team. They will assist you in updating your delivery address to ensure your package is sent to the correct location.",
-      "ttft_ms": 223,
-      "latency_ms": 555,
+      "ttft_ms": 231,
+      "latency_ms": 585,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1061,
@@ -788,13 +788,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 543,
+          "latency_ms": 550,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "df2c291b-9187-49df-bbfc-79fb69219bf4"
+      "request_id": "ae3bda48-0ce7-4df8-b7d0-ba415f6b15b1"
     },
     {
       "id": 3655,
@@ -810,8 +810,8 @@
       "retrieval_intent": "check_cancellation_fee",
       "refused": false,
       "answer": "Unquestionably! I can help you with viewing the early exit charges. To access this information, please log in to your account on our website and navigate to the \"My Account\" section. From there, you should find a tab or link labeled \"Contract Details\" or \"Service Agreements.\" Click on that, and you should be able to see the details of your contract, including any early exit charges. If you encounter any difficulty, feel free to contact our customer support team for further assistance.",
-      "ttft_ms": 234,
-      "latency_ms": 1082,
+      "ttft_ms": 247,
+      "latency_ms": 1088,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 852,
@@ -822,14 +822,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 151,
-          "latency_ms": 1052,
+          "ttft_ms": 167,
+          "latency_ms": 1044,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "b67c671f-8982-433d-88bb-61a4fb71c391"
+      "request_id": "a39835e1-46b4-4b85-81e1-df7a9fd942e8"
     },
     {
       "id": 4348,
@@ -845,8 +845,8 @@
       "retrieval_intent": "check_invoice",
       "refused": false,
       "answer": "I fully comprehend your frustration and urgency in locating the bills associated with . To assist you effectively, could you please provide me with some more information? Specifically, could you share the date range or any specific keywords related to the bills you are looking for? This will allow me to guide you better and narrow down the search.",
-      "ttft_ms": 202,
-      "latency_ms": 850,
+      "ttft_ms": 199,
+      "latency_ms": 825,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1100,
@@ -857,14 +857,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 153,
-          "latency_ms": 804,
+          "ttft_ms": 151,
+          "latency_ms": 783,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "4e8c8f69-0d16-4198-b974-81e71b37c650"
+      "request_id": "aacb366e-7ce6-4da9-886f-59dffa03ca90"
     },
     {
       "id": 5180,
@@ -880,8 +880,8 @@
       "retrieval_intent": "check_payment_methods",
       "refused": false,
       "answer": "Indeed! I understand that you would like some help with listing the payment options we accept. It's important to us that our customers have a convenient and seamless payment experience. Here is a comprehensive list of the payment methods we currently accept:\n\n- Credit/Debit Card: We accept major credit and debit card brands like Visa, Mastercard, and American Express.\n- PayPal: A widely recognized and secure online payment platform.\n- Apple Pay: If you're an Apple user, you can make payments easily using Apple Pay.\n- Google Pay: Google Pay allows for quick and secure transactions.\n- Bank Transfer: You can also choose to make payments through a direct bank transfer.\n\nThese payment options offer flexibility and convenience to our valued customers. If you have any further questions or need more information, feel free to let me know. I'm here to assist you every step of the way!",
-      "ttft_ms": 214,
-      "latency_ms": 1713,
+      "ttft_ms": 211,
+      "latency_ms": 1707,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1719,
@@ -893,13 +893,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 1687,
+          "latency_ms": 1681,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "85934bc2-464e-451c-9c5d-daa3decb5f40"
+      "request_id": "32b03987-29c0-4299-a815-01e85f612180"
     },
     {
       "id": 579,
@@ -915,8 +915,8 @@
       "retrieval_intent": "cancel_order",
       "refused": false,
       "answer": "I'm happy to help! I understand that you have a question regarding a forgotten password. Please go ahead and ask your question, and I'll be more than happy to assist you in resolving your concerns.",
-      "ttft_ms": 244,
-      "latency_ms": 618,
+      "ttft_ms": 310,
+      "latency_ms": 679,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1557,
@@ -928,13 +928,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 532,
+          "latency_ms": 534,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "db7e5f62-4ea3-4e06-8dff-4224985f0387"
+      "request_id": "9a860701-0038-400f-80cb-d274ee8ffd7b"
     },
     {
       "id": 6414,
@@ -950,8 +950,8 @@
       "retrieval_intent": "check_refund_policy",
       "refused": false,
       "answer": "Definitely! I understand your need for clarity regarding the specific cases in which you can request reimbursements. Here's a breakdown of the most common scenarios:\n\n1. **Product/Service Defect:** If the product or service you received is defective or doesn't meet your expectations, you are generally eligible for a refund.\n2. **Cancellation within Grace Period:** Should you change your mind and decide to cancel your purchase within the specified grace period, you should be able to request a refund.\n3. **Unauthorized Charges:** If you notice any charges on your account that you didn't authorize or recognize, please let us know. We will investigate the issue and assist you accordingly.\n4. **Event Cancellation:** If you purchased tickets for an event that gets canceled, and it's not rescheduled, you may be entitled to a refund.\n5. **Duplicate Charges:** If you were charged multiple times for the same item or service, reach out to us immediately so that we can resolve the issue and process a refund if necessary.\n6. **Non-Delivery of Goods:** If you haven't received your purchased item within the expected time frame or it hasn't been delivered at all, please inform us. In such cases, you should be eligible for a refund.\n\nPlease keep in mind that these are general guidelines and may vary depending on the specific refund policies of individual vendors or service providers. I recommend reviewing the terms and conditions or reaching out to them with any order-specific questions. If you need further assistance or have any specific concerns, feel free to provide me with your relevant details, such as the order number, and I'll be happy to assist you further.",
-      "ttft_ms": 217,
-      "latency_ms": 3017,
+      "ttft_ms": 210,
+      "latency_ms": 3013,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 2763,
@@ -962,14 +962,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 151,
-          "latency_ms": 2988,
+          "ttft_ms": 150,
+          "latency_ms": 2979,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "2abc9b71-749b-4a57-ab50-1b44749d8cde"
+      "request_id": "f6a752ec-f911-44c8-a166-cc0b420f4121"
     },
     {
       "id": 7012,
@@ -985,8 +985,8 @@
       "retrieval_intent": "complaint",
       "refused": false,
       "answer": "I'm sorry to hear that you're looking to lodge a customer reclamation against our company. We take customer feedback seriously, and I'm here to guide you in the right direction. To help you with this, could you please provide me with some more details about the nature of your reclamation? This will allow me to assist you more effectively and ensure that your concerns are properly addressed.",
-      "ttft_ms": 194,
-      "latency_ms": 873,
+      "ttft_ms": 203,
+      "latency_ms": 871,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1012,
@@ -997,14 +997,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 151,
-          "latency_ms": 851,
+          "ttft_ms": 150,
+          "latency_ms": 846,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "89c76e82-7902-4e71-b868-09b928f0fc39"
+      "request_id": "b0bafddd-c2d6-4096-bb20-8f195501ef99"
     },
     {
       "id": 8790,
@@ -1020,8 +1020,8 @@
       "retrieval_intent": "contact_customer_service",
       "refused": false,
       "answer": "Your message means a lot! I'm aligned with the idea that you're seeking assistance to contact our customer assistance team. I'm here to help! To get in touch with our customer support, you can reach us during Monday to Friday, 08:00–17:00 WIB at +62 21 5000 1234 or through the Live Chat on our website at demo-shop.example. Our dedicated team is ready to assist you with any questions or concerns you may have. How else can I assist you today?",
-      "ttft_ms": 235,
-      "latency_ms": 1006,
+      "ttft_ms": 226,
+      "latency_ms": 984,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1044,
@@ -1032,14 +1032,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 152,
-          "latency_ms": 974,
+          "ttft_ms": 151,
+          "latency_ms": 955,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "a3f46f24-9a9b-4d88-95f8-28527e53208d"
+      "request_id": "a247669d-e7f0-4936-8c71-55e7a5de786a"
     },
     {
       "id": 9270,
@@ -1055,8 +1055,8 @@
       "retrieval_intent": "contact_human_agent",
       "refused": false,
       "answer": "Always good to connect! I'm attuned to the fact that you need assistance to talk to someone. Rest assured, I'm here to help you with that. I will promptly connect you with one of our dedicated human representatives who will provide you with the support you need. Just give me a moment to make the arrangements. Stay with me, and we'll get you the assistance you're looking for.",
-      "ttft_ms": 220,
-      "latency_ms": 886,
+      "ttft_ms": 222,
+      "latency_ms": 847,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1051,
@@ -1067,14 +1067,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 154,
-          "latency_ms": 858,
+          "ttft_ms": 151,
+          "latency_ms": 816,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "225c250e-19b4-4e71-93f6-f3ef783acf25"
+      "request_id": "fdc9093d-14b9-40da-8e55-3494df7755ee"
     },
     {
       "id": "ood-e1",
@@ -1088,8 +1088,8 @@
       "retrieval_intent": "delivery_period",
       "refused": false,
       "answer": "\nThank you for trusting and expressing your desire to share your feedback with us. Your opinion matters, and we greatly appreciate your input. To help you send your feedback, could you please provide me with more details about the specific product or service you would like to provide feedback on? This will enable us to ensure that your feedback reaches the right department for prompt action. I'm here to assist you every step of the way, so please don't hesitate to ask if you have any questions or need further guidance.",
-      "ttft_ms": 221,
-      "latency_ms": 1114,
+      "ttft_ms": 211,
+      "latency_ms": 1116,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1041,
@@ -1101,13 +1101,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 1075,
+          "latency_ms": 1087,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "bdbf1bb6-c3b3-439f-8f09-3747b91291ac"
+      "request_id": "fa6f5051-69df-4f2f-beb4-230e3c18c608"
     },
     {
       "id": "ood-e2",
@@ -1121,8 +1121,8 @@
       "retrieval_intent": "review",
       "refused": false,
       "answer": "I'm on it! I'm here to assist you in composing a review that accurately captures your thoughts and experiences with our product. Please feel free to share any specific details or aspects you'd like to highlight in your review. Remember, honesty is key, and we encourage you to express yourself authentically. I'm eager to guide you through this process, ensuring that your review is impactful and provides valuable insights for other customers. Let's begin crafting your exceptional review together!",
-      "ttft_ms": 195,
-      "latency_ms": 1051,
+      "ttft_ms": 196,
+      "latency_ms": 1035,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1358,
@@ -1134,13 +1134,13 @@
           "backend": "mock",
           "outcome": "ok",
           "ttft_ms": 151,
-          "latency_ms": 1027,
+          "latency_ms": 998,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "a281a9ec-a087-4012-a843-27908659676e"
+      "request_id": "d7907e8e-000d-47c3-abcd-bd360b24c276"
     },
     {
       "id": "ood-e3",
@@ -1154,8 +1154,8 @@
       "retrieval_intent": null,
       "refused": true,
       "answer": "I'm not confident I can answer that correctly. I can help with orders, shipping, refunds, invoices, payments and your account. Could you rephrase, or would you like to contact a human agent?",
-      "ttft_ms": 9,
-      "latency_ms": 14,
+      "ttft_ms": 10,
+      "latency_ms": 17,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 0,
@@ -1164,7 +1164,7 @@
       },
       "attempts": [],
       "http_status": 200,
-      "request_id": "adafdfa4-d89d-4e81-8951-803f67bbb146"
+      "request_id": "da437ac6-8ebc-49a6-8159-eb3212babdaf"
     },
     {
       "id": "ood-e4",
@@ -1178,8 +1178,8 @@
       "retrieval_intent": null,
       "refused": true,
       "answer": "I'm not confident I can answer that correctly. I can help with orders, shipping, refunds, invoices, payments and your account. Could you rephrase, or would you like to contact a human agent?",
-      "ttft_ms": 9,
-      "latency_ms": 18,
+      "ttft_ms": 10,
+      "latency_ms": 25,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 0,
@@ -1188,7 +1188,7 @@
       },
       "attempts": [],
       "http_status": 200,
-      "request_id": "886788cd-0b12-46a1-be0b-eb6e6c7b3e59"
+      "request_id": "f550bbb5-ed39-49ed-8301-a11a4622478a"
     },
     {
       "id": "ood-e5",
@@ -1203,7 +1203,7 @@
       "refused": false,
       "answer": "Thank you for your interest in purchasing several articles! Our goal is to make your shopping experience as seamless as possible. To help you with this, I would like to know more about the specific articles you want to buy. Could you please provide me with some more details so that I can assist you better? Including information such as the type of articles, quantity, and any specific requirements will help us find the perfect options for you. I'm here to guide you through the process and ensure that you have a rewarding and satisfying shopping experience.",
       "ttft_ms": 201,
-      "latency_ms": 1165,
+      "latency_ms": 1171,
       "cost_usd": 0,
       "tokens": {
         "input_tokens": 1239,
@@ -1214,14 +1214,14 @@
         {
           "backend": "mock",
           "outcome": "ok",
-          "ttft_ms": 151,
-          "latency_ms": 1137,
+          "ttft_ms": 153,
+          "latency_ms": 1147,
           "error": null,
           "cost_usd": 0
         }
       ],
       "http_status": 200,
-      "request_id": "b93feae9-4878-403d-8e2d-12629dfdabe8"
+      "request_id": "0e399e39-23fd-4e9d-a351-a29078a92d30"
     }
   ]
 }

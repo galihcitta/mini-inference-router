@@ -49,6 +49,7 @@ docker exec mir-pg psql -U postgres -c "create database mir_test"
 | Typecheck | `npm run typecheck`, and `cd web && npx tsc --noEmit` |
 | Tests | `npm test` (uses database `mir_test`) |
 | Retune the OOD threshold | `npx tsx scripts/tune.ts` |
+| Browser E2E with video (real models, a few cents) | `npm run e2e` |
 | Eval one configuration | `npm run eval -- --key <tenant key> --name haiku` |
 | Compare two runs | `npm run eval -- --compare eval/results/haiku.json eval/results/sonnet.json` |
 | Regenerate data | `python scripts/make_split.py <bitext csv> data` (needs pandas, scikit-learn) |
