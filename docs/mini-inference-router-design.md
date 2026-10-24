@@ -133,7 +133,7 @@ A model safety refusal (`stop_reason: "refusal"`) ends the request with outcome 
 The candidate list per request is the tenant's `route` (default `["haiku", "sonnet", "mock"]`), filtered by:
 
 1. **Allow-list:** the tenant's `route` is its allow-list and its order.
-2. **Circuit breaker:** in memory, per backend. Open after 3 consecutive failures, skip for 30 s, then let one trial request through.
+2. **Circuit breaker:** in memory, per backend. Open after 3 consecutive failures (timeouts, 429, 5xx, unusable output; not 400s), skip for 30 s, then let one trial request through.
 3. **Cost order:** Haiku ($0.10/$0.50) before Sonnet ($2/$10) before mock ($0). The cheapest model that does the job goes first. The eval checks that Sonnet isn't measurably better on this task.
 
 Each route entry can override `first_token_ms` and `total_ms`. The mock entry can set `latency_ms` and `fail_rate`. Demo tenants use this to show fallback with real timeouts and no fault-injection code.
@@ -146,9 +146,9 @@ Error classification per attempt:
 | 429 `rate_limit_error` | `rate_limited` | next backend (separate pool per model) |
 | 529 `overloaded_error`, 5xx, network error | `provider_error` | next backend |
 | 401, 403, 402, 400 spend limit, 429 `enforced_spend_limit_reached` | `account_error` | skip every Anthropic backend, go to mock |
-| Other 400 | `bad_request` | next backend (the request shape differs per model) |
+| Other 400 | `bad_request` | next backend (the request shape differs per model). Not counted by the breaker, since the caller may have caused it |
 | Header check fails | `unusable_output` | next backend |
-| Reservation fails for this backend | `skipped_quota` | next backend. The first candidate failing gives a 429 to the client |
+| Reservation fails for this backend | `skipped_quota` | stop: the request ends with `quota_exceeded`. Moving on would let a cheaper or free backend serve a spent budget |
 | Circuit open | `circuit_open` | next backend |
 | An earlier attempt had `account_error` | `skipped_account` | next backend (Anthropic ones skipped) |
 

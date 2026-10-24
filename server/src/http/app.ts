@@ -18,7 +18,8 @@ import { slotFilter } from "../support/slots.ts";
 
 const SupportBody = z.object({ message: z.string().trim().min(1).max(2000) });
 const ChatBody = z.object({
-  messages: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().min(1).max(8000) })).min(1).max(20)
+  messages: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().trim().min(1).max(8000) })).min(1).max(20)
+    .refine((m) => m[0].role === "user", "first message must be from the user")
     .refine((m) => m[m.length - 1].role === "user", "last message must be from the user"),
   max_tokens: z.number().int().min(1).max(CHAT_MAX_TOKENS).optional(),
 });

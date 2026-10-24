@@ -70,7 +70,7 @@ These are the behaviours the challenge assesses. Invariants 1–7 each have a te
 4. **Quota is micro-dollars, not tokens.** Cost is `tokens × price per 1M`, computed with `costMicros` in `config.ts`.
 5. **Every request a tenant makes gets a `requests` row**, including refusals and quota rejections. Every attempt gets a `request_attempts` row. `cost_micros` on the request row is accumulated by `settle()`, so don't recompute it elsewhere.
 6. **The intent header gate.** Nothing from a model reaches the client until `<intent>label</intent>` parses to one of the 27 labels or `out_of_scope`. A bad header counts as `unusable_output` and falls back.
-7. **The breaker ignores routes with overrides.** An attempt only counts toward the circuit breaker when its route entry has no `first_token_ms`, `total_ms`, `latency_ms` or `fail_rate` override. Otherwise the demo tenants would trip the circuit for everyone.
+7. **The breaker ignores routes with overrides.** An attempt only counts toward the circuit breaker when its route entry has no `first_token_ms`, `total_ms`, `latency_ms` or `fail_rate` override. Otherwise the demo tenants would trip the circuit for everyone. For the same reason `bad_request` (a 400) never counts.
 8. **The SSE contract is shared with `web/`.** If you change an event name or field, update `web/src/types.ts`, the console views (including `explain.ts`), `eval/run.ts`, and the design doc's SSE table in the same change.
 
 ## Claude API specifics

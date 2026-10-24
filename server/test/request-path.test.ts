@@ -1,4 +1,5 @@
 import { setTimeout as sleep } from "node:timers/promises";
+import Anthropic from "@anthropic-ai/sdk";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { costMicros, type RouteEntry } from "../src/config.ts";
 import { buildRequest } from "../src/support/assistant.ts";
@@ -92,6 +93,14 @@ describe("input validation", () => {
     const bad = await app.inject({ method: "POST", url: "/v1/support/chat", headers: { authorization: `Bearer ${key}`, "content-type": "application/json" }, payload: "{nope" });
     expect(bad.statusCode).toBe(400);
   });
+  it("rejects a raw chat that the provider would reject: assistant first, or whitespace-only content", async () => {
+    const key = await tenant("t1", [H]);
+    const chat = (messages: { role: string; content: string }[]) =>
+      app.inject({ method: "POST", url: "/v1/chat", headers: { authorization: `Bearer ${key}` }, payload: { messages } });
+    expect((await chat([{ role: "assistant", content: "Hi" }, { role: "user", content: "Hello" }])).statusCode).toBe(400);
+    expect((await chat([{ role: "user", content: "   \n " }])).statusCode).toBe(400);
+    expect(calls).toEqual([]);
+  });
 });
 
 describe("quota", () => {
@@ -111,6 +120,18 @@ describe("quota", () => {
     expect((await post(key)).done.backend).toBe("haiku");
     const second = await post(key);
     expect(second.res.statusCode).toBe(429);
+  });
+  it("stops at the first backend the budget can't cover instead of falling through to the free mock", async () => {
+    // The budget fits Haiku but not Sonnet. Haiku fails after the precheck passed, which is the same path a
+    // concurrent request draining the budget takes.
+    scripted("haiku", async function* () { throw new BackendFailure("overloaded", 529); });
+    const req = buildRequest(Q, retriever.search(Q));
+    const haikuReservation = costMicros("haiku", Math.ceil((req.system!.length + req.messages[0].content.length) / 3), req.maxTokens);
+    const key = await tenant("t1", [H, S, M], haikuReservation + 100);
+    const { done, events } = await post(key);
+    expect(done.attempts.map((a: { outcome: string }) => a.outcome)).toEqual(["provider_error", "skipped_quota"]);
+    expect(done.outcome).toBe("quota_exceeded");
+    expect(events.find((e) => e.event === "error")!.data.code).toBe("quota_exceeded");
   });
   it("reservations are atomic: 25 concurrent reserves of 100 against a 1,000 quota admit exactly 10", async () => {
     await tenant("t1", [H], 1000);
@@ -185,6 +206,16 @@ describe("routing and fallback", () => {
     scripted("haiku", hang);
     const k2 = await tenant("t2", [{ backend: "haiku", first_token_ms: 20 }, S]);
     for (let i = 0; i < 4; i++) await post(k2);
+    expect(breaker.allows("haiku")).toBe(true);
+  });
+
+  it("doesn't let one tenant's rejected requests open the circuit for other tenants", async () => {
+    scripted("haiku", async function* () { throw Anthropic.APIError.generate(400, { type: "invalid_request_error" }, "messages: invalid", new Headers()); });
+    const key = await tenant("t1", [H, S]);
+    for (let i = 0; i < 4; i++) {
+      const { done } = await post(key);
+      expect(done.attempts[0].outcome).toBe("bad_request");
+    }
     expect(breaker.allows("haiku")).toBe(true);
   });
 });

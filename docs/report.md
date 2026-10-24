@@ -19,7 +19,7 @@ Each request walks the tenant's route, an ordered allow-list, and skips any back
 | The model's safety refusal (`stop_reason: "refusal"`) | Terminal. No fallback, because routing a declined message elsewhere is shopping for a model that will answer it |
 | Failure after the first token has reached the client | An `error` event and outcome `partial`. Text already sent can't be taken back, so there's no silent switch |
 
-Circuit breaker: after 3 consecutive failures a backend is skipped for 30 s, then one trial request goes through. Failures caused by a tenant's own timeout overrides (the demo tenants) don't count, so a demo can't trip the circuit for everyone else.
+Circuit breaker: after 3 consecutive failures a backend is skipped for 30 s, then one trial request goes through. Failures caused by a tenant's own timeout overrides (the demo tenants) don't count, and neither do 400s, which a caller can provoke with a malformed chat. Either would let one tenant trip the circuit for everyone else.
 
 The SDK runs with `maxRetries: 0`. Retrying is the router's job. Hidden SDK retries would distort latency and defeat the first-token timeout.
 

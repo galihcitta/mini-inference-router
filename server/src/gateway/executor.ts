@@ -59,7 +59,9 @@ export interface RunResult {
   sanitized: boolean;
 }
 
-const FAILURES_COUNTED: AttemptOutcome[] = ["timeout_first_token", "timeout_total", "rate_limited", "provider_error", "unusable_output", "bad_request"];
+// bad_request is left out: a 400 usually means this caller sent something invalid, and counting it would let
+// one tenant open the shared circuit for everyone.
+const FAILURES_COUNTED: AttemptOutcome[] = ["timeout_first_token", "timeout_total", "rate_limited", "provider_error", "unusable_output"];
 const hasOverrides = (e: RouteEntry) =>
   e.first_token_ms !== undefined || e.total_ms !== undefined || e.fail_rate !== undefined || e.latency_ms !== undefined;
 
@@ -85,8 +87,9 @@ export async function execute(o: RunOptions): Promise<RunResult> {
     const estIn = Math.ceil(((req.system ?? "") + req.messages.map((m) => m.content).join("")).length / 3);
     const reserved = costMicros(id, estIn, req.maxTokens);
     if (reserved > 0 && !(await reserve(o.tenantId, o.requestId, reserved))) {
+      // Stop here: carrying on would let a cheaper (or free) backend serve a tenant whose budget is spent.
       attempts.push({ seq, backend: id, outcome: "skipped_quota", cost_micros: 0 });
-      continue;
+      break;
     }
 
     const a = await attempt(o, backend, entry, req, seq, started);
@@ -107,10 +110,9 @@ export async function execute(o: RunOptions): Promise<RunResult> {
     if (a.result) return { ...a.result, attempts, sanitized: o.filter.changed };
   }
 
-  const quota = attempts.length > 0 && attempts.every((x) => x.outcome === "skipped_quota" || x.outcome === "circuit_open" || x.outcome === "skipped_account")
-    && attempts.some((x) => x.outcome === "skipped_quota");
+  const quota = attempts.at(-1)?.outcome === "skipped_quota";
   const code = quota ? "quota_exceeded" : "all_backends_failed";
-  o.sse.send("error", { code, message: quota ? "Quota cannot cover this request on any allowed backend." : "Every allowed backend failed." });
+  o.sse.send("error", { code, message: quota ? "Quota cannot cover the next backend on this tenant's route." : "Every allowed backend failed." });
   return { outcome: quota ? "quota_exceeded" : "failed", attempts, error: code, sanitized: false };
 }
 
