@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inference Router Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f6f8; --surface: #ffffff; --ink: #18212d; --muted: #5d6b7b; --line: #dce2e8; --soft: #eaeef2;
+  --haiku: #0b8478; --sonnet: #5a47cf; --mock: #6f7c8b; --fail: #c8412c; --warn: #b7791f; --good: #1f7a4d;
+  --good-bg: #e3f3ea; --warn-bg: #fbf0dc; --bad-bg: #fbe6e2; --focus: #2f6fdf;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #10151c; --surface: #171e27; --ink: #e6ebf0; --muted: #93a1b0; --line: #2a3440; --soft: #1e2731;
+    --haiku: #2bb5a5; --sonnet: #8e7ff0; --mock: #98a5b3; --fail: #ef6a54; --warn: #e0a33a; --good: #4cc38a;
+    --good-bg: #16302a; --warn-bg: #352a14; --bad-bg: #3a1d19; --focus: #6a9cf5;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #10151c; --surface: #171e27; --ink: #e6ebf0; --muted: #93a1b0; --line: #2a3440; --soft: #1e2731;
+  --haiku: #2bb5a5; --sonnet: #8e7ff0; --mock: #98a5b3; --fail: #ef6a54; --warn: #e0a33a; --good: #4cc38a;
+  --good-bg: #16302a; --warn-bg: #352a14; --bad-bg: #3a1d19; --focus: #6a9cf5;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "IBM Plex Sans", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.86em; background: var(--soft); padding: 0.05em 0.3em; border-radius: 4px; }
+a { color: var(--focus); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.layout { max-width: 1160px; margin: 0 auto; padding: 0 1.25rem 4rem; display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 3rem; }
+nav.toc { position: sticky; top: 0; align-self: start; padding-top: 2.5rem; font-size: 0.88rem; }
+nav.toc p { margin: 0 0 0.6rem; color: var(--muted); }
+nav.toc ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
+nav.toc a { display: block; padding: 0.3rem 0 0.3rem 0.9rem; color: var(--muted); text-decoration: none; margin-left: -1px; border-left: 2px solid transparent; }
+nav.toc a:hover { color: var(--ink); }
+nav.toc a.is-on { color: var(--ink); border-left-color: var(--ink); font-weight: 500; }
+
+main { min-width: 0; max-width: 46rem; }
+header.top { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+header.top h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 0.75rem; letter-spacing: -0.02em; }
+.lede { font-size: 1.12rem; margin: 0 0 1rem; }
+.status { font-size: 0.88rem; color: var(--muted); margin: 0; }
+.status strong { color: var(--ink); font-weight: 500; }
+
+section { padding: 2.25rem 0 0.5rem; }
+h2 { font-size: 1.35rem; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+.takeaway { font-size: 1.05rem; color: var(--muted); margin: 0 0 1.25rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 0.5rem; }
+p { margin: 0 0 1rem; }
+ul { margin: 0 0 1rem; padding-left: 1.2rem; }
+li { margin-bottom: 0.35rem; }
+
+.findings { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.6rem; }
+.findings li { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--good); border-radius: 0 8px 8px 0; padding: 0.75rem 1rem; margin: 0; }
+.findings li.neutral { border-left-color: var(--mock); }
+.findings li.warn { border-left-color: var(--warn); }
+.findings strong { display: block; font-weight: 600; }
+.findings span { color: var(--muted); font-size: 0.93rem; }
+
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem; margin: 0 0 1.25rem; overflow-x: auto; }
+.figure figcaption, .caption { font-size: 0.84rem; color: var(--muted); margin-top: 0.6rem; }
+svg text { font-family: "IBM Plex Sans", system-ui, sans-serif; }
+.figure svg { min-width: 620px; } /* on phones the diagram scrolls sideways instead of shrinking to unreadable */
+
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th { text-align: left; font-weight: 500; color: var(--muted); font-size: 0.82rem; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: bottom; }
+td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+.table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; margin: 0 0 1.25rem; }
+.hl { background: color-mix(in srgb, var(--good) 9%, transparent); }
+
+.chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 1.25rem; }
+.chip { display: inline-flex; align-items: center; gap: 0.45rem; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.8rem; font-size: 0.9rem; }
+.chip small { color: var(--muted); }
+.arrow { color: var(--muted); }
+.dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--b); display: inline-block; }
+.b-haiku { --b: var(--haiku); } .b-sonnet { --b: var(--sonnet); } .b-mock { --b: var(--mock); }
+
+.tag { display: inline-block; font-size: 0.76rem; font-weight: 500; padding: 0.05rem 0.5rem; border-radius: 999px; white-space: nowrap; }
+.tag.next { background: var(--soft); color: var(--muted); }
+.tag.stop { background: var(--bad-bg); color: var(--fail); }
+.tag.skip { background: var(--warn-bg); color: var(--warn); }
+
+.trace { display: grid; grid-template-columns: 6rem 1fr; gap: 0.5rem 0.75rem; align-items: center; font-size: 0.86rem; }
+.lane { position: relative; height: 1.1rem; background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), var(--line) calc(25% - 1px) 25%); }
+.bar { position: absolute; top: 0.15rem; bottom: 0.15rem; border-radius: 3px; background: var(--b); overflow: hidden; }
+.bar.fail { background: repeating-linear-gradient(135deg, var(--fail) 0 4px, color-mix(in srgb, var(--fail) 55%, var(--surface)) 4px 8px); }
+.bar .wait { position: absolute; inset: 0 auto 0 0; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--surface) 55%, transparent) 0 3px, transparent 3px 6px); }
+.trace-note { grid-column: 2; margin-top: -0.35rem; color: var(--muted); font-size: 0.8rem; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.75rem; margin: 0 0 1.25rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem 1rem; }
+.card strong { display: block; margin-bottom: 0.25rem; }
+.card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.card .when { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+
+.bars { display: grid; grid-template-columns: 9.5rem 1fr 4.5rem; gap: 0.55rem 0.75rem; align-items: center; font-size: 0.9rem; }
+.track { height: 0.9rem; background: var(--soft); border-radius: 3px; overflow: hidden; }
+.fill { display: block; height: 100%; background: var(--b, var(--ink)); }
+.fill.low { background: var(--fail); }
+.bars .val { text-align: right; font-weight: 500; }
+.bars .na { color: var(--muted); font-size: 0.85rem; }
+
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0 0 1.25rem; }
+.compare .card h4 { margin: 0 0 0.4rem; font-size: 0.95rem; }
+.compare .card ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; color: var(--muted); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col ul { color: var(--ink); }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 1rem 3rem; }
+  nav.toc { display: none; }
+  header.top h1 { font-size: 1.6rem; }
+  .compare, .two-col { grid-template-columns: 1fr; }
+  .bars { grid-template-columns: 7rem 1fr 3.8rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#request">How a request flows</a></li>
+    <li><a href="#routing">Routing and fallback</a></li>
+    <li><a href="#quota">Quota and metering</a></li>
+    <li><a href="#endpoints">Two endpoints</a></li>
+    <li><a href="#assistant">The support assistant</a></li>
+    <li><a href="#models">Model choice</a></li>
+    <li><a href="#eval">Evaluation</a></li>
+    <li><a href="#tradeoffs">Trade-offs and cuts</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top" id="summary">
+  <h1>Mini Inference Router: technical report</h1>
+  <p class="lede">A small LLM gateway with a customer-support assistant on top. The gateway authenticates each tenant, holds a dollar budget, routes Haiku 5.5 → Sonnet 5.5 → a backup, and records every attempt. The assistant answers from a knowledge base and refuses rather than guess.</p>
+  <p class="status"><strong>Stack:</strong> one Node 22 service (Fastify, TypeScript), Postgres, a React console. <strong>Deployment:</strong> configured for Render + Neon (<code>render.yaml</code>), not yet live. <strong>Tests:</strong> 30 integration and unit tests, plus a 9-step browser walkthrough against the real models.</p>
+  <ul class="findings">
+    <li><strong>Retrieval is what makes the answers right.</strong><span>Without the knowledge base, Haiku's answers pass the judge 20 of 35 times; with it, 34 of 35. All 14 disagreements favour retrieval.</span></li>
+    <li class="neutral"><strong>Sonnet adds nothing measurable over Haiku here, at 20× the cost.</strong><span>Identical outcomes on all 35 cases. So Haiku goes first, and Sonnet is kept for availability.</span></li>
+    <li class="warn"><strong>The eval can't be gamed by near-duplicates.</strong><span>A random split of this dataset lets retrieval alone score 97–100%. The held-out cases here have every close copy removed from the knowledge base.</span></li>
+  </ul>
+</header>
+
+<section id="request">
+  <h2>How a request flows</h2>
+  <p class="takeaway">Every request passes the same gateway checks. The support assistant adds retrieval before the model and an intent check after it.</p>
+  <figure class="figure">
+    <svg viewBox="0 0 720 300" width="100%" role="img" aria-label="Request pipeline: auth, quota check, retrieval, route to a model, intent check, stream. Exits: 401, 429, refused off-topic, refused low confidence.">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+      </defs>
+      <g font-size="13" fill="var(--ink)">
+        <!-- gateway band -->
+        <rect x="4" y="18" width="712" height="128" rx="10" fill="none" stroke="var(--line)" stroke-dasharray="4 4"/>
+        <text x="16" y="38" fill="var(--muted)" font-size="12">Gateway (both endpoints)</text>
+        <!-- support band label -->
+        <text x="232" y="168" fill="var(--muted)" font-size="12">Support assistant only</text>
+        <rect x="222" y="54" width="122" height="134" rx="8" fill="none" stroke="var(--haiku)" stroke-opacity="0.5" stroke-dasharray="3 3"/>
+        <rect x="474" y="54" width="122" height="134" rx="8" fill="none" stroke="var(--haiku)" stroke-opacity="0.5" stroke-dasharray="3 3"/>
+        <text x="484" y="168" fill="var(--muted)" font-size="12">Support only</text>
+
+        <g>
+          <rect x="16" y="62" width="88" height="52" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="60" y="84" text-anchor="middle" font-weight="600">API key</text>
+          <text x="60" y="101" text-anchor="middle" fill="var(--muted)" font-size="11.5">tenant lookup</text>
+
+          <rect x="120" y="62" width="88" height="52" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="164" y="84" text-anchor="middle" font-weight="600">Budget</text>
+          <text x="164" y="101" text-anchor="middle" fill="var(--muted)" font-size="11.5">fits 1st model?</text>
+
+          <rect x="232" y="62" width="104" height="52" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="284" y="84" text-anchor="middle" font-weight="600">Retrieve</text>
+          <text x="284" y="101" text-anchor="middle" fill="var(--muted)" font-size="11.5">BM25, top 5</text>
+
+          <rect x="352" y="62" width="110" height="52" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="407" y="84" text-anchor="middle" font-weight="600">Route</text>
+          <text x="407" y="101" text-anchor="middle" fill="var(--muted)" font-size="11.5">try models in order</text>
+
+          <rect x="484" y="62" width="104" height="52" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="536" y="84" text-anchor="middle" font-weight="600">Intent check</text>
+          <text x="536" y="101" text-anchor="middle" fill="var(--muted)" font-size="11.5">+ confidence</text>
+
+          <rect x="608" y="62" width="100" height="52" rx="8" fill="var(--good-bg)" stroke="var(--good)"/>
+          <text x="658" y="84" text-anchor="middle" font-weight="600" fill="var(--good)">Stream</text>
+          <text x="658" y="101" text-anchor="middle" fill="var(--good)" font-size="11.5">answer + meter</text>
+        </g>
+        <g stroke="var(--muted)" stroke-width="1.4" fill="none" marker-end="url(#ah)">
+          <path d="M104 88 H118"/><path d="M208 88 H230"/><path d="M336 88 H350"/><path d="M462 88 H482"/><path d="M588 88 H606"/>
+          <path d="M60 114 V226"/><path d="M164 114 V226"/><path d="M284 114 V226"/><path d="M536 114 V226"/>
+        </g>
+        <g font-size="12">
+          <rect x="18" y="230" width="84" height="44" rx="6" fill="var(--bad-bg)"/>
+          <text x="60" y="249" text-anchor="middle" fill="var(--fail)" font-weight="600">401</text>
+          <text x="60" y="265" text-anchor="middle" fill="var(--fail)">bad key</text>
+          <rect x="122" y="230" width="84" height="44" rx="6" fill="var(--bad-bg)"/>
+          <text x="164" y="249" text-anchor="middle" fill="var(--fail)" font-weight="600">429</text>
+          <text x="164" y="265" text-anchor="middle" fill="var(--fail)">over budget</text>
+          <rect x="226" y="230" width="116" height="44" rx="6" fill="var(--warn-bg)"/>
+          <text x="284" y="249" text-anchor="middle" fill="var(--warn)" font-weight="600">Refuse</text>
+          <text x="284" y="265" text-anchor="middle" fill="var(--warn)">nothing close, $0</text>
+          <rect x="474" y="230" width="124" height="44" rx="6" fill="var(--warn-bg)"/>
+          <text x="536" y="249" text-anchor="middle" fill="var(--warn)" font-weight="600">Refuse</text>
+          <text x="536" y="265" text-anchor="middle" fill="var(--warn)">off-topic / unsure</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption>Answers stream to the client as server-sent events: <code>retrieval</code> → <code>meta</code> (model, intent, confidence) → <code>delta</code>… → <code>done</code> (tokens, cost, every attempt). Every request gets a database row, including refusals and 429s.</figcaption>
+  </figure>
+</section>
+
+<section id="routing">
+  <h2>Routing and fallback</h2>
+  <p class="takeaway">Cheapest model first, a fallback only before the customer sees any text, and every attempt recorded.</p>
+  <div class="chips" aria-label="Default route">
+    <span class="chip b-haiku"><span class="dot"></span>Haiku 5.5 <small>$0.10 / $0.50</small></span><span class="arrow">→</span>
+    <span class="chip b-sonnet"><span class="dot"></span>Sonnet 5.5 <small>$2 / $10</small></span><span class="arrow">→</span>
+    <span class="chip b-mock"><span class="dot"></span>Backup <small>$0, stored answer</small></span>
+  </div>
+  <p>Each tenant has an ordered list of allowed backends. A request walks it, skipping any backend whose circuit is open. Prices are per million input / output tokens.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>When this happens</th><th>The gateway</th></tr></thead>
+      <tbody>
+        <tr><td>No first token in time (4 s Haiku, 6 s Sonnet)</td><td><span class="tag next">tries next</span></td></tr>
+        <tr><td>Rate limit, overload, 5xx, network error</td><td><span class="tag next">tries next</span> each model has its own rate-limit pool</td></tr>
+        <tr><td>Reply doesn't open with a valid <code>&lt;intent&gt;</code> header</td><td><span class="tag next">tries next</span> recorded as unusable output</td></tr>
+        <tr><td>Bad key, billing or spend limit</td><td><span class="tag skip">skips both models</span> they share one key; the backup answers</td></tr>
+        <tr><td>Budget can't cover the next backend</td><td><span class="tag stop">stops</span> over budget; never falls through to the free backup</td></tr>
+        <tr><td>The model declines (safety refusal)</td><td><span class="tag stop">stops</span> no shopping for a model that will answer</td></tr>
+        <tr><td>Fails after text reached the customer</td><td><span class="tag stop">stops</span> marked incomplete; sent text can't be taken back</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>What one fallback looks like</h3>
+  <div class="figure">
+    <div class="trace" role="img" aria-label="Haiku times out at 52 ms; Sonnet sends its first token at 760 ms and finishes at 1,963 ms.">
+      <span><span class="dot b-haiku"></span> Haiku 5.5</span>
+      <span class="lane"><span class="bar fail" style="left:0;width:2.6%"></span></span>
+      <span class="trace-note">sent nothing within its time limit (52 ms)</span>
+      <span><span class="dot b-sonnet"></span> Sonnet 5.5</span>
+      <span class="lane b-sonnet"><span class="bar" style="left:2.6%;width:97.4%"><span class="wait" style="width:38.7%"></span></span></span>
+      <span class="trace-note">first token 760 ms, done 1,963 ms</span>
+    </div>
+    <p class="caption">A real request from the <code>slow-haiku</code> demo tenant, whose Haiku limit is set to 50 ms. Hatched: waiting for the first token. The console shows this trace for every request.</p>
+  </div>
+
+  <p><strong>Circuit breaker.</strong> After 3 failures in a row a backend is skipped for 30 s; the next failure after that re-opens it. Two kinds of failure don't count, because either would let one tenant switch a model off for everyone: timeouts forced by a tenant's own settings (the demo tenants), and 400 errors, which a caller can provoke with a malformed chat.</p>
+  <p><strong>No hidden retries.</strong> The Anthropic SDK runs with retries off. Retrying is the router's job; silent retries would distort latency and defeat the first-token timeout.</p>
+</section>
+
+<section id="quota">
+  <h2>Quota and metering</h2>
+  <p class="takeaway">The budget is in dollars, reserved before each model call and settled after, so it can't be overspent, even under concurrency.</p>
+  <p>Why dollars, not tokens: Sonnet costs 20× Haiku and the two count tokens differently, so a token budget would mean different things depending on who served.</p>
+  <div class="cards">
+    <div class="card"><strong>1. Check</strong><p>Before streaming, the tenant's first-choice model must fit the remaining budget. If not: HTTP 429.</p></div>
+    <div class="card"><strong>2. Reserve</strong><p>Each attempt reserves its worst case (input + max output, at that model's price) in one conditional <code>UPDATE</code> that only succeeds if it fits.</p></div>
+    <div class="card"><strong>3. Settle</strong><p>When the attempt ends, the reservation is swapped for the actual cost, from token counts the provider reports in the stream.</p></div>
+  </div>
+  <ul>
+    <li><strong>Atomic:</strong> a test fires 25 reservations at once at a budget that fits 10, and exactly 10 succeed. With the guard removed, the test fails.</li>
+    <li><strong>Fails closed:</strong> if the database is unreachable, the request gets a 503 instead of being served without metering.</li>
+    <li><strong>Honest numbers:</strong> if a stream breaks before the final token count, output is estimated (characters ÷ 4) and flagged as estimated. Cost is "estimated" because it comes from the price table, not an invoice.</li>
+  </ul>
+</section>
+
+<section id="endpoints">
+  <h2>Two endpoints</h2>
+  <p class="takeaway">The raw chat endpoint is the gateway itself; the support endpoint is an app built on it.</p>
+  <div class="compare">
+    <div class="card">
+      <h4><code>POST /v1/chat</code></h4>
+      <ul>
+        <li>Takes a whole conversation (up to 20 messages); the server keeps no state</li>
+        <li>Passes it to the model as-is; any non-empty reply is accepted</li>
+        <li>Up to 1,024 output tokens</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4><code>POST /v1/support/chat</code></h4>
+      <ul>
+        <li>Takes one customer message</li>
+        <li>Adds retrieval, the support prompt, the intent check, confidence and refusal</li>
+        <li>Up to 600 output tokens</li>
+      </ul>
+    </div>
+  </div>
+  <p>Both share auth, budget, routing, metering and streaming. Keeping them apart shows the gateway works for any app, and makes failures easy to place: if raw chat works and support doesn't, the problem is in retrieval, not routing.</p>
+</section>
+
+<section id="assistant">
+  <h2>The support assistant</h2>
+  <p class="takeaway">Retrieval finds similar past questions, the model must name an intent before it answers, and it refuses when the two don't back each other up.</p>
+  <ul>
+    <li><strong>Knowledge base:</strong> 1,998 deduplicated question–answer pairs from the Bitext dataset, 74 per intent, searched with BM25 (MiniSearch). Common English words are ignored and the top-5 vote is weighted by score: 90.6% intent accuracy on its own (dev slice), up from 86.5% for plain BM25. No embeddings: the questions are short paraphrases, and word matching already gets about 90%.</li>
+    <li><strong>Intent first:</strong> the model's reply must open with <code>&lt;intent&gt;label&lt;/intent&gt;</code>, one of 27 labels or <code>out_of_scope</code>. The gateway holds the stream until it parses, so a bad header can still fall back to the next model.</li>
+    <li><strong>Placeholders:</strong> template slots like <code>{{Order Number}}</code> are filled from a demo store profile, and a filter catches any that leak into the answer.</li>
+  </ul>
+
+  <h3>Three ways to refuse</h3>
+  <div class="cards">
+    <div class="card"><strong>Nothing close</strong><p>Best retrieval score below 4: refused before any model call, at no cost.</p><p class="when">Dev data: 0.3% false refusals, 4 of 5 off-topic caught</p></div>
+    <div class="card"><strong>Model says off-topic</strong><p>The model labels the message <code>out_of_scope</code>.</p><p class="when">Catches what slips past retrieval, like "tell me a joke about cats"</p></div>
+    <div class="card"><strong>Not confident</strong><p>One or none of the 5 retrieved answers carry the model's intent.</p><p class="when">Confidence: 4–5 agree = high, 2–3 = medium, 0–1 = low</p></div>
+  </div>
+
+  <h3>Does the confidence signal mean anything?</h3>
+  <p>Yes. On the 297-question dev slice (no model calls), the more of the top 5 that agree, the more often retrieval is right:</p>
+  <div class="figure">
+    <div class="bars">
+      <span>5 of 5 agree <small class="muted">(175)</small></span><span class="track"><span class="fill b-haiku" style="width:98.3%"></span></span><span class="val">98.3%</span>
+      <span>4 of 5 <small>(43)</small></span><span class="track"><span class="fill b-haiku" style="width:90.7%"></span></span><span class="val">90.7%</span>
+      <span>3 of 5 <small>(55)</small></span><span class="track"><span class="fill b-haiku" style="width:81.8%"></span></span><span class="val">81.8%</span>
+      <span>2 of 5 <small>(18)</small></span><span class="track"><span class="fill b-haiku" style="width:61.1%"></span></span><span class="val">61.1%</span>
+      <span>1 of 5 <small>(5)</small></span><span class="track"><span class="fill low" style="width:40%"></span></span><span class="val">40.0%</span>
+    </div>
+    <p class="caption">Retrieval accuracy by number of agreeing votes; case counts in brackets. The refusal cut (1 vote or fewer, in red) sits where retrieval is right less than half the time.</p>
+  </div>
+</section>
+
+<section id="models">
+  <h2>Model choice</h2>
+  <p class="takeaway">Haiku 5.5 to answer, Sonnet 5.5 for when Haiku is slow or down, and a backup for when both are.</p>
+  <ul>
+    <li><strong>Haiku 5.5</strong> is fast and cheap (about $0.0002 per answer) and reports exact token usage in the stream.</li>
+    <li><strong>Sonnet 5.5</strong> has its own rate-limit pool, so it covers Haiku being rate-limited, overloaded or slow.</li>
+    <li><strong>The backup</strong> returns the closest stored answer. It exists because both models share one API key: a revoked key, a spend limit or an Anthropic outage takes both down at once.</li>
+    <li>Both models run with thinking off at effort <code>low</code>; a short grounded answer gains little from it. Haiku takes <code>thinking: disabled</code>; Sonnet 5.5 rejects that and needs <code>between_tools</code>. No sampling parameters are sent.</li>
+  </ul>
+  <p><strong>A deliberate deviation.</strong> The challenge allows "a local model, a provider free tier, or both". This build uses a paid key instead, for exact usage reporting, a full eval run for about $1, and a deployment that doesn't need a local GPU. Per-tenant budgets and a low spend limit on the key cap what a public URL can cost.</p>
+</section>
+
+<section id="eval">
+  <h2>Evaluation</h2>
+  <p class="takeaway">30 held-out questions plus 5 off-topic ones, four configurations, and one result that clearly isn't noise.</p>
+
+  <h3>Why these numbers can be trusted</h3>
+  <ul>
+    <li><strong>No near-copies:</strong> questions are deduplicated, and a held-out question must be less than 0.8 similar (cosine, character 3–5-grams) to every knowledge-base question. A naive split would let retrieval score 97–100% by finding a copy.</li>
+    <li><strong>Tuned elsewhere:</strong> thresholds were set on a separate 297-question dev slice. The eval has 27 cases (one per intent) plus 3 keyword-style ones, and 5 hand-written off-topic questions.</li>
+    <li><strong>Small-sample honesty:</strong> every accuracy has a 95% interval, and configurations are compared case by case (exact McNemar test), not just by headline rate.</li>
+    <li><strong>The judge</strong> is Claude Opus 5.5, a different and larger model, scoring three yes/no checks: addresses the request; invents nothing; refusing or answering was right. It sees the store's reference answers so it can tell grounded facts from invented ones.</li>
+  </ul>
+
+  <h3>Answer quality by configuration</h3>
+  <div class="figure">
+    <div class="bars">
+      <span><span class="dot b-haiku"></span> Haiku 5.5</span><span class="track"><span class="fill b-haiku" style="width:97.1%"></span></span><span class="val">34 / 35</span>
+      <span><span class="dot b-sonnet"></span> Sonnet 5.5</span><span class="track"><span class="fill b-sonnet" style="width:97.1%"></span></span><span class="val">34 / 35</span>
+      <span><span class="dot b-haiku"></span> Haiku, no retrieval</span><span class="track"><span class="fill low" style="width:57.1%"></span></span><span class="val">20 / 35</span>
+      <span><span class="dot b-mock"></span> Retrieval only</span><span class="track"></span><span class="val na">not judged</span>
+    </div>
+    <p class="caption">Share of answers passing all three judge checks. "No retrieval" sends Haiku only the customer's message; the judge still grades against the store's real answers.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th class="num">Retrieval only</th><th class="num hl">Haiku 5.5</th><th class="num">Sonnet 5.5</th><th class="num">Haiku, no retrieval</th></tr></thead>
+      <tbody>
+        <tr><td>Intent accuracy (of 30)</td><td class="num">93.3%</td><td class="num hl">96.7%</td><td class="num">96.7%</td><td class="num">93.3%</td></tr>
+        <tr><td>95% interval</td><td class="num">78.7–98.2</td><td class="num hl">83.3–99.4</td><td class="num">83.3–99.4</td><td class="num">78.7–98.2</td></tr>
+        <tr><td>Off-topic refused</td><td class="num">2 / 5</td><td class="num hl">5 / 5</td><td class="num">5 / 5</td><td class="num">5 / 5</td></tr>
+        <tr><td>In-domain wrongly refused</td><td class="num">0 / 30</td><td class="num hl">1 / 30</td><td class="num">1 / 30</td><td class="num">0 / 30</td></tr>
+        <tr><td>First token p50 / p95</td><td class="num">synthetic</td><td class="num hl">873 / 1,794 ms</td><td class="num">1,287 / 1,504 ms</td><td class="num">888 / 1,557 ms</td></tr>
+        <tr><td>Total time p50 / p95</td><td class="num">synthetic</td><td class="num hl">1,331 / 1,856 ms</td><td class="num">1,978 / 2,455 ms</td><td class="num">1,429 / 1,912 ms</td></tr>
+        <tr><td>Cost per request</td><td class="num">$0</td><td class="num hl">$0.00021</td><td class="num">$0.00422</td><td class="num">$0.00009</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption">Run 2026-10-24 against the local service with real models; raw results in <code>eval/results/</code>. The backup's latency is a built-in delay, so it isn't reported as a measurement.</p>
+
+  <h3>What the numbers say</h3>
+  <ul class="findings">
+    <li><strong>Retrieval is what makes the answers right.</strong><span>All 14 cases where the two Haiku runs disagree favour retrieval (p ≈ 0.0001). Without it, 10 answers invented store policy ("no cancellation after shipping") and 5 deflected ("see the checkout page") instead of giving the store's actual options. Intent barely moved (28 vs 29 of 30): the model can classify on its own, but can't answer correctly for this store.</span></li>
+    <li class="neutral"><strong>Haiku against Sonnet is a null result, and an expected one.</strong><span>Retrieval sets confidence, decides refusal and supplies the facts; the model only labels and words the answer. The two produce identical outcomes on all 35 cases. Sonnet costs 20× more and adds about 400 ms to the first token.</span></li>
+    <li class="neutral"><strong>On intent, the model ties retrieval.</strong><span>Haiku's extra correct label is a case it then refused, so counting answers actually given, both get 28 of 30. What the model measurably adds is catching all 5 off-topic questions, against 2 for retrieval alone.</span></li>
+    <li class="warn"><strong>The one false refusal is a typo.</strong><span>"deleting Business accoumt": the model labelled it correctly, but the typo broke retrieval, so only 1 of 5 entries agreed and the confidence rule refused it. The rule stays: one false refusal in 30 is the price of not trusting a model that is confidently wrong.</span></li>
+  </ul>
+
+  <h3>Checking the checker</h3>
+  <p>The first judge didn't see the reference answers and failed about 30% of answers for "inventing" the store's phone number and hours, which were in fact in the references. It was changed to see them and both models were rerun. A hand check of 10 judged cases, both failures included, agreed with the judge on all 10. That pass also found one real defect, an unfilled template slot showing as text, fixed before the rerun.</p>
+  <p><strong>End to end:</strong> <code>npm run e2e</code> drives the console in a real browser against the server, Postgres and both models, and records a video: normal answer, both kinds of refusal, fallback to Sonnet, the backup serving, raw chat, the budget failing closed, a bad key, and the stored trace in the usage view. All 9 steps pass.</p>
+</section>
+
+<section id="tradeoffs">
+  <h2>Trade-offs and cuts</h2>
+  <p class="takeaway">A smaller system that is measured, and a list of what was left out on purpose.</p>
+  <div class="two-col">
+    <div>
+      <h3>Accepted</h3>
+      <ul>
+        <li><strong>Fallback only before the first token.</strong> A mid-stream failure ends as "incomplete" rather than retrying, because the customer has already seen the text.</li>
+        <li><strong>Word-matching retrieval.</strong> Cheap and good enough here; it misses paraphrases that share no words.</li>
+        <li><strong>In-memory breaker and index.</strong> Fine for one instance; several would each keep their own breaker.</li>
+        <li><strong>Single-turn support.</strong> A follow-up like "what about the fee?" would need rewriting into a full question before retrieval, an extra model call per turn.</li>
+        <li><strong>Free hosting.</strong> Render's free tier sleeps after 15 idle minutes; the first request after that is slow.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Cut</h3>
+      <ul>
+        <li>Tenant management UI (tenants come from a seed script)</li>
+        <li>Monthly budget periods</li>
+        <li>Per-minute rate limits</li>
+        <li>Embeddings and a vector database</li>
+        <li>Multi-turn memory for support</li>
+        <li>Mid-stream recovery</li>
+        <li>Login (an opt-in demo mode hands out demo keys instead)</li>
+        <li>Prompt caching (the prompt is about 1,100 tokens)</li>
+      </ul>
+    </div>
+  </div>
+  <footer>Source and full docs: <code>README.md</code>, <code>docs/report.md</code>, <code>docs/mini-inference-router-design.md</code>.</footer>
+</section>
+</main>
+</div>
+<script>
+// Highlight the section in view in the contents list.
+const links = [...document.querySelectorAll("nav.toc a")];
+const byId = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+const io = new IntersectionObserver((entries) => {
+  for (const e of entries) if (e.isIntersecting) {
+    links.forEach((a) => a.classList.remove("is-on"));
+    byId.get(e.target.id)?.classList.add("is-on");
+  }
+}, { rootMargin: "-30% 0px -60% 0px" });
+document.querySelectorAll("#summary, section[id]").forEach((s) => io.observe(s));
+</script>
+</body>
+</html>

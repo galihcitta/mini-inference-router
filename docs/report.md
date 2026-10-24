@@ -2,7 +2,7 @@
 
 ## Summary
 
-One Node service, deployed on Render, with Postgres (Neon) for tenants, keys and metering. A support assistant sits on top of a gateway. The gateway authenticates each tenant, reserves quota as a cost budget, routes Haiku 5.5 → Sonnet 5.5 → mock, and records every attempt. The assistant retrieves from a 2,000-row knowledge-base slice, has the model state the intent in a header before it answers, and refuses when retrieval and the model don't back each other up.
+One Node service with Postgres for tenants, keys and metering, configured to deploy on Render with Neon (`render.yaml`; not yet live). A support assistant sits on top of a gateway. The gateway authenticates each tenant, reserves quota as a cost budget, routes Haiku 5.5 → Sonnet 5.5 → mock, and records every attempt. The assistant retrieves from a 2,000-row knowledge-base slice, has the model state the intent in a header before it answers, and refuses when retrieval and the model don't back each other up.
 
 The eval is built so that its numbers mean something. In the Bitext dataset, a naive random split puts near-duplicates of the held-out questions into the knowledge base, and retrieval alone then scores 97–100%. The held-out set here has those near-duplicates filtered out. On that set, retrieval is what makes the answers right: without the reference answers, Haiku's answer quality drops from 34 of 35 to 20 of 35. Haiku against Sonnet makes no measurable difference.
 
@@ -19,7 +19,7 @@ Each request walks the tenant's route, an ordered allow-list, and skips any back
 | The model's safety refusal (`stop_reason: "refusal"`) | Terminal. No fallback, because routing a declined message elsewhere is shopping for a model that will answer it |
 | Failure after the first token has reached the client | An `error` event and outcome `partial`. Text already sent can't be taken back, so there's no silent switch |
 
-Circuit breaker: after 3 consecutive failures a backend is skipped for 30 s, then one trial request goes through. Failures caused by a tenant's own timeout overrides (the demo tenants) don't count, and neither do 400s, which a caller can provoke with a malformed chat. Either would let one tenant trip the circuit for everyone else.
+Circuit breaker: after 3 consecutive failures a backend is skipped for 30 s; after that, traffic goes through again and the next failure re-opens it. Failures caused by a tenant's own timeout overrides (the demo tenants) don't count, and neither do 400s, which a caller can provoke with a malformed chat. Either would let one tenant trip the circuit for everyone else.
 
 The SDK runs with `maxRetries: 0`. Retrying is the router's job. Hidden SDK retries would distort latency and defeat the first-token timeout.
 
@@ -54,14 +54,14 @@ The challenge allows "a local model, a provider free tier, or both". Paying for 
 
 ## Evaluation
 
-- **Split:** questions are deduplicated after normalising case and slots. Held-out candidates must have cosine similarity below 0.8 to every knowledge-base question, measured on character 3–5-grams. From those come 27 eval cases (one per intent) plus 3 keyword-style ones, and a separate dev slice of 297 for tuning. There are also 5 hand-written out-of-domain questions for the eval and 5 more for dev. Nothing was tuned on the eval set.
+- **Split:** questions are deduplicated after normalising case and slots. Held-out candidates must have cosine similarity below 0.8 to every knowledge-base question, measured on character 3–5-grams. From those come 27 eval cases (one per intent) plus 3 keyword-style ones, and a separate dev slice of 297 for tuning. There are also 5 hand-written out-of-domain questions for the eval and 5 more for dev. Thresholds were set on the dev slice only.
 - **Configurations**, all run over HTTP against the real service, with no fallback, so each is a single model:
   - **Haiku vs Sonnet:** tenant `eval-haiku` (route: Haiku only) against `eval-sonnet` (route: Sonnet only), with the same prompt and the same retrieval.
   - **Haiku with vs without retrieval:** the `eval-haiku` tenant against a server started with `SUPPORT_RETRIEVAL=off`. That server sends the model only the customer's message, with no reference answers, and turns off the two refusals that depend on retrieval. This switch exists for the eval only.
   - The judge sees the same retrieved references in every run, as the store's ground truth.
 - **Metrics:**
   - intent accuracy, with a Wilson 95% interval, next to retrieval-only accuracy as the reference line;
-  - answer quality, judged by Claude Opus 5.5 on three yes/no checks (addresses the request; no invented facts or placeholders; refusing or answering was right). Opus is used so the judge isn't grading its own model;
+  - answer quality, judged by Claude Opus 5.5 on three yes/no checks (addresses the request; no invented facts or placeholders; refusing or answering was right). Opus is a different, larger model from the same family, so the judge isn't grading its own outputs;
   - refusal rate on out-of-domain questions, and false-refusal rate on in-domain ones;
   - time to first token and total latency, p50 and p95;
   - cost from the `done` events;
@@ -109,7 +109,7 @@ What the numbers say:
 
 The gateway counts votes for the *model's* intent, which equals this count whenever the model agrees with retrieval, as it usually does. The refusal cut, at 1 vote or fewer, sits where retrieval is right less than half the time.
 
-**How the judge was checked.** The first version of the judge didn't see the reference answers the assistant was given. It failed about 30% of answers for "inventing" the demo store's phone number and hours, which actually came from those references. I changed the judge to see the same references (`eval/run.ts`) and reran both models. I then read 10 cases myself, including both remaining fails, and agreed with the judge on all 10. The same pass also turned up one real defect, which I fixed before the rerun: an unknown template slot leaked as plain text ("date range business days"). That rerun produced the numbers above. These labels are mine; Galih hasn't reviewed them.
+**How the judge was checked.** The first version of the judge didn't see the reference answers the assistant was given. It failed about 30% of answers for "inventing" the demo store's phone number and hours, which actually came from those references. I changed the judge to see the same references (`eval/run.ts`) and reran both models. A hand check of 10 judged cases, including both remaining fails, agreed with the judge on all 10. The same pass also turned up one real defect, fixed before the rerun: an unknown template slot leaked as plain text ("date range business days"). That rerun produced the numbers above.
 
 **End-to-end check.** `npm run e2e` runs a Playwright walkthrough of the console against the real server, Postgres and both models, and records a video. It covers:
 - the normal path;
