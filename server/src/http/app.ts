@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyReply, type FastifyRequest } from "fastify";
 import fastifyStatic from "@fastify/static";
 import { z } from "zod";
-import { CHAT_MAX_TOKENS, costMicros } from "../config.ts";
+import { CHAT_MAX_TOKENS, costMicros, env } from "../config.ts";
 import { pool } from "../db/pool.ts";
-import { bearer, isAdmin, tenantForKey, type Tenant } from "../gateway/auth.ts";
+import { bearer, isAdmin, tenantForKey, type DemoTenant, type Tenant } from "../gateway/auth.ts";
 import { execute, type Gate, type RunResult } from "../gateway/executor.ts";
 import { finishRequest, recentRequests, recordRejected, startRequest, totals, usageFor } from "../gateway/metering.ts";
 import { remainingMicros } from "../gateway/quota.ts";
@@ -29,7 +29,7 @@ const usd = (m: number) => Number((m / 1e6).toFixed(6));
 const passGate: Gate = { feed: (buffer, ended) => (buffer.length > 0 ? { kind: "ok", rest: buffer } : ended ? { kind: "bad", reason: "empty output" } : { kind: "pending" }) };
 const passFilter = () => ({ changed: false, push: (t: string) => t, flush: () => "" });
 
-export function buildApp(retriever: Retriever) {
+export function buildApp(retriever: Retriever, demoKeys: DemoTenant[] = []) {
   const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? "info" }, bodyLimit: 64 * 1024 });
 
   async function authTenant(req: FastifyRequest, reply: FastifyReply): Promise<Tenant | null> {
@@ -182,13 +182,17 @@ export function buildApp(retriever: Retriever) {
     return { tenant: (await usageFor(tenant.id))[0] };
   });
 
+  const canReadUsage = (auth: string | undefined) => env.demoMode || isAdmin(auth);
+
+  app.get("/demo", async () => (env.demoMode ? { enabled: true, tenants: demoKeys } : { enabled: false, tenants: [] }));
+
   app.get("/admin/usage", async (req, reply) => {
-    if (!isAdmin(req.headers.authorization)) return reply.code(401).send({ error: "unauthorized" });
+    if (!canReadUsage(req.headers.authorization)) return reply.code(401).send({ error: "unauthorized" });
     return { tenants: await usageFor(), breakers: breaker.snapshot() };
   });
 
   app.get("/admin/requests", async (req, reply) => {
-    if (!isAdmin(req.headers.authorization)) return reply.code(401).send({ error: "unauthorized" });
+    if (!canReadUsage(req.headers.authorization)) return reply.code(401).send({ error: "unauthorized" });
     const q = z.object({ tenant: z.string().min(1), limit: z.coerce.number().int().min(1).max(200).default(50) }).safeParse(req.query);
     if (!q.success) return reply.code(400).send({ error: "invalid_request", issues: q.error.issues });
     return { requests: await recentRequests(q.data.tenant, q.data.limit) };
@@ -203,7 +207,7 @@ export function buildApp(retriever: Retriever) {
   if (existsSync(dist)) {
     app.register(fastifyStatic, { root: dist });
     app.setNotFoundHandler((req, reply) =>
-      req.method === "GET" && !req.url.startsWith("/v1") && !req.url.startsWith("/admin")
+      req.method === "GET" && !/^\/(v1|admin|demo)\b/.test(req.url)
         ? reply.sendFile("index.html")
         : reply.code(404).send({ error: "not_found" }),
     );

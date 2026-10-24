@@ -77,6 +77,13 @@ describe("auth", () => {
   });
 });
 
+describe("demo mode", () => {
+  it("is off by default: no keys handed out, usage still needs the admin token", async () => {
+    expect((await app.inject({ url: "/demo" })).json()).toEqual({ enabled: false, tenants: [] });
+    expect((await app.inject({ url: "/admin/usage" })).statusCode).toBe(401);
+  });
+});
+
 describe("input validation", () => {
   it("returns 400 with field issues for an empty or oversized message and malformed JSON", async () => {
     const key = await tenant("t1", [H]);

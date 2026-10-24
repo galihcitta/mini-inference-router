@@ -23,7 +23,8 @@ server/src/
   support/           kb.ts (MiniSearch BM25 + vote), assistant.ts (prompt, intent gate, confidence, refusals), slots.ts
   http/app.ts        Fastify routes; serves web/dist
 server/test/         vitest against real Postgres, scripted backends
-web/                 React + Vite console (own package.json); web/dev/fake-server.mjs for UI work without the server
+web/                 React + Vite console (own package.json); explain.ts is the plain-language vocabulary, Trace.tsx the route trace;
+                     web/dev/fake-server.mjs for UI work without the server
 data/                generated split: kb.jsonl, eval.jsonl, dev.jsonl, ood_*.jsonl
 eval/run.ts          end-to-end eval over HTTP + Opus judge; results in eval/results/
 scripts/             make_split.py (data), tune.ts (OOD threshold), seed.ts (tenants + keys)
@@ -49,7 +50,7 @@ docker exec mir-pg psql -U postgres -c "create database mir_test"
 | Typecheck | `npm run typecheck`, and `cd web && npx tsc --noEmit` |
 | Tests | `npm test` (uses database `mir_test`) |
 | Retune the OOD threshold | `npx tsx scripts/tune.ts` |
-| Browser E2E with video (real models, a few cents) | `npm run e2e` |
+| Browser E2E with video (real models, a few cents; starts its own demo-mode server, so free port 3000 first) | `npm run e2e` |
 | Eval one configuration | `npm run eval -- --key <tenant key> --name haiku` |
 | Compare two runs | `npm run eval -- --compare eval/results/haiku.json eval/results/sonnet.json` |
 | Regenerate data | `python scripts/make_split.py <bitext csv> data` (needs pandas, scikit-learn) |
@@ -70,7 +71,7 @@ These are the behaviours the challenge assesses. Invariants 1–7 each have a te
 5. **Every request a tenant makes gets a `requests` row**, including refusals and quota rejections. Every attempt gets a `request_attempts` row. `cost_micros` on the request row is accumulated by `settle()`, so don't recompute it elsewhere.
 6. **The intent header gate.** Nothing from a model reaches the client until `<intent>label</intent>` parses to one of the 27 labels or `out_of_scope`. A bad header counts as `unusable_output` and falls back.
 7. **The breaker ignores routes with overrides.** An attempt only counts toward the circuit breaker when its route entry has no `first_token_ms`, `total_ms`, `latency_ms` or `fail_rate` override. Otherwise the demo tenants would trip the circuit for everyone.
-8. **The SSE contract is shared with `web/`.** If you change an event name or field, update `web/src/types.ts`, the console views, `eval/run.ts`, and the design doc's SSE table in the same change.
+8. **The SSE contract is shared with `web/`.** If you change an event name or field, update `web/src/types.ts`, the console views (including `explain.ts`), `eval/run.ts`, and the design doc's SSE table in the same change.
 
 ## Claude API specifics
 
@@ -108,5 +109,6 @@ Verify these against current Anthropic docs before changing them. Don't rely on 
 
 - `.env` is gitignored and holds `ANTHROPIC_API_KEY`, `DATABASE_URL` and `ADMIN_TOKEN`. Never print, log or commit their values.
 - Admin endpoints are disabled when `ADMIN_TOKEN` is unset. There is no default token, by design.
+- `DEMO_MODE=1` hands out demo tenant keys on `GET /demo` and opens the usage endpoints without a token. It's off by default; turning it on for a deployment is the maintainer's call.
 - The GitHub repo is `galihcitta/mini-inference-router`. In the maintainer's shell, a `GITHUB_TOKEN` env var points at a different account. Run `gh` as `env -u GITHUB_TOKEN gh ...`.
 - Deploys use Render (`render.yaml`) and Neon Postgres. Writing to the deployed database counts as production: confirm with the maintainer first.

@@ -31,13 +31,16 @@ flowchart LR
 | `POST /v1/support/chat` | tenant key | The support capability. Streams SSE. |
 | `POST /v1/chat` | tenant key | The raw gateway chat endpoint: `{messages, max_tokens?}`. Streams SSE, no retrieval. |
 | `GET /v1/usage` | tenant key | Requests, cost and remaining quota for the caller's tenant. |
-| `GET /admin/usage` | admin token | The same, for every tenant. Feeds the console's usage view. |
-| `GET /admin/requests?tenant=&limit=` | admin token | Recent requests with their attempt trail. |
+| `GET /admin/usage` | admin token (none in demo mode) | The same, for every tenant. Feeds the console's usage view. |
+| `GET /admin/requests?tenant=&limit=` | admin token (none in demo mode) | Recent requests with their attempt trail. |
+| `GET /demo` | none | Demo mode only: the demo tenants, their routes and a fresh key each. Returns `{enabled:false}` otherwise. |
 | `GET /healthz` | none | Liveness, used by the keep-warm pinger. |
 
 Auth is `Authorization: Bearer <key>`. Tenant keys look like `mir_<32 random base62 chars>` and are stored as SHA-256 hashes. A slow hash isn't needed for high-entropy random keys. The admin token is an env var, compared in constant time.
 
-Quota is checked before the stream opens (the cheapest allowed backend must fit), so an exhausted tenant gets a real 429. Each attempt still reserves atomically inside the stream; if a race loses that reservation on every backend, the stream ends with an `error` event `quota_exceeded`.
+`DEMO_MODE=1` is opt-in, for a public demo URL. At boot the server issues a fresh key for each demo tenant (`acme`, `slow-haiku`, `outage`, `flaky-mock`, `tiny`) and hands them out on `GET /demo`, and the usage endpoints stop requiring the admin token. Anyone with the URL can then spend those tenants' quotas, which is the point of a demo and the reason it's off by default.
+
+Quota is checked before the stream opens (the tenant's first-choice backend must fit; checking the cheapest would let the free mock serve an exhausted tenant), so an exhausted tenant gets a real 429. Each attempt still reserves atomically inside the stream; if a race loses that reservation on every backend, the stream ends with an `error` event `quota_exceeded`.
 
 Errors before the stream starts are plain JSON with a status code, never SSE:
 
@@ -258,8 +261,14 @@ Per-model request fields (from the docs, checked by spike 1):
 
 React and Vite, built into `web/dist` and served by the Node service.
 
-- **Playground:** paste a tenant key, type a message, watch the answer stream. A side panel shows the backend and model, whether fallback fired (with the attempt trail), the retrieved entries, the intent and confidence, tokens, latency and cost.
-- **Usage:** paste the admin token. A table per tenant shows requests, cost and remaining quota, plus recent requests with their attempt trail.
+The console is built for someone seeing the system for the first time, so it explains each request in plain words rather than raw field names. `web/src/explain.ts` holds that vocabulary.
+
+- **Playground:** a rail of eight scenarios (normal question, slow first model, both models down, unreliable backend, two kinds of off-topic, out of budget, raw chat), each with a line saying what to watch for. In demo mode a scenario picks its tenant; otherwise you paste a tenant key. After a request:
+  - a one-sentence verdict says what happened ("Sonnet 5.5 answered after Haiku 5.5 sent nothing within its time limit");
+  - a stats row shows who served, intent, confidence, tokens, time to first token, latency and cost;
+  - the route trace draws every attempt on one time axis, each backend in its own colour, with the wait for the first token hatched and failed attempts in red;
+  - "Why this intent" lists the five retrieved entries and how many carry the chosen intent.
+- **Usage:** per tenant, requests, all-time spend and a budget meter. Click a tenant for its recent requests; click a request for its stored route trace. Needs the admin token unless demo mode is on.
 - SSE is read with `fetch` and a stream parser, because `EventSource` can't send POST bodies or auth headers.
 
 ## Evaluation
@@ -282,7 +291,7 @@ Output: `eval/results/<tenant>.json` and a markdown table that goes into the rep
 ```
 server/src/   index.ts config.ts http/ gateway/ backends/ support/ db/
 server/test/  vitest, run against local Postgres
-web/src/      App.tsx Playground.tsx Usage.tsx sse.ts
+web/src/      App.tsx Playground.tsx Usage.tsx Trace.tsx explain.ts scenarios.ts sse.ts
 data/         kb.jsonl eval.jsonl dev.jsonl ood_*.jsonl
 eval/         run.ts judge.ts results/
 scripts/      make_split.py seed.ts
@@ -309,5 +318,5 @@ render.yaml   one web service; env DATABASE_URL, ANTHROPIC_API_KEY, ADMIN_TOKEN
 - No multi-turn memory.
 - No mid-stream recovery.
 - Circuit-breaker state is in memory, on a single instance.
-- No console login beyond pasting a key.
+- No console login beyond pasting a key (or demo mode).
 - No prompt caching: the prompt is about 1,100 tokens.

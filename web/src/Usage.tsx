@@ -1,33 +1,39 @@
-import { Fragment, useState } from "react";
-import { describeHttpError, fmt, fmtUsd } from "./api";
-import AttemptTable from "./AttemptTable";
+import { Fragment, useEffect, useState } from "react";
+import { describeHttpError, fmtUsd } from "./api";
+import { backendName, intentLabel, outcomeLabel, outcomeTone } from "./explain";
 import { useStoredString } from "./storage";
+import Trace from "./Trace";
 import type { RequestRow, TenantUsage } from "./types";
 
 async function getJson(path: string, token: string): Promise<unknown> {
-  const res = await fetch(path, { headers: { Authorization: `Bearer ${token.trim()}` } });
+  const res = await fetch(path, { headers: token.trim() ? { Authorization: `Bearer ${token.trim()}` } : {} });
   if (!res.ok) throw new Error(await describeHttpError(res));
   return res.json();
 }
 
-export default function Usage() {
+const ago = (iso?: string) => {
+  if (!iso) return "—";
+  const s = Math.round((Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 60) return `${s}s ago`;
+  if (s < 3600) return `${Math.round(s / 60)} min ago`;
+  return new Date(iso).toLocaleString();
+};
+
+export default function Usage({ demo, active }: { demo: boolean; active: boolean }) {
   const [token, setToken] = useStoredString("mir.adminToken");
   const [tenants, setTenants] = useState<TenantUsage[] | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [requests, setRequests] = useState<RequestRow[] | null>(null);
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [open, setOpen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function loadRequests(tenantId: string) {
     setSelected(tenantId);
     setRequests(null);
-    setExpanded(new Set());
+    setOpen(null);
     try {
-      const body = (await getJson(
-        `/admin/requests?tenant=${encodeURIComponent(tenantId)}&limit=50`,
-        token,
-      )) as { requests?: RequestRow[] } | RequestRow[];
+      const body = (await getJson(`/admin/requests?tenant=${encodeURIComponent(tenantId)}&limit=50`, token)) as { requests?: RequestRow[] } | RequestRow[];
       setRequests(Array.isArray(body) ? body : (body.requests ?? []));
     } catch (e) {
       setError((e as Error).message);
@@ -48,129 +54,116 @@ export default function Usage() {
     }
   }
 
-  function toggle(id: string) {
-    setExpanded((s) => {
-      const next = new Set(s);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
+  // In demo mode there's no token to wait for, so load whenever the view is opened.
+  useEffect(() => {
+    if (demo && active) refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [demo, active]);
 
   return (
     <div className="usage">
-      <div className="form row">
-        <label>
-          Admin token
-          <input type="password" value={token} onChange={(e) => setToken(e.target.value)} autoComplete="off" />
-        </label>
-        <button className="primary" onClick={refresh} disabled={loading}>
-          {loading ? "Loading…" : "Refresh"}
-        </button>
+      <div className="usage-head">
+        <div>
+          <h2>Usage by tenant</h2>
+          <p className="muted small">Every request is metered in Postgres, including refusals and blocked ones. Budgets are in dollars, not tokens. Spending counts all time; the budget meter counts since the tenant was last reset.</p>
+        </div>
+        <div className="usage-controls">
+          {!demo && (
+            <label className="field">
+              Admin token
+              <input type="password" value={token} onChange={(e) => setToken(e.target.value)} autoComplete="off" />
+            </label>
+          )}
+          <button className="primary" onClick={refresh} disabled={loading}>{loading ? "Loading…" : "Refresh"}</button>
+        </div>
       </div>
 
       {error && <pre className="alert">{error}</pre>}
+      {!tenants && !error && <p className="muted">{demo ? "Loading…" : "Enter the admin token and press Refresh."}</p>}
 
       {tenants && (
-        <>
-          <h2>Tenants</h2>
-          <p className="muted">Click a tenant to see its recent requests.</p>
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>name</th>
-                  <th>requests</th>
-                  <th>cost</th>
-                  <th>used</th>
-                  <th>quota</th>
-                  <th>remaining</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tenants.map((t) => (
-                  <tr
-                    key={t.id}
-                    className={"clickable" + (t.id === selected ? " selected" : "")}
-                    onClick={() => loadRequests(t.id)}
-                  >
-                    <td><code>{t.id}</code></td>
-                    <td>{fmt(t.name)}</td>
-                    <td className="num">{fmt(t.requests)}</td>
-                    <td className="num">{fmtUsd(t.cost_usd)}</td>
-                    <td className="num">{fmtUsd(t.used_usd)}</td>
-                    <td className="num">{fmtUsd(t.quota_usd)}</td>
-                    <td className="num">{fmtUsd(t.remaining_usd)}</td>
+        <div className="table-wrap">
+          <table className="tenants">
+            <thead>
+              <tr>
+                <th>Tenant</th>
+                <th className="num">Requests</th>
+                <th className="num">Spent, all time</th>
+                <th>Budget used</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tenants.map((t) => {
+                const quota = t.quota_usd ?? 0;
+                const used = t.used_usd ?? 0;
+                const share = quota > 0 ? Math.min(1, used / quota) : 0;
+                return (
+                  <tr key={t.id} className={`clickable ${t.id === selected ? "is-selected" : ""}`} onClick={() => loadRequests(t.id)} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && loadRequests(t.id)}>
+                    <td>
+                      <span className="tenant-id">{t.id}</span>
+                      {t.name && <span className="muted small"> {t.name}</span>}
+                    </td>
+                    <td className="num">{t.requests ?? 0}</td>
+                    <td className="num">{fmtUsd(t.cost_usd, 4)}</td>
+                    <td>
+                      <div className={`meter ${share >= 0.9 ? "is-full" : ""}`} role="meter" aria-valuemin={0} aria-valuemax={quota} aria-valuenow={used} aria-label={`${t.id} budget used`}>
+                        <span style={{ width: `${share * 100}%` }} />
+                      </div>
+                      <span className="meter-text small">{fmtUsd(used, 4)} of {fmtUsd(quota, 4)}, {fmtUsd(t.remaining_usd, 4)} left</span>
+                    </td>
                   </tr>
-                ))}
-                {tenants.length === 0 && (
-                  <tr>
-                    <td colSpan={7} className="muted">No tenants.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </>
+                );
+              })}
+              {tenants.length === 0 && (
+                <tr><td colSpan={4} className="muted">No tenants yet. Run the seed script.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {selected && (
-        <>
-          <h2>
-            Recent requests: <code>{selected}</code>
-          </h2>
+        <section className="requests">
+          <h2>Recent requests for {selected}</h2>
+          <p className="muted small">Click a request to see its route trace, as stored in the database.</p>
           {!requests ? (
             <p className="muted">Loading…</p>
           ) : (
             <div className="table-wrap">
-              <table>
+              <table className="request-table">
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>created</th>
-                    <th>endpoint</th>
-                    <th>outcome</th>
-                    <th>backend</th>
-                    <th>model</th>
-                    <th>intent</th>
-                    <th>conf.</th>
-                    <th>tokens in/out</th>
-                    <th>cost</th>
-                    <th>ttft_ms</th>
-                    <th>latency_ms</th>
-                    <th>fallback</th>
+                    <th>When</th>
+                    <th>Result</th>
+                    <th>Served by</th>
+                    <th>Intent</th>
+                    <th className="num">Cost</th>
+                    <th className="num">Time</th>
                   </tr>
                 </thead>
                 <tbody>
                   {requests.map((r) => {
-                    const open = expanded.has(r.id);
-                    const n = r.attempts?.length ?? 0;
+                    const isOpen = open === r.id;
                     return (
                       <Fragment key={r.id}>
-                        <tr className="clickable" onClick={() => toggle(r.id)} title={r.id}>
-                          <td>{n > 0 ? (open ? "▾" : "▸") : ""}</td>
-                          <td>{r.created_at ? new Date(r.created_at).toLocaleString() : "–"}</td>
-                          <td><code>{fmt(r.endpoint)}</code></td>
-                          <td>{fmt(r.outcome)}</td>
-                          <td>{fmt(r.backend)}</td>
-                          <td>{fmt(r.model)}</td>
-                          <td>{fmt(r.intent)}</td>
-                          <td className="num">{fmt(r.confidence)}</td>
-                          <td className="num">
-                            {fmt(r.input_tokens)} / {fmt(r.output_tokens)}
-                            {r.usage_estimated ? " (est.)" : ""}
+                        <tr className={`clickable ${isOpen ? "is-open" : ""}`} onClick={() => setOpen(isOpen ? null : r.id)} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setOpen(isOpen ? null : r.id)} aria-expanded={isOpen}>
+                          <td className="small">{ago(r.created_at)}{r.endpoint === "/v1/chat" && <span className="muted"> raw chat</span>}</td>
+                          <td>
+                            <span className={`chip tone-${outcomeTone(r.outcome)}`}>{outcomeLabel(r.outcome)}</span>
+                            {r.fallback && <span className="chip tone-neutral">fallback</span>}
                           </td>
+                          <td>{r.backend ? <span className={`who b-${r.backend}`}><span className="dot" />{backendName(r.backend)}</span> : <span className="muted">no model</span>}</td>
+                          <td>{intentLabel(r.intent)}</td>
                           <td className="num">{fmtUsd(r.cost_usd)}</td>
-                          <td className="num">{fmt(r.ttft_ms)}</td>
-                          <td className="num">{fmt(r.latency_ms)}</td>
-                          <td>{r.fallback ? <span className="badge fallback small">fallback</span> : "no"}</td>
+                          <td className="num">{r.latency_ms != null ? `${r.latency_ms} ms` : "—"}</td>
                         </tr>
-                        {open && (
+                        {isOpen && (
                           <tr className="detail">
-                            <td colSpan={13}>
-                              <div className="muted">request_id <code>{r.id}</code></div>
-                              {n > 0 ? <AttemptTable attempts={r.attempts!} /> : <span className="muted">No attempts.</span>}
+                            <td colSpan={6}>
+                              <Trace attempts={r.attempts ?? []} total={r.latency_ms} />
+                              <p className="small muted">
+                                Tokens {r.input_tokens ?? 0} in / {r.output_tokens ?? 0} out{r.usage_estimated ? " (estimated)" : ""}. Request <code>{r.id}</code>
+                              </p>
                             </td>
                           </tr>
                         )}
@@ -178,15 +171,13 @@ export default function Usage() {
                     );
                   })}
                   {requests.length === 0 && (
-                    <tr>
-                      <td colSpan={13} className="muted">No requests.</td>
-                    </tr>
+                    <tr><td colSpan={6} className="muted">No requests yet for this tenant.</td></tr>
                   )}
                 </tbody>
               </table>
             </div>
           )}
-        </>
+        </section>
       )}
     </div>
   );

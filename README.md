@@ -5,7 +5,7 @@ A small LLM gateway with one capability on top: a customer-support assistant ove
 - **Gateway:** per-tenant API keys, a fail-closed cost quota, and metering of every request to Postgres. Answers stream over SSE.
 - **Routing:** Claude Haiku 5.5 first, Claude Sonnet 5.5 as the fallback, and an extractive mock as the last resort. Every attempt is recorded and can be inspected.
 - **Support assistant:** BM25 retrieval over a 2,000-row knowledge-base slice. It returns the answer, the intent, the retrieved entries and a confidence signal, and it refuses instead of guessing.
-- **Console** (React): a streaming playground and a per-tenant usage view.
+- **Console** (React): guided scenarios, a plain-language verdict and a route trace for every request, and a per-tenant usage view.
 - **Eval:** 30 held-out cases plus 5 out-of-domain ones, run against two configurations.
 
 Technical report: [docs/report.md](docs/report.md). Design: [docs/mini-inference-router-design.md](docs/mini-inference-router-design.md). Study notes behind the choices: [docs/mini-inference-router-study.md](docs/mini-inference-router-study.md).
@@ -39,6 +39,8 @@ npm run dev
 ```
 
 The seed prints one API key per demo tenant. Open http://localhost:3000. The Playground takes a tenant key and the Usage view takes the admin token.
+
+For a demo, start with `DEMO_MODE=1 npm run dev` instead. The console then picks the tenant for each scenario itself and the Usage view needs no token. Anyone who can reach the URL can spend the demo tenants' quotas, so it's off by default.
 
 ```bash
 curl -N http://localhost:3000/v1/support/chat -H "Authorization: Bearer <tenant key>" -H "Content-Type: application/json" -d '{"message":"how do I cancel my order?"}'
@@ -78,7 +80,7 @@ npx playwright install chromium
 npm run e2e
 ```
 
-It runs against the real server and models, so it needs `.env` with `ANTHROPIC_API_KEY` and costs a few cents. The video lands in `test-results/`.
+It seeds the database, starts its own server in demo mode on port 3000 (stop any server already there), and drives the console through 9 scenarios. It calls the real models, so it needs `.env` with `ANTHROPIC_API_KEY` and costs a few cents. The video lands in `test-results/`.
 
 ## Eval
 
@@ -102,7 +104,7 @@ The judge (Claude Opus 5.5) runs when `ANTHROPIC_API_KEY` is set. Pass `--no-jud
 
 ## Deploy
 
-`render.yaml` describes one free Render web service. Set `DATABASE_URL` (Neon, pooled connection string) and `ANTHROPIC_API_KEY` in the Render dashboard. Render generates `ADMIN_TOKEN`. Run the seed once against the Neon database:
+`render.yaml` describes one free Render web service. Set `DATABASE_URL` (Neon, pooled connection string) and `ANTHROPIC_API_KEY` in the Render dashboard. Render generates `ADMIN_TOKEN`. Add `DEMO_MODE=1` if the URL is for reviewers to click through. Run the seed once against the Neon database:
 
 ```bash
 DATABASE_URL=<neon url> npm run seed

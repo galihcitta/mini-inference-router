@@ -23,13 +23,13 @@ Circuit breaker: after 3 consecutive failures a backend is skipped for 30 s, the
 
 The SDK runs with `maxRetries: 0`. Retrying is the router's job. Hidden SDK retries would distort latency and defeat the first-token timeout.
 
-Every attempt (backend, outcome, time to first token, latency, tokens, cost, error) is stored in `request_attempts` and returned in the `done` event. The console shows it as the attempt trail, and `GET /admin/requests` exposes it.
+Every attempt (backend, outcome, time to first token, latency, tokens, cost, error) is stored in `request_attempts` and returned in the `done` event. The console draws it as a route trace, every attempt on one time axis, and `GET /admin/requests` exposes it.
 
 ## Quota and metering
 
 Quota is a budget in micro-dollars, not tokens. Sonnet costs 20× Haiku and the two models use different tokenizers, so a token budget would mean different things depending on which model served. Each attempt reserves its worst case: the estimated input plus `max_tokens`, at that backend's price. The reservation is one conditional `UPDATE`, which only succeeds if it fits under the quota. When the attempt ends, the reservation is replaced with the actual cost. A test fires 25 concurrent reservations at a quota that fits 10 and checks that exactly 10 succeed. With the guard removed, the same test fails.
 
-Before the stream opens, the gateway checks that the cheapest allowed backend fits. That's how an exhausted tenant gets a real `429 quota_exceeded`. If the database is unreachable, the request is refused with a 503, never served unmetered.
+Before the stream opens, the gateway checks that the tenant's first-choice backend fits. (Checking the cheapest one let the free mock keep serving an exhausted tenant; the E2E run caught that.) That's how an exhausted tenant gets a real `429 quota_exceeded`. If the database is unreachable, the request is refused with a 503, never served unmetered.
 
 Token counts come from the provider stream: input from `message_start`, output from the final `message_delta`. When a stream breaks before the final usage arrives, output is estimated as characters ÷ 4 and marked `estimated`. The mock's numbers are always estimates. A failed attempt that had already received input usage is charged for it. Cost is labelled "estimated" because it comes from the price table, not an invoice.
 
@@ -114,5 +114,5 @@ All 9 steps pass.
 - No embeddings or vector database.
 - No multi-turn memory.
 - No mid-stream recovery.
-- No console login beyond pasting a key.
+- No console login beyond pasting a key. `DEMO_MODE=1` hands out demo tenant keys instead, for a public demo.
 - No prompt caching: the prompt is about 1,100 tokens.

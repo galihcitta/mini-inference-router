@@ -31,6 +31,9 @@ export const env = {
   databaseUrl: process.env.DATABASE_URL ?? "postgres://postgres:mir@localhost:55432/mir",
   anthropicKey: process.env.ANTHROPIC_API_KEY,
   adminToken: process.env.ADMIN_TOKEN ?? "", // unset = admin endpoints disabled
+  // Public demo: hands the console keys for the demo tenants and opens the read-only usage
+  // endpoints. Exposes those tenants' (small, capped) budgets to anyone with the URL. Off by default.
+  demoMode: process.env.DEMO_MODE === "1",
 };
 
 export function costMicros(backend: BackendId, input: number, output: number): number {

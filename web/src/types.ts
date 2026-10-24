@@ -5,19 +5,21 @@ export interface Attempt {
   ttft_ms?: number | null;
   latency_ms?: number | null;
   error?: string | null;
+  cost_usd?: number | null;
 }
 
 export interface RetrievalEvent {
   request_id: string;
   entries: { id: string | number; intent: string; question: string; score: number }[];
-  retrieval_intent?: string;
+  retrieval_intent?: string | null;
   votes?: Record<string, number>;
+  top_score?: number;
 }
 
 export interface MetaEvent {
   request_id: string;
   intent: string | null;
-  confidence: { score: number; level: string; votes: number | Record<string, number>; agrees: boolean } | null;
+  confidence: { score: number; level: string; votes: number; agrees: boolean } | null;
   backend: string | null;
   model: string | null;
   refused: boolean;
@@ -28,12 +30,16 @@ export interface DoneEvent {
   request_id: string;
   outcome: string;
   backend: string | null;
+  model?: string | null;
   usage: { input_tokens: number | null; output_tokens: number | null; estimated: boolean } | null;
   cost_usd: number;
   latency_ms: number | null;
   ttft_ms: number | null;
   attempts: Attempt[];
 }
+
+export interface RouteEntry { backend: string; first_token_ms?: number; total_ms?: number; latency_ms?: number; fail_rate?: number }
+export interface DemoTenant { id: string; name: string; key: string; route: RouteEntry[] }
 
 export interface TenantUsage {
   id: string;
@@ -61,5 +67,6 @@ export interface RequestRow {
   ttft_ms?: number | null;
   latency_ms?: number | null;
   fallback?: boolean;
+  error?: string | null;
   attempts?: Attempt[];
 }

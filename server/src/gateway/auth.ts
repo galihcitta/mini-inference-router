@@ -42,3 +42,19 @@ export function isAdmin(header: string | undefined): boolean {
   const want = Buffer.from(env.adminToken);
   return want.length > 0 && got.length === want.length && timingSafeEqual(got, want);
 }
+
+export const DEMO_TENANTS = ["acme", "slow-haiku", "outage", "flaky-mock", "tiny"];
+
+export interface DemoTenant { id: string; name: string; key: string; route: RouteEntry[] }
+
+// Issues one fresh key per existing demo tenant for this process. Old keys keep working.
+export async function issueDemoKeys(): Promise<DemoTenant[]> {
+  const r = await pool.query(`select id, name, route from tenants where id = any($1) order by array_position($1, id)`, [DEMO_TENANTS]);
+  const out = [];
+  for (const t of r.rows) {
+    const key = newApiKey();
+    await pool.query(`insert into api_keys (tenant_id, key_hash, prefix) values ($1, $2, $3)`, [t.id, hashKey(key), key.slice(0, 8)]);
+    out.push({ id: t.id as string, name: t.name as string, key, route: t.route as RouteEntry[] });
+  }
+  return out;
+}
