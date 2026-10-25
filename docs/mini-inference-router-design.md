@@ -34,7 +34,7 @@ flowchart LR
 | `GET /admin/usage` | admin token (none in demo mode) | The same, for every tenant. Feeds the console's usage view. |
 | `GET /admin/requests?tenant=&limit=` | admin token (none in demo mode) | Recent requests with their attempt trail. |
 | `GET /demo` | none | Demo mode only: the demo tenants, their routes and a fresh key each. Returns `{enabled:false}` otherwise. |
-| `GET /healthz` | none | Liveness, used by the keep-warm pinger. |
+| `GET /healthz` | none | Liveness including a database query. For manual checks; the keep-warm pinger and Render's health check use `/`, so Neon can suspend. |
 
 Auth is `Authorization: Bearer <key>`. Tenant keys look like `mir_<32 random base62 chars>` and are stored as SHA-256 hashes. A slow hash isn't needed for high-entropy random keys. The admin token is an env var, compared in constant time.
 

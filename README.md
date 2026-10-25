@@ -106,8 +106,10 @@ The judge (Claude Opus 5.5) runs when `ANTHROPIC_API_KEY` is set. Pass `--no-jud
 
 ## Deploy
 
-`render.yaml` describes one free Render web service. Set `DATABASE_URL` (Neon, pooled connection string) and `ANTHROPIC_API_KEY` in the Render dashboard. Render generates `ADMIN_TOKEN`. Add `DEMO_MODE=1` if the URL is for reviewers to click through. Run the seed once against the Neon database:
+`render.yaml` describes one free Render web service in Singapore with `DEMO_MODE=1`, so reviewers can click through the console. Set `DATABASE_URL` (Neon, pooled connection string) and `ANTHROPIC_API_KEY` in the Render dashboard. Render generates `ADMIN_TOKEN`. Run the seed once against the Neon database before the first deploy, since demo keys are issued at boot for tenants that already exist:
 
 ```bash
 DATABASE_URL=<neon url> npm run seed
 ```
+
+The free plan sleeps after 15 idle minutes and takes about a minute to wake. An external pinger (UptimeRobot, cron-job.org) hitting `/` every 10 minutes keeps it up. Ping `/`, not `/healthz`: `/healthz` queries the database and would keep Neon's free compute from ever suspending. For the same reason Render's own health check uses `/`.

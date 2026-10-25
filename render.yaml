@@ -2,10 +2,14 @@ services:
   - type: web
     name: mini-inference-router
     runtime: node
+    # Free sleeps after 15 idle minutes; an external pinger on / keeps it up.
     plan: free
+    region: singapore
     buildCommand: npm ci && npm run build
     startCommand: npm start
-    healthCheckPath: /healthz
+    # Not /healthz: it queries the database, and Render checks every few seconds, which would keep
+    # Neon from ever suspending and use up its free compute hours. Boot already fails on a bad DATABASE_URL.
+    healthCheckPath: /
     envVars:
       - key: NODE_VERSION
         value: "22"
@@ -15,3 +19,5 @@ services:
         sync: false
       - key: ADMIN_TOKEN
         generateValue: true
+      - key: DEMO_MODE
+        value: "1"
