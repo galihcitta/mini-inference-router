@@ -396,7 +396,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
   </ul>
 
   <h3>Checking the checker</h3>
-  <p>The first judge didn't see the reference answers and failed about 30% of answers for "inventing" the store's phone number and hours, which were in fact in the references. It was changed to see them and both models were rerun. A hand check of 10 judged cases, both failures included, agreed with the judge on all 10. That pass also found one real defect, an unfilled template slot showing as text, fixed before the rerun.</p>
+  <p>The first judge didn't see the reference answers and failed about 30% of answers for "inventing" the store's phone number and hours, which were in fact in the references. It was changed to see them and both models were rerun. A hand check of 10 judged cases, both failures included, read against the same references and marked before seeing the judge's verdict, agreed with the judge on all 10. Ten cases can catch a judge that is badly off, not a small bias. Reading the first judge's fails also turned up one real defect, an unfilled template slot showing as text, fixed before the rerun.</p>
   <p><strong>End to end:</strong> <code>npm run e2e</code> drives the console in a real browser against the server, Postgres and both models, and records a video: normal answer, both kinds of refusal, fallback to Sonnet, the backup serving, raw chat, the budget failing closed, a bad key, and the stored trace in the usage view. All 9 steps pass.</p>
 </section>
 
