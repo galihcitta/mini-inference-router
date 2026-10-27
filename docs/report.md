@@ -2,7 +2,7 @@
 
 ## Summary
 
-One Node service with Postgres for tenants, keys and metering, configured to deploy on Render with Neon (`render.yaml`; not yet live). A support assistant sits on top of a gateway. The gateway authenticates each tenant, reserves quota as a cost budget, routes Haiku 5.5 → Sonnet 5.5 → mock, and records every attempt. The assistant retrieves from a 2,000-row knowledge-base slice, has the model state the intent in a header before it answers, and refuses when retrieval and the model don't back each other up.
+One Node service with Postgres for tenants, keys and metering, deployed on Render's free tier in Singapore with Neon Postgres, live at <https://mini-inference-router.onrender.com> in demo mode (the console hands out keys for the demo tenants). A support assistant sits on top of a gateway. The gateway authenticates each tenant, reserves quota as a cost budget, routes Haiku 5.5 → Sonnet 5.5 → mock, and records every attempt. The assistant retrieves from a 2,000-row knowledge-base slice, has the model state the intent in a header before it answers, and refuses when retrieval and the model don't back each other up.
 
 The eval is built so that its numbers mean something. In the Bitext dataset, a naive random split puts near-duplicates of the held-out questions into the knowledge base, and retrieval alone then scores 97–100%. The held-out set here has those near-duplicates filtered out. On that set, retrieval is what makes the answers right: without the reference answers, Haiku's answer quality drops from 34 of 35 to 20 of 35. Haiku against Sonnet makes no measurable difference.
 

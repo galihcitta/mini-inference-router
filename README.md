@@ -8,6 +8,8 @@ A small LLM gateway with one capability on top: a customer-support assistant ove
 - **Console** (React): guided scenarios, a plain-language verdict and a route trace for every request, and a per-tenant usage view.
 - **Eval:** 30 held-out cases plus 5 out-of-domain ones, run against two configurations.
 
+Live demo: <https://mini-inference-router.onrender.com>. It runs on Render's free tier, so the first request after an idle spell can take about a minute.
+
 Technical report: [docs/report.md](docs/report.md). Design: [docs/mini-inference-router-design.md](docs/mini-inference-router-design.md). Study notes behind the choices: [docs/mini-inference-router-study.md](docs/mini-inference-router-study.md).
 
 ## Run locally
@@ -111,5 +113,7 @@ The judge (Claude Opus 5.5) runs when `ANTHROPIC_API_KEY` is set. Pass `--no-jud
 ```bash
 DATABASE_URL=<neon url> npm run seed
 ```
+
+The live service was created by hand as a web service from the public repo, with the same settings as `render.yaml`, not as a Blueprint. Pushes don't deploy on their own: use Manual Deploy → Deploy latest commit in the Render dashboard.
 
 The free plan sleeps after 15 idle minutes and takes about a minute to wake. An external pinger (UptimeRobot, cron-job.org) hitting `/` every 10 minutes keeps it up. Ping `/`, not `/healthz`: `/healthz` queries the database and would keep Neon's free compute from ever suspending. For the same reason Render's own health check uses `/`.
