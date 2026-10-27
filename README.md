@@ -10,6 +10,8 @@ A small LLM gateway with one capability on top: a customer-support assistant ove
 
 Live demo: <https://mini-inference-router.onrender.com>. It runs on Render's free tier, so the first request after an idle spell can take about a minute.
 
+Video walkthrough (3:57, narrated): <https://drive.google.com/drive/folders/1ErYy5O2lBSbiwoHwWzQaevZ9MB3SSdXO?usp=sharing>.
+
 Technical report: [docs/report.md](docs/report.md). Design: [docs/mini-inference-router-design.md](docs/mini-inference-router-design.md). Study notes behind the choices: [docs/mini-inference-router-study.md](docs/mini-inference-router-study.md).
 
 ## Run locally
